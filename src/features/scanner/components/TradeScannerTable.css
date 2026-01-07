@@ -2,8 +2,8 @@
 
 .view-details-btn {
   padding: 0.375rem 0.75rem;
-  background: #4CAF50;
-  color: white;
+  background: var(--success);
+  color: var(--bg);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -12,7 +12,7 @@
 }
 
 .view-details-btn:hover {
-  background: #45a049;
+  background: color-mix(in srgb, var(--success) 80%, black 20%);
 }
 
 .view-details-btn:active {

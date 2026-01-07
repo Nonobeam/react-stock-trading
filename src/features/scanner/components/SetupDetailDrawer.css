@@ -18,8 +18,8 @@
   bottom: 0;
   width: 500px;
   max-width: 90vw;
-  background: white;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  background: var(--panel);
+  box-shadow: var(--shadow-lg);
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -40,14 +40,14 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 1.5rem;
-  border-bottom: 2px solid #e0e0e0;
-  background: #f9f9f9;
+  border-bottom: 2px solid var(--border);
+  background: var(--panel-elevated);
 }
 
 .drawer-header h2 {
   margin: 0 0 0.5rem;
   font-size: 1.75rem;
-  color: #333;
+  color: var(--text);
 }
 
 .setup-type-badge {
@@ -56,15 +56,15 @@
   border-radius: 4px;
   font-size: 0.875rem;
   font-weight: 500;
-  background: #e3f2fd;
-  color: #1976d2;
+  background: rgba(30, 77, 179, 0.2);
+  color: var(--accent);
 }
 
 .drawer-close {
   background: none;
   border: none;
   font-size: 2rem;
-  color: #666;
+  color: var(--muted);
   cursor: pointer;
   width: 32px;
   height: 32px;
@@ -76,7 +76,7 @@
 }
 
 .drawer-close:hover {
-  background: #e0e0e0;
+  background: var(--panel-elevated);
 }
 
 .drawer-body {
@@ -94,7 +94,7 @@
   margin: 0 0 1rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -110,26 +110,26 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  background: #f9f9f9;
+  background: var(--panel-elevated);
   border-radius: 6px;
   text-align: center;
 }
 
 .score-label {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--muted);
   margin-bottom: 0.5rem;
 }
 
 .score-value-large {
   font-size: 1.75rem;
   font-weight: bold;
-  color: #2e7d32;
+  color: var(--success);
 }
 
 /* Price Table */
 .price-table {
-  background: #f9f9f9;
+  background: var(--panel-elevated);
   border-radius: 6px;
   padding: 1rem;
 }
@@ -139,7 +139,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 0;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--border);
 }
 
 .price-row:last-child {
@@ -147,7 +147,7 @@
 }
 
 .price-row.highlight {
-  background: #e8f5e9;
+  background: rgba(74, 222, 128, 0.1);
   margin: 0 -1rem;
   padding: 0.75rem 1rem;
   border-radius: 4px;
@@ -155,33 +155,33 @@
 
 .price-label {
   font-weight: 500;
-  color: #555;
+  color: var(--muted);
 }
 
 .price-value {
   font-weight: 600;
-  color: #333;
+  color: var(--text);
 }
 
 .price-stop {
-  color: #d32f2f;
+  color: var(--danger);
 }
 
 .price-target {
-  color: #2e7d32;
+  color: var(--success);
 }
 
 .price-percent {
   margin-left: 0.5rem;
   font-size: 0.875rem;
-  color: #666;
+  color: var(--muted);
 }
 
 /* Narrative */
 .narrative-text {
   line-height: 1.6;
-  color: #555;
-  background: #f9f9f9;
+  color: var(--muted);
+  background: var(--panel-elevated);
   padding: 1rem;
   border-radius: 6px;
   margin: 0;
@@ -199,13 +199,13 @@
   align-items: flex-start;
   padding: 0.75rem;
   margin-bottom: 0.5rem;
-  background: #f9f9f9;
+  background: var(--panel-elevated);
   border-radius: 4px;
   line-height: 1.5;
 }
 
 .trigger-icon {
-  color: #2e7d32;
+  color: var(--success);
   font-weight: bold;
   margin-right: 0.75rem;
   flex-shrink: 0;
@@ -222,35 +222,35 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  background: #f9f9f9;
+  background: var(--panel-elevated);
   border-radius: 6px;
   text-align: center;
 }
 
 .breakdown-label {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--muted);
   margin-bottom: 0.5rem;
 }
 
 .breakdown-value {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text);
 }
 
 /* Actions */
 .drawer-actions {
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 2px solid #e0e0e0;
+  border-top: 2px solid var(--border);
 }
 
 .plan-trade-btn {
   width: 100%;
   padding: 1rem;
-  background: #4CAF50;
-  color: white;
+  background: var(--success);
+  color: var(--bg);
   border: none;
   border-radius: 6px;
   font-size: 1rem;
@@ -260,7 +260,7 @@
 }
 
 .plan-trade-btn:hover {
-  background: #45a049;
+  background: color-mix(in srgb, var(--success) 80%, black 20%);
 }
 
 .plan-trade-btn:active {
