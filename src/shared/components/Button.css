@@ -1,0 +1,130 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-align: center;
+}
+
+.button--small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.button--medium {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.button--large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+.button--full-width {
+  width: 100%;
+}
+
+.button--primary {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.button--primary:hover:not(.button--disabled) {
+  background: var(--color-primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.button--secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.button--secondary:hover:not(.button--disabled) {
+  background: var(--color-primary);
+  color: white;
+}
+
+.button--success {
+  background: var(--color-success);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.button--success:hover:not(.button--disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.button--danger {
+  background: var(--color-danger);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.button--danger:hover:not(.button--disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.button--warning {
+  background: var(--color-warning);
+  color: var(--color-bg-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.button--warning:hover:not(.button--disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.button--ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  box-shadow: none;
+}
+
+.button--ghost:hover:not(.button--disabled) {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+.button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.button__spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: button-spinner 0.75s linear infinite;
+}
+
+@keyframes button-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.button__content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}

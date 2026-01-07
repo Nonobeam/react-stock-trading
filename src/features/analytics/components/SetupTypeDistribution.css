@@ -1,0 +1,209 @@
+.setup-type-distribution {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.setup-type-distribution__header {
+  margin-bottom: 1.5rem;
+}
+
+.setup-type-distribution__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.setup-type-distribution__table {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.setup-type-distribution__table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-bottom: 2px solid #e5e7eb;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.setup-type-distribution__row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.setup-type-distribution__row:hover {
+  background-color: #f9fafb;
+}
+
+.setup-type-distribution__row:last-child {
+  border-bottom: none;
+}
+
+.setup-type-distribution__row--best {
+  background-color: #f0fdf4;
+  border-left: 4px solid #10b981;
+}
+
+.setup-type-distribution__col {
+  display: flex;
+  align-items: center;
+}
+
+.setup-type-distribution__col--setup {
+  gap: 0.5rem;
+}
+
+.setup-type-distribution__col--count,
+.setup-type-distribution__col--winrate,
+.setup-type-distribution__col--avgr {
+  justify-content: flex-start;
+}
+
+.setup-type-distribution__setup-name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.setup-type-distribution__badge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.setup-type-distribution__badge--best {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.setup-type-distribution__winrate {
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.setup-type-distribution__winrate--excellent {
+  color: #065f46;
+  background-color: #d1fae5;
+}
+
+.setup-type-distribution__winrate--good {
+  color: #92400e;
+  background-color: #fef3c7;
+}
+
+.setup-type-distribution__winrate--poor {
+  color: #991b1b;
+  background-color: #fee2e2;
+}
+
+.setup-type-distribution__avgr {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.setup-type-distribution__avgr--excellent {
+  color: #16a34a;
+}
+
+.setup-type-distribution__avgr--good {
+  color: #84cc16;
+}
+
+.setup-type-distribution__avgr--neutral {
+  color: #6b7280;
+}
+
+.setup-type-distribution__avgr--poor {
+  color: #ef4444;
+}
+
+.setup-type-distribution__total {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-left: 0.5rem;
+}
+
+.setup-type-distribution__insights {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  border-left: 4px solid #3b82f6;
+}
+
+.setup-type-distribution__insights-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.setup-type-distribution__insights-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.setup-type-distribution__insights-list li {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.setup-type-distribution__insights-list li:last-child {
+  margin-bottom: 0;
+}
+
+.setup-type-distribution__warning {
+  color: #b91c1c !important;
+}
+
+.setup-type-distribution__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .setup-type-distribution__table-header,
+  .setup-type-distribution__row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .setup-type-distribution__col {
+    justify-content: space-between;
+  }
+  
+  .setup-type-distribution__col::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #6b7280;
+    font-size: 0.75rem;
+  }
+}

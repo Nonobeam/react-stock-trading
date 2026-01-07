@@ -1,0 +1,156 @@
+/* Status Indicator Styles - Emoji Replacement */
+
+/* Regime Indicators */
+.regime-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.regime-indicator--bullish {
+  background-color: var(--color-success);
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+}
+
+.regime-indicator--bearish {
+  background-color: var(--color-danger);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+}
+
+.regime-indicator--transition {
+  background-color: var(--color-warning);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
+}
+
+.regime-indicator--ranging,
+.regime-indicator--neutral {
+  background-color: var(--color-text-muted);
+  box-shadow: 0 0 8px rgba(156, 163, 175, 0.4);
+}
+
+/* Regime Dots in RegimeIndicator Component */
+.regime-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+  box-shadow: 0 0 8px currentColor;
+  opacity: 0.9;
+}
+
+.regime-dot--large {
+  width: 16px;
+  height: 16px;
+  margin-right: 1rem;
+}
+
+/* Section Headers with Warning Style */
+.section-header--warning {
+  color: var(--color-warning);
+  border-left: 4px solid var(--color-warning);
+  padding-left: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* Warning Text Inline */
+.warning-text {
+  color: var(--color-warning);
+  font-weight: 600;
+}
+
+/* Error/Danger Indicators */
+.error-indicator {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-danger);
+  margin: 0 auto 1rem;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
+  position: relative;
+}
+
+.error-indicator::before {
+  content: '!';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Card Indicators for Portfolio Summary */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  border-left: 4px solid var(--color-primary);
+  padding-left: 0.75rem;
+}
+
+.card-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.indicator-up {
+  background-color: var(--color-success);
+}
+
+.indicator-down {
+  background-color: var(--color-danger);
+}
+
+/* Alert Labels (replacing emoji icons) */
+.alert-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-info);
+  background-color: rgba(59, 130, 246, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.alert-label--danger {
+  color: var(--color-danger);
+  background-color: var(--color-danger-bg);
+}
+
+/* Check Status Indicators */
+.check-status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.check-status-indicator--success {
+  background-color: var(--color-success);
+}
+
+.check-status-indicator--danger {
+  background-color: var(--color-danger);
+}
+
+.check-status-indicator--warning {
+  background-color: var(--color-warning);
+}
+
+/* Timeline Marker for Regime History */
+.timeline-marker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid var(--color-background);
+  box-shadow: 0 0 8px currentColor;
+  flex-shrink: 0;
+}

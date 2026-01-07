@@ -1,0 +1,20 @@
+/* Trade Scanner Table Styles */
+
+.view-details-btn {
+  padding: 0.375rem 0.75rem;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.view-details-btn:hover {
+  background: #45a049;
+}
+
+.view-details-btn:active {
+  transform: scale(0.95);
+}

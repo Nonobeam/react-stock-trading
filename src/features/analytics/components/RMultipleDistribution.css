@@ -1,0 +1,143 @@
+.rmultiple-distribution {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.rmultiple-distribution__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.rmultiple-distribution__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.rmultiple-distribution__subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.rmultiple-distribution__chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  min-height: 300px;
+  padding: 1rem 0;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.rmultiple-distribution__bar-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.rmultiple-distribution__bar {
+  width: 100%;
+  min-height: 20px;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.5rem;
+  transition: opacity 0.2s;
+  position: relative;
+}
+
+.rmultiple-distribution__bar:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.rmultiple-distribution__bar-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.rmultiple-distribution__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.rmultiple-distribution__range {
+  font-size: 0.75rem;
+  color: #374151;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.rmultiple-distribution__percentage {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  margin-top: 0.25rem;
+}
+
+.rmultiple-distribution__legend {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.rmultiple-distribution__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.rmultiple-distribution__legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.rmultiple-distribution__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .rmultiple-distribution__chart {
+    gap: 0.25rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+  }
+  
+  .rmultiple-distribution__bar-container {
+    min-width: 50px;
+  }
+  
+  .rmultiple-distribution__range {
+    font-size: 0.65rem;
+  }
+  
+  .rmultiple-distribution__legend {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}

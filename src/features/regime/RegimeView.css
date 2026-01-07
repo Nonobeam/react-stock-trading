@@ -1,0 +1,128 @@
+.regime-view {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.regime-header {
+  margin-bottom: 2rem;
+}
+
+.regime-header h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.regime-subtitle {
+  margin: 0.5rem 0 0;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.regime-subtitle strong {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.error-message {
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: #c33;
+}
+
+.regime-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.regime-main {
+  min-width: 0;
+}
+
+.regime-sidebar {
+  min-width: 0;
+}
+
+.regime-history-section {
+  margin-bottom: 2rem;
+}
+
+.regime-info-panel {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+  border-radius: 8px;
+  padding: 2rem;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.regime-info-panel h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.info-card h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.info-card p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .regime-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .regime-view {
+    padding: 1rem;
+  }
+
+  .regime-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,102 @@
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0%,
+    #e0e0e0 50%,
+    #f0f0f0 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton--text {
+  border-radius: 4px;
+}
+
+.skeleton--circular {
+  border-radius: 50%;
+}
+
+.skeleton--rectangular {
+  border-radius: 8px;
+}
+
+.skeleton--card {
+  border-radius: 8px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Chart Skeleton */
+.skeleton-chart {
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.skeleton-chart__header {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skeleton-chart__body {
+  margin-bottom: 1rem;
+}
+
+.skeleton-chart__footer {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Table Skeleton */
+.skeleton-table {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.skeleton-table__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.skeleton-table__row--header {
+  background: #f9fafb;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.skeleton-table__row:last-child {
+  border-bottom: none;
+}
+
+/* Card Skeleton */
+.skeleton-card {
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #e5e7eb;
+}
+
+.skeleton-card__footer {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}

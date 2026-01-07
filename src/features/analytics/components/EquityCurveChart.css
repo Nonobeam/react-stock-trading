@@ -1,0 +1,125 @@
+.equity-curve-chart {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.equity-curve-chart__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.equity-curve-chart__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.equity-curve-chart__stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.equity-curve-chart__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.equity-curve-chart__stat-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.equity-curve-chart__stat-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.equity-curve-chart__stat-value.positive {
+  color: #10b981;
+}
+
+.equity-curve-chart__stat-value.negative {
+  color: #ef4444;
+}
+
+.equity-curve-chart__container {
+  width: 100%;
+  height: 400px;
+  position: relative;
+}
+
+.equity-curve-chart__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+.equity-curve-chart__legend {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.equity-curve-chart__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.equity-curve-chart__legend-line {
+  width: 32px;
+  height: 3px;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.equity-curve-chart__legend-line--equity {
+  background-color: #2563eb;
+}
+
+.equity-curve-chart__legend-line--benchmark {
+  background: repeating-linear-gradient(
+    to right,
+    #94a3b8 0,
+    #94a3b8 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .equity-curve-chart__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .equity-curve-chart__stats {
+    width: 100%;
+  }
+  
+  .equity-curve-chart__stat {
+    flex: 1;
+    min-width: 100px;
+  }
+}
