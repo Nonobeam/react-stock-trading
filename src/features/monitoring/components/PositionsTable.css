@@ -1,9 +1,9 @@
 .positions-table-container {
   width: 100%;
   overflow-x: auto;
-  background: white;
+  background: var(--panel);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
 }
 
 .positions-table {
@@ -13,31 +13,31 @@
 }
 
 .positions-table thead {
-  background: #f8f9fa;
-  border-bottom: 2px solid #dee2e6;
+  background: var(--card);
+  border-bottom: 2px solid var(--border);
 }
 
 .positions-table th {
   padding: 12px 16px;
   text-align: left;
   font-weight: 600;
-  color: #495057;
+  color: var(--muted);
   white-space: nowrap;
 }
 
 .positions-table tbody tr {
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid var(--border);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .positions-table tbody tr:hover {
-  background: #f8f9fa;
+  background: var(--hover);
 }
 
 .positions-table tbody tr.selected {
-  background: #e7f5ff;
-  border-left: 4px solid #228be6;
+  background: var(--accent-hover);
+  border-left: 4px solid var(--accent);
 }
 
 .positions-table td {
@@ -47,12 +47,12 @@
 /* Symbol cell */
 .symbol-cell strong {
   font-size: 16px;
-  color: #212529;
+  color: var(--text);
 }
 
 .entry-date {
   font-size: 12px;
-  color: #868e96;
+  color: var(--muted);
   margin-top: 2px;
 }
 
@@ -60,7 +60,7 @@
 .price-cell {
   font-family: 'Courier New', monospace;
   font-size: 14px;
-  color: #495057;
+  color: var(--text);
 }
 
 .current-price {
@@ -73,15 +73,15 @@
 }
 
 .pl-positive {
-  color: #2b8a3e;
+  color: var(--success);
 }
 
 .pl-negative {
-  color: #c92a2a;
+  color: var(--danger);
 }
 
 .pl-neutral {
-  color: #868e96;
+  color: var(--muted);
 }
 
 .pl-percent {
@@ -98,13 +98,13 @@
 
 /* Days cell */
 .days-cell {
-  color: #495057;
+  color: var(--text);
   font-size: 13px;
 }
 
 /* Size cell */
 .size-cell {
-  color: #495057;
+  color: var(--text);
   font-size: 13px;
 }
 
@@ -119,18 +119,18 @@
 }
 
 .status-profit {
-  background: #d3f9d8;
-  color: #2b8a3e;
+  background: rgba(74, 222, 128, 0.2);
+  color: var(--success);
 }
 
 .status-loss {
-  background: #ffe3e3;
-  color: #c92a2a;
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--danger);
 }
 
 .status-breakeven {
-  background: #fff3bf;
-  color: #e67700;
+  background: rgba(250, 182, 0, 0.2);
+  color: var(--warning);
 }
 
 .status-stop-hit {
@@ -202,20 +202,20 @@
 }
 
 .btn-action:hover {
-  background: #e9ecef;
+  background: var(--hover);
 }
 
 .btn-adjust {
-  color: #228be6;
+  color: var(--accent);
 }
 
 /* Empty state */
 .positions-table-empty {
   text-align: center;
   padding: 60px 20px;
-  background: white;
+  background: var(--panel);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
 }
 
 .empty-icon {
@@ -224,17 +224,17 @@
 }
 
 .positions-table-empty h3 {
-  color: #212529;
+  color: var(--text);
   margin-bottom: 10px;
 }
 
 .positions-table-empty p {
-  color: #868e96;
+  color: var(--muted);
   margin-bottom: 8px;
 }
 
 .positions-table-empty a {
-  color: #228be6;
+  color: var(--accent);
   text-decoration: none;
   font-weight: 600;
 }
