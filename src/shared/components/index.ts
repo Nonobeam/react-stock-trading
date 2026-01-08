@@ -4,6 +4,8 @@ export { Button } from './Button';
 export { LoadingSpinner } from './LoadingSpinner';
 export { LoadingSkeleton, ChartSkeleton, TableSkeleton, CardSkeleton } from './LoadingSkeleton';
 export { Tooltip } from './Tooltip';
+export { TradingTerm } from './TradingTerm';
+export type { TermKey, TermCategory } from './TradingTerm';
 export { ErrorBoundary } from './ErrorBoundary';
 export { EmptyState } from './EmptyState';
 export { ConnectionStatus } from './ConnectionStatus';

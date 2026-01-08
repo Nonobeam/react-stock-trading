@@ -1,0 +1,25 @@
+.trading-term {
+  display: inline-block;
+  border-bottom: 1px dotted currentColor;
+  cursor: help;
+  opacity: 0.8;
+  transition: opacity 150ms ease;
+}
+
+.trading-term:hover,
+.trading-term:focus {
+  opacity: 1;
+  outline: none;
+}
+
+/* Focus visible for keyboard navigation */
+.trading-term:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Ensure tooltip wrapper doesn't affect layout */
+.trading-term-tooltip {
+  display: inline;
+}

@@ -1,15 +1,15 @@
 .regime-indicator {
-  background: white;
-  border-radius: 8px;
+  background: var(--panel);
+  border-radius: var(--radius);
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   border: 3px solid;
   transition: transform 0.2s;
 }
 
 .regime-indicator:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
 }
 
 .regime-indicator.loading,
@@ -19,15 +19,15 @@
   justify-content: center;
   gap: 0.75rem;
   min-height: 120px;
-  color: #666;
-  border-color: #e5e7eb;
+  color: var(--muted);
+  border-color: var(--border);
 }
 
 .spinner-small {
   width: 24px;
   height: 24px;
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #667eea;
+  border: 3px solid var(--panel);
+  border-top: 3px solid var(--accent);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -59,7 +59,7 @@
 
 .regime-score {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--muted);
 }
 
 /* Full view styles */
@@ -89,17 +89,17 @@
 
 .regime-description {
   margin: 0.25rem 0 0;
-  color: #666;
+  color: var(--muted);
   font-size: 0.95rem;
 }
 
 .regime-score-badge {
   padding: 0.75rem 1.25rem;
-  color: white;
-  border-radius: 8px;
+  color: var(--bg);
+  border-radius: var(--radius);
   font-size: 1.5rem;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow);
 }
 
 .regime-strength {
@@ -115,19 +115,19 @@
 }
 
 .strength-label span:first-child {
-  color: #666;
+  color: var(--muted);
   font-weight: 500;
 }
 
 .strength-value {
   font-weight: 700;
-  color: #111;
+  color: var(--text);
 }
 
 .strength-bar,
 .confidence-bar {
   height: 12px;
-  background: #e5e7eb;
+  background: rgba(107, 128, 166, 0.2);
   border-radius: 6px;
   overflow: hidden;
 }
@@ -142,19 +142,19 @@
 .regime-confidence {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background: #f9fafb;
+  background: var(--panel-elevated);
   border-radius: 6px;
 }
 
 .confidence-label {
-  color: #666;
+  color: var(--muted);
   font-weight: 500;
   margin-right: 0.5rem;
 }
 
 .confidence-value {
   font-weight: 700;
-  color: #111;
+  color: var(--text);
 }
 
 .confidence-bar {
@@ -173,12 +173,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem;
-  background: #f9fafb;
+  background: var(--panel-elevated);
   border-radius: 6px;
 }
 
 .factor-label {
-  color: #666;
+  color: var(--muted);
   font-weight: 500;
   font-size: 0.875rem;
 }
@@ -189,11 +189,11 @@
 }
 
 .factor-value.positive {
-  color: #26a69a;
+  color: var(--success);
 }
 
 .factor-value.negative {
-  color: #ef5350;
+  color: var(--danger);
 }
 
 .regime-duration {
@@ -201,10 +201,10 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem;
-  background: #f3f4f6;
+  background: var(--panel-elevated);
   border-radius: 6px;
   font-size: 0.95rem;
-  color: #374151;
+  color: var(--muted);
 }
 
 .duration-icon {

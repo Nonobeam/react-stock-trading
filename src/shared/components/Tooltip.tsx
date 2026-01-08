@@ -3,18 +3,31 @@ import './Tooltip.css';
 
 interface TooltipProps {
   children: React.ReactNode;
-  content: string;
+  content: string | React.ReactNode;
   position?: 'top' | 'bottom' | 'left' | 'right';
   className?: string;
+  transparent?: boolean;
+  maxWidth?: number;
 }
 
 export const Tooltip: React.FC<TooltipProps> = ({
   children,
   content,
   position = 'top',
-  className = ''
+  className = '',
+  transparent = false,
+  maxWidth
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+
+  const tooltipClasses = [
+    'tooltip',
+    `tooltip--${position}`,
+    transparent && 'tooltip--transparent',
+    maxWidth && 'tooltip--wide'
+  ].filter(Boolean).join(' ');
+
+  const tooltipStyle = maxWidth ? { maxWidth: `${maxWidth}px` } : undefined;
 
   return (
     <div 
@@ -24,7 +37,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
     >
       {children}
       {isVisible && (
-        <div className={`tooltip tooltip--${position}`}>
+        <div className={tooltipClasses} style={tooltipStyle}>
           {content}
           <div className={`tooltip__arrow tooltip__arrow--${position}`}></div>
         </div>

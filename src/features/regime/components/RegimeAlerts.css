@@ -1,8 +1,8 @@
 .regime-alerts {
-  background: white;
-  border-radius: 8px;
+  background: var(--panel);
+  border-radius: var(--radius);
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
 }
 
 .regime-alerts.empty {
@@ -14,7 +14,7 @@
 
 .empty-state {
   text-align: center;
-  color: #6b7280;
+  color: var(--muted);
 }
 
 .empty-icon {
@@ -27,7 +27,7 @@
 .empty-state p {
   margin: 0;
   font-weight: 600;
-  color: #374151;
+  color: var(--text);
 }
 
 .empty-state small {
@@ -47,7 +47,7 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #111827;
+  color: var(--text);
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -60,8 +60,8 @@
   min-width: 24px;
   height: 24px;
   padding: 0 0.5rem;
-  background: #ef5350;
-  color: white;
+  background: var(--danger);
+  color: var(--bg);
   border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 700;
@@ -70,9 +70,9 @@
 .dismiss-all-btn {
   padding: 0.5rem 1rem;
   background: transparent;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  color: #6b7280;
+  color: var(--muted);
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -80,9 +80,9 @@
 }
 
 .dismiss-all-btn:hover {
-  background: #f9fafb;
-  border-color: #9ca3af;
-  color: #374151;
+  background: var(--panel-elevated);
+  border-color: var(--accent);
+  color: var(--text);
 }
 
 .alerts-list {
@@ -103,33 +103,33 @@
 }
 
 .alert-item.unread {
-  background: linear-gradient(90deg, rgba(102, 126, 234, 0.05), transparent);
+  background: linear-gradient(90deg, rgba(30, 77, 179, 0.05), transparent);
 }
 
 .alert-item.read {
-  background: #f9fafb;
+  background: var(--panel-elevated);
   opacity: 0.7;
 }
 
 .alert-item:hover {
   transform: translateX(4px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
 }
 
 .alert-bull {
-  border-left-color: #26a69a;
+  border-left-color: var(--success);
 }
 
 .alert-bear {
-  border-left-color: #ef5350;
+  border-left-color: var(--danger);
 }
 
 .alert-range {
-  border-left-color: #9e9e9e;
+  border-left-color: var(--muted);
 }
 
 .alert-transition {
-  border-left-color: #ff9800;
+  border-left-color: var(--warning);
 }
 
 .alert-icon {
@@ -145,13 +145,13 @@
 
 .alert-title {
   font-size: 1rem;
-  color: #111827;
+  color: var(--text);
   margin-bottom: 0.5rem;
 }
 
 .alert-title strong {
   font-weight: 700;
-  color: #667eea;
+  color: var(--accent);
 }
 
 .alert-details {
@@ -159,7 +159,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--muted);
   margin-bottom: 0.5rem;
 }
 
@@ -170,14 +170,14 @@
 .alert-score,
 .alert-confidence {
   padding: 0.125rem 0.5rem;
-  background: #f3f4f6;
+  background: var(--panel-elevated);
   border-radius: 4px;
   font-weight: 600;
 }
 
 .alert-time {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--muted);
 }
 
 .dismiss-btn {
@@ -186,7 +186,7 @@
   padding: 0;
   background: transparent;
   border: none;
-  color: #9ca3af;
+  color: var(--muted);
   font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
@@ -196,17 +196,17 @@
 }
 
 .dismiss-btn:hover {
-  background: #f3f4f6;
-  color: #374151;
+  background: var(--panel-elevated);
+  color: var(--text);
 }
 
 .alerts-footer {
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border);
   text-align: center;
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--muted);
 }
 
 @media (max-width: 768px) {

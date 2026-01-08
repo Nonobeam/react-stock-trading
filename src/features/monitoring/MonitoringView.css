@@ -1,6 +1,6 @@
 .monitoring-view {
   min-height: 100vh;
-  background: #f8f9fa;
+  background: var(--bg);
   padding: 20px;
 }
 
@@ -11,12 +11,12 @@
 
 .header-content h1 {
   font-size: 32px;
-  color: #212529;
+  color: var(--text);
   margin: 0 0 8px 0;
 }
 
 .header-subtitle {
-  color: #868e96;
+  color: var(--muted);
   font-size: 16px;
   margin: 0;
 }
@@ -31,8 +31,8 @@
 .spinner {
   width: 48px;
   height: 48px;
-  border: 4px solid #e9ecef;
-  border-top-color: #228be6;
+  border: 4px solid var(--panel);
+  border-top-color: var(--accent);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 20px;
@@ -50,12 +50,12 @@
 }
 
 .error-state h3 {
-  color: #212529;
+  color: var(--text);
   margin-bottom: 10px;
 }
 
 .error-state p {
-  color: #868e96;
+  color: var(--muted);
 }
 
 /* Content */
@@ -78,7 +78,7 @@
 
 .section-header h2 {
   font-size: 24px;
-  color: #212529;
+  color: var(--text);
   margin: 0;
 }
 
@@ -90,33 +90,33 @@
 
 .position-count {
   font-size: 14px;
-  color: #495057;
+  color: var(--text);
   font-weight: 600;
   padding: 6px 12px;
-  background: white;
+  background: var(--panel);
   border-radius: 16px;
-  border: 2px solid #dee2e6;
+  border: 2px solid var(--border);
 }
 
 /* Stagnation Alerts */
 .stagnation-alerts {
-  background: white;
+  background: var(--panel);
   border-radius: 12px;
   padding: 24px;
   margin-bottom: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #ffa94d;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--warning);
 }
 
 .stagnation-alerts h3 {
   margin: 0 0 20px 0;
   font-size: 20px;
-  color: #862e9c;
+  color: var(--text);
 }
 
 .stagnation-alert {
-  background: #fff3bf;
-  border: 2px solid #ffa94d;
+  background: rgba(250, 182, 0, 0.1);
+  border: 2px solid var(--warning);
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 16px;
@@ -128,7 +128,7 @@
 
 .alert-header {
   font-size: 16px;
-  color: #212529;
+  color: var(--text);
   margin-bottom: 12px;
 }
 
@@ -138,13 +138,13 @@
 
 .alert-body p {
   margin: 0 0 8px 0;
-  color: #495057;
+  color: var(--muted);
   font-size: 14px;
 }
 
 .alert-suggestion {
   font-style: italic;
-  color: #862e9c;
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -156,9 +156,9 @@
 
 .btn-alert-action {
   padding: 8px 16px;
-  border: 2px solid #ffa94d;
-  background: white;
-  color: #e67700;
+  border: 2px solid var(--warning);
+  background: transparent;
+  color: var(--warning);
   border-radius: 6px;
   font-weight: 600;
   font-size: 13px;
@@ -167,18 +167,18 @@
 }
 
 .btn-alert-action:hover {
-  background: #ffa94d;
-  color: white;
+  background: var(--warning);
+  color: var(--bg);
 }
 
 .btn-close-position {
-  border-color: #ff6b6b;
-  color: #c92a2a;
+  border-color: var(--danger);
+  color: var(--danger);
 }
 
 .btn-close-position:hover {
-  background: #ff6b6b;
-  color: white;
+  background: var(--danger);
+  color: var(--bg);
 }
 
 /* Emergency Alerts */
@@ -194,10 +194,10 @@
 }
 
 .emergency-alert {
-  background: white;
+  background: var(--panel);
   border-radius: 8px;
   padding: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -216,13 +216,13 @@
 }
 
 .emergency-alert.stop-hit {
-  border-left: 4px solid #ff6b6b;
-  background: #ffe3e3;
+  border-left: 4px solid var(--danger);
+  background: rgba(239, 68, 68, 0.1);
 }
 
 .emergency-alert.target-hit {
-  border-left: 4px solid #51cf66;
-  background: #d3f9d8;
+  border-left: 4px solid var(--success);
+  background: rgba(74, 222, 128, 0.1);
 }
 
 .alert-icon {
@@ -238,13 +238,13 @@
   display: block;
   font-size: 14px;
   margin-bottom: 4px;
-  color: #212529;
+  color: var(--text);
 }
 
 .alert-content p {
   margin: 0;
   font-size: 13px;
-  color: #495057;
+  color: var(--muted);
 }
 
 .btn-emergency {
@@ -259,21 +259,21 @@
 }
 
 .stop-hit .btn-emergency {
-  background: #ff6b6b;
-  color: white;
+  background: var(--danger);
+  color: var(--bg);
 }
 
 .stop-hit .btn-emergency:hover {
-  background: #fa5252;
+  background: color-mix(in srgb, var(--danger) 80%, white 20%);
 }
 
 .target-hit .btn-emergency {
-  background: #51cf66;
-  color: white;
+  background: var(--success);
+  color: var(--bg);
 }
 
 .target-hit .btn-emergency:hover {
-  background: #40c057;
+  background: color-mix(in srgb, var(--success) 80%, white 20%);
 }
 
 /* Stop Panel Overlay */
@@ -300,21 +300,21 @@
 }
 
 .stop-panel-container {
-  background: white;
+  background: var(--panel);
   border-radius: 12px;
   max-width: 700px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-close-position-secondary {
   width: calc(100% - 48px);
   margin: 0 24px 24px;
   padding: 12px;
-  background: linear-gradient(135deg, #ffa94d 0%, #fd7e14 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 80%, black 20%) 100%);
+  color: var(--bg);
   border: none;
   border-radius: 6px;
   font-weight: 600;
@@ -325,7 +325,7 @@
 
 .btn-close-position-secondary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+  box-shadow: 0 4px 12px rgba(250, 182, 0, 0.3);
 }
 
 /* Responsive */

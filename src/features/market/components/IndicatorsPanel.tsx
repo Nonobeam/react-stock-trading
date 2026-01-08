@@ -1,5 +1,6 @@
 import React from 'react';
 import type { TechnicalIndicators } from '../../../shared/types';
+import { TradingTerm } from '../../../shared/components';
 import './IndicatorsPanel.css';
 
 interface IndicatorsPanelProps {
@@ -47,7 +48,7 @@ export const IndicatorsPanel: React.FC<IndicatorsPanelProps> = ({
       <div className="indicators-grid">
         {/* RSI */}
         <div className="indicator-card">
-          <h4>RSI (14)</h4>
+          <h4><TradingTerm term="RSI">RSI (14)</TradingTerm></h4>
           <div className="indicator-value">
             <span className={`value ${rsiStatus.class}`}>{indicators.rsi.toFixed(2)}</span>
             <span className={`status ${rsiStatus.class}`}>{rsiStatus.label}</span>
@@ -66,7 +67,7 @@ export const IndicatorsPanel: React.FC<IndicatorsPanelProps> = ({
 
         {/* MACD */}
         <div className="indicator-card">
-          <h4>MACD</h4>
+          <h4><TradingTerm term="MACD">MACD</TradingTerm></h4>
           <div className="indicator-values">
             <div className="value-row">
               <span className="label">Value:</span>
@@ -89,7 +90,7 @@ export const IndicatorsPanel: React.FC<IndicatorsPanelProps> = ({
 
         {/* Stochastic */}
         <div className="indicator-card">
-          <h4>Stochastic</h4>
+          <h4><TradingTerm term="STOCHASTIC">Stochastic</TradingTerm></h4>
           <div className="indicator-values">
             <div className="value-row">
               <span className="label">%K:</span>
@@ -114,7 +115,7 @@ export const IndicatorsPanel: React.FC<IndicatorsPanelProps> = ({
 
         {/* ADX */}
         <div className="indicator-card">
-          <h4>ADX (14)</h4>
+          <h4><TradingTerm term="ADX">ADX (14)</TradingTerm></h4>
           <div className="indicator-value">
             <span className={`value ${adxStatus.class}`}>{indicators.adx.toFixed(2)}</span>
             <span className={`status ${adxStatus.class}`}>{adxStatus.label}</span>
@@ -123,7 +124,7 @@ export const IndicatorsPanel: React.FC<IndicatorsPanelProps> = ({
 
         {/* ATR */}
         <div className="indicator-card">
-          <h4>ATR (14)</h4>
+          <h4><TradingTerm term="ATR">ATR (14)</TradingTerm></h4>
           <div className="indicator-value">
             <span className="value">{indicators.atr.toFixed(2)}</span>
             <span className="status neutral">Volatility</span>
@@ -132,7 +133,7 @@ export const IndicatorsPanel: React.FC<IndicatorsPanelProps> = ({
 
         {/* VWAP */}
         <div className="indicator-card">
-          <h4>VWAP</h4>
+          <h4><TradingTerm term="VWAP">VWAP</TradingTerm></h4>
           <div className="indicator-value">
             <span className="value">{indicators.vwap.toFixed(2)}</span>
             <span className="status neutral">Volume Weighted</span>
@@ -141,7 +142,7 @@ export const IndicatorsPanel: React.FC<IndicatorsPanelProps> = ({
 
         {/* Bollinger Bands */}
         <div className="indicator-card">
-          <h4>Bollinger Bands</h4>
+          <h4><TradingTerm term="BOLLINGER_BANDS">Bollinger Bands</TradingTerm></h4>
           <div className="indicator-values">
             <div className="value-row">
               <span className="label">Upper:</span>
@@ -161,7 +162,7 @@ export const IndicatorsPanel: React.FC<IndicatorsPanelProps> = ({
         {/* OBV (if available) */}
         {indicators.obv !== undefined && (
           <div className="indicator-card">
-            <h4>OBV</h4>
+            <h4><TradingTerm term="OBV">OBV</TradingTerm></h4>
             <div className="indicator-value">
               <span className="value">{indicators.obv.toLocaleString()}</span>
               <span className="status neutral">Volume Flow</span>

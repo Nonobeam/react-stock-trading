@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePerformance } from '../../context/PerformanceContext';
+import { TradingTerm } from '../../shared/components';
 import { PerformanceOverviewCards } from './components/PerformanceOverviewCards';
 import { EquityCurveChart } from './components/EquityCurveChart';
 import { RMultipleDistribution } from './components/RMultipleDistribution';
@@ -90,7 +91,9 @@ export const PerformanceView: React.FC = () => {
               <h3 className="performance-view__section-title">Risk-Adjusted Metrics</h3>
               <div className="performance-view__metrics-grid">
                 <div className="performance-view__metric-box">
-                  <div className="performance-view__metric-label">Sharpe Ratio</div>
+                  <div className="performance-view__metric-label">
+                    <TradingTerm term="SHARPE_RATIO">Sharpe Ratio</TradingTerm>
+                  </div>
                   <div className="performance-view__metric-value">
                     {metrics.sharpeRatio.toFixed(2)}
                   </div>
@@ -99,7 +102,9 @@ export const PerformanceView: React.FC = () => {
                   </div>
                 </div>
                 <div className="performance-view__metric-box">
-                  <div className="performance-view__metric-label">Sortino Ratio</div>
+                  <div className="performance-view__metric-label">
+                    <TradingTerm term="SORTINO_RATIO">Sortino Ratio</TradingTerm>
+                  </div>
                   <div className="performance-view__metric-value">
                     {metrics.sortinoRatio.toFixed(2)}
                   </div>
@@ -108,7 +113,9 @@ export const PerformanceView: React.FC = () => {
                   </div>
                 </div>
                 <div className="performance-view__metric-box">
-                  <div className="performance-view__metric-label">Calmar Ratio</div>
+                  <div className="performance-view__metric-label">
+                    <TradingTerm term="CALMAR_RATIO">Calmar Ratio</TradingTerm>
+                  </div>
                   <div className="performance-view__metric-value">
                     {metrics.calmarRatio.toFixed(2)}
                   </div>

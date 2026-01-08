@@ -1,4 +1,5 @@
 import React from 'react';
+import { TradingTerm } from '../../../shared/components';
 import type { PositionCalculation } from './PositionSizeCalculator';
 
 interface RiskSummaryPanelProps {
@@ -51,7 +52,9 @@ export const RiskSummaryPanel: React.FC<RiskSummaryPanelProps> = ({
 
       <div className="summary-metrics">
         <div className="metric-row">
-          <span className="metric-label">Position Size</span>
+          <span className="metric-label">
+            <TradingTerm term="POSITION_SIZING">Position Size</TradingTerm>
+          </span>
           <span className="metric-value primary">
             {calculation.positionSize.toLocaleString()} shares
           </span>

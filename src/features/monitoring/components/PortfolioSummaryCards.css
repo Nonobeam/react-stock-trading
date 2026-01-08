@@ -6,10 +6,10 @@
 }
 
 .summary-card {
-  background: white;
+  background: var(--panel);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   display: flex;
   align-items: center;
   gap: 16px;
@@ -19,33 +19,33 @@
 
 .summary-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
 }
 
 /* Color Variants */
 .summary-card.profit {
-  border-color: #51cf66;
-  background: linear-gradient(135deg, #ffffff 0%, #d3f9d8 100%);
+  border-color: var(--success);
+  background: linear-gradient(135deg, var(--panel) 0%, rgba(74, 222, 128, 0.1) 100%);
 }
 
 .summary-card.loss {
-  border-color: #ff6b6b;
-  background: linear-gradient(135deg, #ffffff 0%, #ffe3e3 100%);
+  border-color: var(--danger);
+  background: linear-gradient(135deg, var(--panel) 0%, rgba(239, 68, 68, 0.1) 100%);
 }
 
 .summary-card.risk-low {
-  border-color: #51cf66;
-  background: linear-gradient(135deg, #ffffff 0%, #d3f9d8 100%);
+  border-color: var(--success);
+  background: linear-gradient(135deg, var(--panel) 0%, rgba(74, 222, 128, 0.1) 100%);
 }
 
 .summary-card.risk-medium {
-  border-color: #ffa94d;
-  background: linear-gradient(135deg, #ffffff 0%, #ffe8cc 100%);
+  border-color: var(--warning);
+  background: linear-gradient(135deg, var(--panel) 0%, rgba(250, 182, 0, 0.1) 100%);
 }
 
 .summary-card.risk-high {
-  border-color: #ff6b6b;
-  background: linear-gradient(135deg, #ffffff 0%, #ffe3e3 100%);
+  border-color: var(--danger);
+  background: linear-gradient(135deg, var(--panel) 0%, rgba(239, 68, 68, 0.1) 100%);
 }
 
 /* Card Icon */
@@ -63,7 +63,7 @@
 
 .card-label {
   font-size: 13px;
-  color: #868e96;
+  color: var(--muted);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -73,7 +73,7 @@
 .card-value {
   font-size: 24px;
   font-weight: 700;
-  color: #212529;
+  color: var(--text);
   font-family: 'Courier New', monospace;
   line-height: 1.2;
   overflow: hidden;
@@ -83,19 +83,19 @@
 
 .card-subtitle {
   font-size: 14px;
-  color: #495057;
+  color: var(--muted);
   font-weight: 600;
   margin-top: 4px;
 }
 
 /* Profit card values */
 .summary-card.profit .card-value {
-  color: #2b8a3e;
+  color: var(--success);
 }
 
 /* Loss card values */
 .summary-card.loss .card-value {
-  color: #c92a2a;
+  color: var(--danger);
 }
 
 /* Risk status values */

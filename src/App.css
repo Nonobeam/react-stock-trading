@@ -1,7 +1,7 @@
 .app {
   min-height: 100vh;
   display: flex;
-  background: var(--color-bg-primary);
+  background: var(--bg);
 }
 
 .app-main {
@@ -15,22 +15,22 @@
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 1.5rem;
+  gap: var(--gap-xl);
   max-width: 1800px;
   margin: 0 auto;
 }
 
 .dashboard-section {
-  background: var(--color-bg-secondary);
-  border-radius: 12px;
+  background: var(--panel);
+  border-radius: var(--radius);
   padding: 1.5rem;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
   transition: all 0.3s ease;
 }
 
 .dashboard-section:hover {
-  border-color: var(--color-primary);
+  border-color: var(--accent);
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
 }
@@ -38,10 +38,10 @@
 .dashboard-section__title {
   margin: 0 0 1rem 0;
   font-size: 1.25rem;
-  color: var(--color-text-primary);
+  color: var(--text);
   font-weight: 600;
   padding-bottom: 0.75rem;
-  border-bottom: 2px solid var(--color-border);
+  border-bottom: 2px solid var(--border);
 }
 
 /* Responsive */

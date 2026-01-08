@@ -1,5 +1,6 @@
 import React from 'react';
 import type { PerformanceMetrics } from '../../../shared/types';
+import { TradingTerm } from '../../../shared/components';
 import './PerformanceOverviewCards.css';
 
 interface PerformanceOverviewCardsProps {
@@ -7,16 +8,15 @@ interface PerformanceOverviewCardsProps {
 }
 
 interface MetricCardProps {
-  title: string;
+  title: React.ReactNode;
   value: string | number;
   subtitle?: string;
   status?: 'excellent' | 'good' | 'poor';
-  tooltip?: string;
 }
 
-const MetricCard: React.FC<MetricCardProps> = ({ title, value, subtitle, status, tooltip }) => {
+const MetricCard: React.FC<MetricCardProps> = ({ title, value, subtitle, status }) => {
   return (
-    <div className={`metric-card metric-card--${status || 'neutral'}`} title={tooltip}>
+    <div className={`metric-card metric-card--${status || 'neutral'}`}>
       <div className="metric-card__title">{title}</div>
       <div className="metric-card__value">{value}</div>
       {subtitle && <div className="metric-card__subtitle">{subtitle}</div>}
@@ -73,35 +73,31 @@ export const PerformanceOverviewCards: React.FC<PerformanceOverviewCardsProps> =
   return (
     <div className="performance-overview-cards">
       <MetricCard
-        title="Win Rate"
+        title={<TradingTerm term="WIN_RATE">Win Rate</TradingTerm>}
         value={`${winRate}%`}
         subtitle={`${Math.round(metrics.winRate * metrics.totalTrades)} of ${metrics.totalTrades} trades`}
         status={getWinRateStatus(parseFloat(winRate))}
-        tooltip="Percentage of winning trades. Above 60% is excellent, 45-60% is good."
       />
       
       <MetricCard
-        title="Expectancy"
+        title={<TradingTerm term="EXPECTANCY">Expectancy</TradingTerm>}
         value={`${expectancy}R`}
         subtitle="Average R per trade"
         status={getExpectancyStatus(metrics.expectancy)}
-        tooltip="Expected return per R risked. Above 0.5R is excellent, 0.2-0.5R is good."
       />
       
       <MetricCard
-        title="Profit Factor"
+        title={<TradingTerm term="PROFIT_FACTOR">Profit Factor</TradingTerm>}
         value={profitFactor}
         subtitle={`Wins: ${metrics.avgWin.toFixed(0)}k / Losses: ${Math.abs(metrics.avgLoss).toFixed(0)}k`}
         status={getProfitFactorStatus(metrics.profitFactor)}
-        tooltip="Ratio of gross profit to gross loss. Above 2.0 is excellent, 1.5-2.0 is good."
       />
       
       <MetricCard
-        title="Max Drawdown"
+        title={<TradingTerm term="DRAWDOWN">Max Drawdown</TradingTerm>}
         value={`${maxDrawdown}%`}
         subtitle={`Recovery: ${metrics.recoveryFactor.toFixed(2)}x`}
         status={getMaxDrawdownStatus(parseFloat(maxDrawdown))}
-        tooltip="Largest peak-to-trough decline. Under 10% is excellent, 10-20% is good."
       />
     </div>
   );

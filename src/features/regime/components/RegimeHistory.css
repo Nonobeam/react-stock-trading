@@ -1,15 +1,15 @@
 .regime-history {
-  background: white;
-  border-radius: 8px;
+  background: var(--panel);
+  border-radius: var(--radius);
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
 }
 
 .regime-history h3 {
   margin: 0 0 1.5rem 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #111827;
+  color: var(--text);
 }
 
 .regime-history.loading,
@@ -20,7 +20,7 @@
   justify-content: center;
   gap: 1rem;
   min-height: 200px;
-  color: #666;
+  color: var(--muted);
 }
 
 .timeline {
@@ -35,7 +35,7 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, #667eea, #764ba2);
+  background: linear-gradient(to bottom, var(--accent), var(--accent-dark));
 }
 
 .timeline-item {
@@ -66,8 +66,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  border: 3px solid white;
+  box-shadow: var(--shadow);
+  border: 3px solid var(--panel);
   z-index: 2;
 }
 
@@ -76,21 +76,21 @@
 }
 
 .timeline-content {
-  background: #f9fafb;
-  border-radius: 8px;
+  background: var(--panel-elevated);
+  border-radius: var(--radius);
   padding: 1rem 1.25rem;
   border-left: 4px solid transparent;
   transition: all 0.2s;
 }
 
 .timeline-item.current .timeline-content {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-  border-left-color: #667eea;
+  background: linear-gradient(135deg, rgba(30, 77, 179, 0.1), rgba(21, 59, 143, 0.1));
+  border-left-color: var(--accent);
 }
 
 .timeline-item.selected .timeline-content {
-  background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: var(--panel);
+  box-shadow: var(--shadow);
 }
 
 .timeline-header {
@@ -112,8 +112,8 @@
 .current-badge {
   display: inline-block;
   padding: 0.125rem 0.5rem;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: var(--bg);
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 600;
@@ -122,7 +122,7 @@
 
 .timeline-date {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--muted);
   font-weight: 500;
 }
 
@@ -139,12 +139,12 @@
 }
 
 .detail-row span:first-child {
-  color: #6b7280;
+  color: var(--muted);
 }
 
 .detail-value {
   font-weight: 600;
-  color: #111827;
+  color: var(--text);
 }
 
 .timeline-expanded {
