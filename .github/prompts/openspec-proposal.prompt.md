@@ -10,15 +10,18 @@ $ARGUMENTS
 - Refer to `openspec/AGENTS.md` (located inside the `openspec/` directory—run `ls openspec` or `openspec update` if you don't see it) if you need additional OpenSpec conventions or clarifications.
 - Identify any vague or ambiguous details and ask the necessary follow-up questions before editing files.
 - Do not write any code during the proposal stage. Only create design documents (proposal.md, tasks.md, design.md, and spec deltas). Implementation happens in the apply stage after approval.
+- **CRITICAL: Always read `docs/FINTECH_NEON_THEME.md` before starting to ensure all UI/UX proposals strictly follow the established theme, color schema, and design principles. Any visual changes MUST align with the neon fintech design system.**
 
 **Steps**
-1. Review `openspec/project.md`, run `openspec list` and `openspec list --specs`, and inspect related code or docs (e.g., via `rg`/`ls`) to ground the proposal in current behaviour; note any gaps that require clarification.
+1. **Read `docs/FINTECH_NEON_THEME.md` to understand the theme requirements, color palette, and design principles before proceeding.**
+2. Review `openspec/project.md`, run `openspec list` and `openspec list --specs`, and inspect related code or docs (e.g., via `rg`/`ls`) to ground the proposal in current behaviour; note any gaps that require clarification.
 2. Choose a unique verb-led `change-id` and scaffold `proposal.md`, `tasks.md`, and `design.md` (when needed) under `openspec/changes/<id>/`.
 3. Map the change into concrete capabilities or requirements, breaking multi-scope efforts into distinct spec deltas with clear relationships and sequencing.
 4. Capture architectural reasoning in `design.md` when the solution spans multiple systems, introduces new patterns, or demands trade-off discussion before committing to specs.
 5. Draft spec deltas in `changes/<id>/specs/<capability>/spec.md` (one folder per capability) using `## ADDED|MODIFIED|REMOVED Requirements` with at least one `#### Scenario:` per requirement and cross-reference related capabilities when relevant.
 6. Draft `tasks.md` as an ordered list of small, verifiable work items that deliver user-visible progress, include validation (tests, tooling), and highlight dependencies or parallelizable work.
-7. Validate with `openspec validate <id> --strict` and resolve every issue before sharing the proposal.
+7. **Re-read `docs/FINTECH_NEON_THEME.md` to verify all proposed changes comply with the theme color schema, design principles, and visual patterns. Document any theme-related requirements in the design.md or spec deltas.**
+8. Validate with `openspec validate <id> --strict` and resolve every issue before sharing the proposal.
 
 **Reference**
 - Use `openspec show <id> --json --deltas-only` or `openspec show <spec> --type spec` to inspect details when validation fails.

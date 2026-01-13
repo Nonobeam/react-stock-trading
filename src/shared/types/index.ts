@@ -308,3 +308,143 @@ export interface FilterSettings {
   setupTypes: SetupType[];
   sectors: string[];
 }
+
+// ============================================================================
+// Account & Portfolio Types
+// ============================================================================
+
+export interface AccountInfo {
+  accountNo: string;        // "000123456"
+  accountName: string;      // "Nguyen Van A"
+  balance: number;          // 1500000000 (VND)
+}
+
+export interface PortfolioHolding {
+  symbol: string;           // "HPG"
+  quantity: number;         // 10000
+  averagePrice: number;     // 25.5 (thousand VND)
+  marketPrice: number;      // 26.2 (thousand VND)
+  profit: number;           // 7000000 (VND)
+  profitPercent: number;    // 2.74
+}
+
+// ============================================================================
+// Trading / Order Types
+// ============================================================================
+
+export type OrderSide = 'BUY' | 'SELL';
+export type OrderType = 'LO' | 'MP' | 'ATO' | 'ATC';  // Limit, Market, At-The-Open, At-The-Close
+export type OrderStatus = 'PENDING' | 'FILLED' | 'PARTIALLY_FILLED' | 'CANCELLED' | 'REJECTED';
+
+export interface OrderRequest {
+  symbol: string;           // "VNM"
+  side: OrderSide;          // "BUY"
+  orderType: OrderType;     // "LO"
+  quantity: number;         // 1000 (must be multiple of 100 for Vietnam)
+  price?: number;           // 68.5 (optional for MP orders)
+}
+
+export interface Order {
+  orderId: string;          // "ORD-123456789"
+  symbol: string;
+  side: OrderSide;
+  orderType: OrderType;
+  quantity: number;
+  price?: number;
+  status: OrderStatus;
+  message?: string;
+  createdTime: string;      // ISO 8601 timestamp
+  timestamp: number;        // Unix timestamp for sorting
+  filledQuantity?: number;  // For partial fills
+  filledPrice?: number;     // Actual execution price
+}
+
+// ============================================================================
+// Market Data Types (Historical & Symbol Info)
+// ============================================================================
+
+export interface DailyBar {
+  symbol: string;           // "VNM"
+  date: string;             // "2023-10-27T00:00:00Z" (ISO 8601)
+  open: number;             // 68.5 (thousand VND)
+  high: number;             // 69.2
+  low: number;              // 68.1
+  close: number;            // 69.0
+  volume: number;           // 1500000 (shares)
+  turnover: number;         // 10350000000 (VND)
+}
+
+export interface IntradayBar {
+  symbol: string;           // "VNM"
+  timestamp: string;        // "2023-10-27T10:30:00Z"
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+export interface SymbolInfo {
+  symbol: string;           // "VNM"
+  lastPrice: number;        // 69.0 (thousand VND)
+  change: number;           // 0.5 (absolute change)
+  changePercent: number;    // 0.72 (percentage)
+  ceiling: number;          // 73.8 (max price for the day)
+  floor: number;            // 64.2 (min price for the day)
+  reference: number;        // 69.0 (reference price)
+  bidPrice: number;         // 68.9 (best bid)
+  askPrice: number;         // 69.1 (best ask)
+  volume: number;           // 2000000 (total shares traded)
+  timestamp: string;        // ISO 8601
+}
+
+// ============================================================================
+// Enhanced WebSocket Message Types
+// ============================================================================
+
+export type WebSocketMessageType = 'STOCK_INFO' | 'TOP_PRICE' | 'OHLC' | 'MARKET_INDEX' | 'ORDER_UPDATE';
+
+export interface WebSocketMessage {
+  type: WebSocketMessageType;
+  data: StockInfoData | TopPriceData | OHLCData | MarketIndexData | Order;
+}
+
+export interface StockInfoData {
+  symbol: string;           // "VNM"
+  lastPrice: number;        // 69.1 (thousand VND)
+  change: number;           // 0.6 (absolute change)
+  changePercent: number;    // 0.87 (percentage)
+  ceiling: number;          // 73.8
+  floor: number;            // 64.2
+  volume: number;           // 2005000
+  hitCeiling: boolean;      // false
+  hitFloor: boolean;        // false
+  timestamp: string;        // ISO 8601
+}
+
+export interface TopPriceData {
+  symbol: string;           // "VNM"
+  bidPrice1: number;        // 69.0
+  bidVolume1: number;       // 5000
+  askPrice1: number;        // 69.1
+  askVolume1: number;       // 2000
+  timestamp: string;
+}
+
+export interface OHLCData {
+  symbol: string;           // "VNM"
+  interval: string;         // "1m"
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+  timestamp: string;
+}
+
+export interface MarketIndexData {
+  indexName: string;        // "VNINDEX"
+  value: number;            // 1150.25
+  change: number;           // 5.5
+  timestamp: string;
+}

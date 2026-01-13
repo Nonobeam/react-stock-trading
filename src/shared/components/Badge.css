@@ -3,28 +3,28 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   white-space: nowrap;
-  transition: all 0.2s ease;
+  transition: all var(--transition);
 }
 
 .badge--small {
-  padding: 0.125rem 0.5rem;
+  padding: var(--gap-1) var(--gap-2);
   font-size: 0.75rem;
 }
 
 .badge--medium {
-  padding: 0.25rem 0.75rem;
+  padding: var(--gap-2) var(--gap-3);
   font-size: 0.875rem;
 }
 
 .badge--large {
-  padding: 0.5rem 1rem;
+  padding: var(--gap-3) var(--gap-4);
   font-size: 1rem;
 }
 
 .badge--default {
-  background: var(--panel-elevated);
+  background: var(--panel);
   color: var(--text);
   border: 1px solid var(--border);
 }
@@ -51,12 +51,10 @@
   background: rgba(59, 130, 246, 0.1);
   color: var(--info);
   border: 1px solid var(--info);
-  color: var(--color-info);
-  border: 1px solid var(--color-info);
 }
 
 .badge--neutral {
-  background: var(--color-surface);
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border);
+  background: var(--panel);
+  color: var(--muted);
+  border: 1px solid var(--border);
 }

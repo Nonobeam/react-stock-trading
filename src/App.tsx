@@ -1,101 +1,78 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState } from 'react'
 import './App.css'
-import { Navigation, ErrorBoundary, LoadingSpinner } from './shared/components'
+import { ErrorBoundary } from './shared/components'
+import { 
+  MarketDataProvider, 
+  AccountProvider, 
+  PositionsProvider, 
+  SetupsProvider 
+} from './context'
 
-// Lazy load feature views for code splitting
-const MarketDataView = lazy(() => import('./features/market/MarketDataView').then(m => ({ default: m.MarketDataView })));
-const RegimeView = lazy(() => import('./features/regime/RegimeView').then(m => ({ default: m.RegimeView })));
-const ScannerView = lazy(() => import('./features/scanner').then(m => ({ default: m.ScannerView })));
-const RiskView = lazy(() => import('./features/risk').then(m => ({ default: m.RiskView })));
-const MonitoringView = lazy(() => import('./features/monitoring').then(m => ({ default: m.MonitoringView })));
-const PerformanceView = lazy(() => import('./features/analytics').then(m => ({ default: m.PerformanceView })));
+// Import Phase 1 screens
+import { DashboardView } from './features/dashboard'
+import { WatchlistView } from './features/watchlist'
+import { PortfolioView } from './features/portfolio'
+import { SignalsView } from './features/signals'
 
-type ViewType = 'dashboard' | 'market-data' | 'regime' | 'scanner' | 'risk' | 'monitoring' | 'analytics';
+type ViewType = 'dashboard' | 'watchlist' | 'portfolio' | 'signals';
 
 function App() {
   const [currentView, setCurrentView] = useState<ViewType>('dashboard');
-  const [currentSymbol, setCurrentSymbol] = useState('VNM');
 
   return (
     <ErrorBoundary>
-      <div className="app">
-        <Navigation currentView={currentView} onNavigate={setCurrentView} />
+      <MarketDataProvider>
+        <AccountProvider>
+          <PositionsProvider>
+            <SetupsProvider>
+              <div className="app">
+                {/* Navigation Bar */}
+                <nav className="app-nav">
+                  <div className="app-nav__brand">
+                    <span className="app-nav__logo">VN Trading</span>
+                    <span className="app-nav__subtitle">Phase 1 MVP</span>
+                  </div>
+                  
+                  <div className="app-nav__links">
+                    <button
+                      className={`app-nav__link ${currentView === 'dashboard' ? 'active' : ''}`}
+                      onClick={() => setCurrentView('dashboard')}
+                    >
+                      Dashboard
+                    </button>
+                    <button
+                      className={`app-nav__link ${currentView === 'watchlist' ? 'active' : ''}`}
+                      onClick={() => setCurrentView('watchlist')}
+                    >
+                      Watchlist
+                    </button>
+                    <button
+                      className={`app-nav__link ${currentView === 'portfolio' ? 'active' : ''}`}
+                      onClick={() => setCurrentView('portfolio')}
+                    >
+                      Portfolio
+                    </button>
+                    <button
+                      className={`app-nav__link ${currentView === 'signals' ? 'active' : ''}`}
+                      onClick={() => setCurrentView('signals')}
+                    >
+                      Signals
+                    </button>
+                  </div>
+                </nav>
 
-        <main className="app-main">
-          {currentView === 'dashboard' ? (
-            <div className="dashboard-grid">
-              <div className="dashboard-section">
-                <h2 className="dashboard-section__title">Market Overview</h2>
-                <Suspense fallback={<LoadingSpinner message="Loading market data..." />}>
-                  <MarketDataView defaultSymbol={currentSymbol} defaultTimeframe="15m" />
-                </Suspense>
+                {/* Main Content */}
+                <main className="app-main">
+                  {currentView === 'dashboard' && <DashboardView />}
+                  {currentView === 'watchlist' && <WatchlistView />}
+                  {currentView === 'portfolio' && <PortfolioView />}
+                  {currentView === 'signals' && <SignalsView />}
+                </main>
               </div>
-
-              <div className="dashboard-section">
-                <h2 className="dashboard-section__title">Market Regime</h2>
-                <Suspense fallback={<LoadingSpinner message="Loading regime..." />}>
-                  <RegimeView symbol={currentSymbol} onSymbolChange={setCurrentSymbol} />
-                </Suspense>
-              </div>
-
-              <div className="dashboard-section">
-                <h2 className="dashboard-section__title">Trade Setups</h2>
-                <Suspense fallback={<LoadingSpinner message="Loading setups..." />}>
-                  <ScannerView />
-                </Suspense>
-              </div>
-
-              <div className="dashboard-section">
-                <h2 className="dashboard-section__title">Active Positions</h2>
-                <Suspense fallback={<LoadingSpinner message="Loading positions..." />}>
-                  <MonitoringView />
-                </Suspense>
-              </div>
-
-              <div className="dashboard-section">
-                <h2 className="dashboard-section__title">Performance</h2>
-                <Suspense fallback={<LoadingSpinner message="Loading analytics..." />}>
-                  <PerformanceView />
-                </Suspense>
-              </div>
-
-              <div className="dashboard-section">
-                <h2 className="dashboard-section__title">Risk Calculator</h2>
-                <Suspense fallback={<LoadingSpinner message="Loading risk calculator..." />}>
-                  <RiskView />
-                </Suspense>
-              </div>
-            </div>
-          ) : currentView === 'market-data' ? (
-            <Suspense fallback={<LoadingSpinner fullScreen message="Loading Market Data..." />}>
-              <MarketDataView defaultSymbol={currentSymbol} defaultTimeframe="15m" />
-            </Suspense>
-          ) : currentView === 'regime' ? (
-            <Suspense fallback={<LoadingSpinner fullScreen message="Loading Regime Analysis..." />}>
-              <RegimeView 
-                symbol={currentSymbol} 
-                onSymbolChange={setCurrentSymbol}
-              />
-            </Suspense>
-          ) : currentView === 'scanner' ? (
-            <Suspense fallback={<LoadingSpinner fullScreen message="Loading Setup Scanner..." />}>
-              <ScannerView />
-            </Suspense>
-          ) : currentView === 'risk' ? (
-            <Suspense fallback={<LoadingSpinner fullScreen message="Loading Risk Calculator..." />}>
-              <RiskView />
-            </Suspense>
-          ) : currentView === 'monitoring' ? (
-            <Suspense fallback={<LoadingSpinner fullScreen message="Loading Position Monitor..." />}>
-              <MonitoringView />
-            </Suspense>
-          ) : currentView === 'analytics' ? (
-            <Suspense fallback={<LoadingSpinner fullScreen message="Loading Performance Analytics..." />}>
-              <PerformanceView />
-            </Suspense>
-          ) : null}
-        </main>
-      </div>
+            </SetupsProvider>
+          </PositionsProvider>
+        </AccountProvider>
+      </MarketDataProvider>
     </ErrorBoundary>
   )
 }

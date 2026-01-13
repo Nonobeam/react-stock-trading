@@ -1,0 +1,129 @@
+.watchlist {
+  padding: var(--gap-6);
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-4);
+}
+
+.watchlist__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--gap-4);
+}
+
+.watchlist__header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.watchlist__subtitle {
+  margin: var(--gap-2) 0 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.watchlist__filters {
+  display: flex;
+  gap: var(--gap-2);
+}
+
+.symbol-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.symbol-name {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.symbol-exchange {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* Setup Detail Modal */
+.setup-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-6);
+}
+
+.setup-detail__section h3 {
+  margin: 0 0 var(--gap-4) 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--gap-4);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--gap-3);
+  background: var(--panel-hover);
+  border-radius: var(--radius-md);
+}
+
+.detail-item .label {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.detail-item .value {
+  color: var(--text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.setup-notes {
+  padding: var(--gap-4);
+  background: var(--panel-hover);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.text-success {
+  color: var(--success) !important;
+}
+
+.text-danger {
+  color: var(--danger) !important;
+}
+
+.text-info {
+  color: var(--info) !important;
+}
+
+@media (max-width: 768px) {
+  .watchlist {
+    padding: var(--gap-4);
+  }
+
+  .watchlist__header {
+    flex-direction: column;
+    gap: var(--gap-4);
+  }
+
+  .watchlist__filters {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

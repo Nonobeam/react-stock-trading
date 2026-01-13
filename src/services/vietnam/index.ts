@@ -7,6 +7,8 @@ export * from './priceLimit';
 export * from './lotSize';
 export * from './tradingSession';
 export * from './settlement';
+export * from './commission';
+export * from './positionSize';
 
 // Re-export commonly used functions
 export {
@@ -37,3 +39,25 @@ export {
   canSellShares,
   getDaysUntilSettlement
 } from './settlement';
+
+export {
+  calculateEntryCommission,
+  calculateExitCommission,
+  calculateExitTax,
+  calculateEntryCost,
+  calculateExitProceeds,
+  calculateNetPnL,
+  calculateBreakevenPrice,
+  COMMISSION_RATE,
+  TAX_RATE,
+  MIN_COMMISSION
+} from './commission';
+
+export {
+  calculatePositionSize,
+  calculatePositionValue,
+  calculateMaxPositionSize,
+  calculateRMultiple,
+  calculatePortfolioHeat,
+  calculateSharesForValue
+} from './positionSize';

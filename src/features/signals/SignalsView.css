@@ -1,0 +1,241 @@
+.signals {
+  padding: var(--gap-6);
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-4);
+}
+
+.signals__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--gap-4);
+}
+
+.signals__header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.signals__subtitle {
+  margin: var(--gap-2) 0 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.signals__filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-3);
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+}
+
+.filter-group label {
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-width: 70px;
+}
+
+.signals__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--gap-4);
+}
+
+/* Signal Card */
+.signal-card {
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.signal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.signal-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--gap-3);
+}
+
+.signal-card__symbol {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.signal-card__name {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-top: var(--gap-1);
+}
+
+.signal-card__badges {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-1);
+  align-items: flex-end;
+}
+
+.signal-card__price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--gap-2);
+  background: var(--panel-hover);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--gap-3);
+}
+
+.signal-card__price .label {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.signal-card__price .value {
+  color: var(--text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.signal-card__score {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+  margin-bottom: var(--gap-3);
+}
+
+.signal-card__score .label {
+  color: var(--muted);
+  font-size: 0.875rem;
+  min-width: 80px;
+}
+
+.score-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--panel-hover);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.score-bar__fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width var(--transition);
+  box-shadow: var(--glow-accent);
+}
+
+.score-value {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.875rem;
+  min-width: 40px;
+  text-align: right;
+}
+
+.signal-card__indicators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-2);
+  margin-bottom: var(--gap-3);
+}
+
+.signal-card__time {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* Signal Detail Modal */
+.signal-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-6);
+}
+
+.signal-detail__section h3 {
+  margin: 0 0 var(--gap-4) 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--gap-4);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--gap-3);
+  background: var(--panel-hover);
+  border-radius: var(--radius-md);
+}
+
+.detail-item .label {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.detail-item .value {
+  color: var(--text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.indicators-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-2);
+}
+
+.signal-reason {
+  padding: var(--gap-4);
+  background: var(--panel-hover);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .signals {
+    padding: var(--gap-4);
+  }
+
+  .signals__header {
+    flex-direction: column;
+    gap: var(--gap-4);
+  }
+
+  .signals__filters {
+    width: 100%;
+  }
+
+  .filter-group {
+    flex-wrap: wrap;
+  }
+
+  .signals__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

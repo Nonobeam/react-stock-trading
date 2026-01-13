@@ -1,157 +1,91 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import type { TradeSetup, SetupType } from '../shared/types';
+import { 
+  generateSetups, 
+  generateSignals, 
+  updateSetupPrices,
+  type Setup,
+  type Signal
+} from '../services/mock/setups';
 
-interface SetupsContextType {
-  setups: TradeSetup[];
-  filteredSetups: TradeSetup[];
-  selectedSetup: TradeSetup | null;
-  filters: {
-    minScore: number;
-    setupTypes: SetupType[];
-    sectors: string[];
-  };
-  sortBy: 'score' | 'riskReward' | 'symbol';
-  sortOrder: 'asc' | 'desc';
-  loading: boolean;
+interface SetupsContextValue {
+  setups: Setup[];
+  signals: Signal[];
+  isLoading: boolean;
   error: string | null;
-  
-  // Actions
-  fetchSetups: () => Promise<void>;
-  selectSetup: (setup: TradeSetup | null) => void;
-  updateFilters: (filters: Partial<SetupsContextType['filters']>) => void;
-  clearFilters: () => void;
-  setSortBy: (sortBy: SetupsContextType['sortBy'], order?: 'asc' | 'desc') => void;
+  refresh: () => void;
+  filterSetups: (status?: Setup['status']) => Setup[];
+  filterSignals: (type?: Signal['signalType'], strength?: Signal['strength']) => Signal[];
 }
 
-const SetupsContext = createContext<SetupsContextType | undefined>(undefined);
+const SetupsContext = createContext<SetupsContextValue | undefined>(undefined);
 
-const defaultFilters = {
-  minScore: 0,
-  setupTypes: [] as SetupType[],
-  sectors: [] as string[],
-};
-
-export const SetupsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [setups, setSetups] = useState<TradeSetup[]>([]);
-  const [selectedSetup, setSelectedSetup] = useState<TradeSetup | null>(null);
-  const [filters, setFilters] = useState(defaultFilters);
-  const [sortBy, setSortByState] = useState<'score' | 'riskReward' | 'symbol'>('score');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-  const [loading, setLoading] = useState(false);
+export function SetupsProvider({ children }: { children: React.ReactNode }) {
+  const [setups, setSetups] = useState<Setup[]>([]);
+  const [signals, setSignals] = useState<Signal[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch setups from API
-  const fetchSetups = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    
+  const refresh = useCallback(() => {
     try {
-      const response = await fetch('/api/scanner/setups');
-      if (!response.ok) throw new Error('Failed to fetch setups');
-      
-      const data = await response.json();
-      setSetups(data.setups || []);
+      const newSetups = generateSetups(10);
+      const newSignals = generateSignals(8);
+      setSetups(newSetups);
+      setSignals(newSignals);
+      setIsLoading(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
-      console.error('Failed to fetch setups:', err);
-    } finally {
-      setLoading(false);
+      setError(err instanceof Error ? err.message : 'Failed to load setups');
+      setIsLoading(false);
     }
   }, []);
 
-  // Filter setups based on current filters
-  const filteredSetups = React.useMemo(() => {
-    let filtered = [...setups];
-    
-    // Score filter
-    if (filters.minScore > 0) {
-      filtered = filtered.filter(setup => setup.score >= filters.minScore);
-    }
-    
-    // Setup type filter
-    if (filters.setupTypes.length > 0) {
-      filtered = filtered.filter(setup => filters.setupTypes.includes(setup.setupType));
-    }
-    
-    // Sort
-    filtered.sort((a, b) => {
-      let comparison = 0;
-      
-      switch (sortBy) {
-        case 'score':
-          comparison = a.score - b.score;
-          break;
-        case 'riskReward':
-          comparison = a.riskRewardRatio - b.riskRewardRatio;
-          break;
-        case 'symbol':
-          comparison = a.symbol.localeCompare(b.symbol);
-          break;
-      }
-      
-      return sortOrder === 'asc' ? comparison : -comparison;
-    });
-    
+  const filterSetups = useCallback((status?: Setup['status']): Setup[] => {
+    if (!status) return setups;
+    return setups.filter(s => s.status === status);
+  }, [setups]);
+
+  const filterSignals = useCallback((
+    type?: Signal['signalType'], 
+    strength?: Signal['strength']
+  ): Signal[] => {
+    let filtered = signals;
+    if (type) filtered = filtered.filter(s => s.signalType === type);
+    if (strength) filtered = filtered.filter(s => s.strength === strength);
     return filtered;
-  }, [setups, filters, sortBy, sortOrder]);
+  }, [signals]);
 
-  const selectSetup = useCallback((setup: TradeSetup | null) => {
-    setSelectedSetup(setup);
-  }, []);
-
-  const updateFilters = useCallback((newFilters: Partial<typeof filters>) => {
-    setFilters(prev => ({ ...prev, ...newFilters }));
-  }, []);
-
-  const clearFilters = useCallback(() => {
-    setFilters(defaultFilters);
-  }, []);
-
-  const setSortBy = useCallback((
-    newSortBy: 'score' | 'riskReward' | 'symbol',
-    order?: 'asc' | 'desc'
-  ) => {
-    if (newSortBy === sortBy && !order) {
-      // Toggle order if clicking same column
-      setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortByState(newSortBy);
-      setSortOrder(order || 'desc');
-    }
-  }, [sortBy]);
-
-  // Fetch setups on mount
+  // Initialize and set up real-time price updates
   useEffect(() => {
-    fetchSetups();
-    
-    // Set up polling for new setups (every 30 seconds)
-    const interval = setInterval(fetchSetups, 30000);
-    return () => clearInterval(interval);
-  }, [fetchSetups]);
+    refresh();
 
-  const value: SetupsContextType = {
+    // Update setup prices every 5 seconds
+    const interval = setInterval(() => {
+      setSetups(prev => updateSetupPrices(prev));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [refresh]);
+
+  const value: SetupsContextValue = {
     setups,
-    filteredSetups,
-    selectedSetup,
-    filters,
-    sortBy,
-    sortOrder,
-    loading,
+    signals,
+    isLoading,
     error,
-    fetchSetups,
-    selectSetup,
-    updateFilters,
-    clearFilters,
-    setSortBy,
+    refresh,
+    filterSetups,
+    filterSignals,
   };
 
-  return <SetupsContext.Provider value={value}>{children}</SetupsContext.Provider>;
-};
+  return (
+    <SetupsContext.Provider value={value}>
+      {children}
+    </SetupsContext.Provider>
+  );
+}
 
-export const useSetups = () => {
+export function useSetups() {
   const context = useContext(SetupsContext);
   if (context === undefined) {
-    throw new Error('useSetups must be used within a SetupsProvider');
+    throw new Error('useSetups must be used within SetupsProvider');
   }
   return context;
-};
+}

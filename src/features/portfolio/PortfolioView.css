@@ -1,0 +1,199 @@
+.portfolio {
+  padding: var(--gap-6);
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-4);
+}
+
+.portfolio__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--gap-4);
+}
+
+.portfolio__header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.portfolio__subtitle {
+  margin: var(--gap-2) 0 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.portfolio__actions {
+  display: flex;
+  gap: var(--gap-2);
+}
+
+.tab-button {
+  padding: var(--gap-2) var(--gap-4);
+  background: var(--panel);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.tab-button:hover {
+  background: var(--panel-hover);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.tab-button.active {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+/* Portfolio Summary */
+.portfolio__summary {
+  margin-bottom: var(--gap-4);
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--gap-4);
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-1);
+}
+
+.summary-label {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.summary-value {
+  color: var(--text);
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-percent {
+  font-size: 0.875rem;
+  margin-left: var(--gap-2);
+  opacity: 0.8;
+}
+
+/* Symbol Cell */
+.symbol-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.symbol-name {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.symbol-exchange {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* P&L Cell */
+.pnl-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.pnl-percent {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+/* Position Detail Modal */
+.position-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-6);
+}
+
+.position-detail__section h3 {
+  margin: 0 0 var(--gap-4) 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--gap-4);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--gap-3);
+  background: var(--panel-hover);
+  border-radius: var(--radius-md);
+}
+
+.detail-item .label {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.detail-item .value {
+  color: var(--text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Utility Classes */
+.text-success {
+  color: var(--success) !important;
+}
+
+.text-danger {
+  color: var(--danger) !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .portfolio {
+    padding: var(--gap-4);
+  }
+
+  .portfolio__header {
+    flex-direction: column;
+    gap: var(--gap-4);
+  }
+
+  .portfolio__actions {
+    width: 100%;
+  }
+
+  .tab-button {
+    flex: 1;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

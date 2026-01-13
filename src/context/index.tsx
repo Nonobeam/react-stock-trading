@@ -4,6 +4,8 @@ import { MarketDataProvider } from './MarketDataContext';
 import { SetupsProvider } from './SetupsContext';
 import { PositionsProvider } from './PositionsContext';
 import { PerformanceProvider } from './PerformanceContext';
+import { AccountProvider } from './AccountContext';
+import { TradingProvider } from './TradingContext';
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -24,7 +26,11 @@ export const AppProviders: React.FC<AppProvidersProps> = ({
         <SetupsProvider>
           <PositionsProvider>
             <PerformanceProvider>
-              {children}
+              <AccountProvider>
+                <TradingProvider>
+                  {children}
+                </TradingProvider>
+              </AccountProvider>
             </PerformanceProvider>
           </PositionsProvider>
         </SetupsProvider>
@@ -33,9 +39,17 @@ export const AppProviders: React.FC<AppProvidersProps> = ({
   );
 };
 
+// Re-export providers
+export { MarketDataProvider } from './MarketDataContext';
+export { AccountProvider } from './AccountContext';
+export { PositionsProvider } from './PositionsContext';
+export { SetupsProvider } from './SetupsContext';
+
 // Re-export hooks for convenience
 export { useWebSocket } from './WebSocketContext';
 export { useMarketData } from './MarketDataContext';
 export { useSetups } from './SetupsContext';
 export { usePositions } from './PositionsContext';
 export { usePerformance } from './PerformanceContext';
+export { useAccount } from './AccountContext';
+export { useTrading } from './TradingContext';

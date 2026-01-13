@@ -3,19 +3,46 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 240px;
   display: flex;
   flex-direction: column;
   background: var(--panel);
   border-right: 1px solid var(--border);
   box-shadow: var(--shadow-lg);
   z-index: 1000;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navigation--collapsed {
+  width: 60px;
+}
+
+.navigation--expanded {
+  width: 240px;
+}
+
+.navigation-spacer {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navigation-spacer--collapsed {
+  width: 60px;
+}
+
+.navigation-spacer--expanded {
+  width: 240px;
 }
 
 .navigation__brand {
-  padding: 2rem 1.5rem;
+  padding: 4.5rem 1.5rem 2rem 1.5rem;
   border-bottom: 1px solid var(--border);
   background: linear-gradient(135deg, var(--panel), var(--panel-elevated));
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.navigation--collapsed .navigation__brand {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .navigation__title {
@@ -24,6 +51,8 @@
   font-weight: 700;
   color: var(--accent);
   letter-spacing: -0.5px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .navigation__subtitle {
@@ -33,6 +62,8 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .navigation__items {
@@ -47,6 +78,8 @@
 .navigation__item {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
   padding: 0.875rem 1rem;
   background: transparent;
   color: var(--muted);
@@ -58,6 +91,29 @@
   font-weight: 500;
   font-family: inherit;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.navigation--collapsed .navigation__item {
+  padding: 0.875rem;
+  justify-content: center;
+  gap: 0;
+}
+
+.navigation__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.navigation__icon svg {
+  width: 20px;
+  height: 20px;
 }
 
 .navigation__item:hover {
@@ -79,12 +135,28 @@
 
 .navigation__label {
   white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.navigation--collapsed .navigation__label {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
 }
 
 .navigation__status {
   padding: 1rem 1.5rem;
-  border-top: 1px solid var(--color-border);
-  background: var(--color-bg-tertiary);
+  border-top: 1px solid var(--border);
+  background: var(--panel-elevated);
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.navigation--collapsed .navigation__status {
+  opacity: 0;
+  padding: 0.5rem;
+  overflow: hidden;
 }
 
 /* Mobile Navigation */

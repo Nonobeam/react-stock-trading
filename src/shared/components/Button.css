@@ -2,28 +2,28 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: var(--gap-2);
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition);
   font-family: inherit;
   text-align: center;
 }
 
 .button--small {
-  padding: 0.5rem 1rem;
+  padding: var(--gap-2) var(--gap-3);
   font-size: 0.875rem;
 }
 
 .button--medium {
-  padding: 0.75rem 1.5rem;
+  padding: var(--gap-3) var(--gap-4);
   font-size: 1rem;
 }
 
 .button--large {
-  padding: 1rem 2rem;
+  padding: var(--gap-4) var(--gap-6);
   font-size: 1.125rem;
 }
 
@@ -32,47 +32,47 @@
 }
 
 .button--primary {
-  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
-  color: var(--text);
-  box-shadow: 0 2px 8px rgba(30, 77, 179, 0.3);
+  background: var(--accent);
+  color: var(--bg);
+  box-shadow: var(--shadow-md);
 }
 
 .button--primary:hover:not(.button--disabled) {
-  background: linear-gradient(180deg, var(--accent-light), var(--accent));
+  filter: brightness(1.1);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(30, 77, 179, 0.4);
+  box-shadow: var(--glow-accent);
 }
 
 .button--primary:active:not(.button--disabled) {
   transform: translateY(0);
-  box-shadow: 0 1px 4px rgba(30, 77, 179, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 .button--secondary {
-  background: transparent;
+  background: var(--panel);
   color: var(--text);
   border: 1px solid var(--border);
 }
 
 .button--secondary:hover:not(.button--disabled) {
   border-color: var(--accent);
-  background: rgba(30, 77, 179, 0.1);
+  background: var(--panel-hover);
 }
 
-.button--success {
-  background: var(--color-success);
-  color: white;
-  box-shadow: var(--shadow-md);
+.button--outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
 }
 
-.button--success:hover:not(.button--disabled) {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+.button--outline:hover:not(.button--disabled) {
+  background: var(--accent);
+  color: var(--bg);
+  box-shadow: var(--glow-accent);
 }
 
 .button--danger {
-  background: linear-gradient(180deg, var(--danger), #c53030);
+  background: var(--danger);
   color: var(--text);
   box-shadow: var(--shadow-sm);
 }
@@ -85,13 +85,13 @@
 
 .button--warning {
   background: var(--warning);
-  color: #000;
+  color: var(--bg);
   box-shadow: var(--shadow-sm);
 }
 
 .button--warning:hover:not(.button--disabled) {
   filter: brightness(1.1);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
 }
 
@@ -104,7 +104,6 @@
 .button--ghost:hover:not(.button--disabled) {
   background: var(--panel);
   color: var(--text);
-  color: var(--color-text-primary);
 }
 
 .button--disabled {

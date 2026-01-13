@@ -6,7 +6,7 @@ interface CardProps {
   title?: string;
   subtitle?: string;
   className?: string;
-  variant?: 'default' | 'success' | 'warning' | 'danger' | 'info';
+  variant?: 'default' | 'elevated' | 'hoverable';
   padding?: 'small' | 'medium' | 'large';
   onClick?: () => void;
 }

@@ -1,16 +1,22 @@
 :root {
-  /* Navy Theme - Core Colors */
-  --bg: #071033;
-  --panel: #0b1a3a;
-  --accent: #1e4db3;
-  --muted: #6b80a6;
-  --text: #DDEBFF;
+  /* Fintech Neon Theme - Core Colors */
+  --bg: #0f0f10;           /* Deep charcoal background */
+  --bg-secondary: #1a1a1c; /* Slightly lighter for depth */
+  --panel: #1e1f23;        /* Card/panel background */
+  --accent: #dadd56;       /* Neon yellow-green - primary actions */
+  --accent-glow: #dadd56;  /* Glow color for highlights */
+  --muted: #6b6d7a;        /* Muted gray for secondary text */
+  --text: #e8e9ed;         /* Off-white primary text */
+  --text-secondary: #9396a3; /* Secondary text */
   
   /* Derived Colors */
-  --panel-elevated: #0e1f45;
-  --accent-dark: #153b8f;
-  --accent-light: #2b5dc9;
-  --border: rgba(255, 255, 255, 0.06);
+  --panel-elevated: #25262b;  /* Elevated surfaces */
+  --panel-hover: #2b2d33;     /* Hover states */
+  --accent-dark: #c4c748;     /* Darker neon for pressed states */
+  --accent-light: #e8eb7a;    /* Lighter neon for highlights */
+  --accent-muted: rgba(218, 221, 86, 0.15); /* Muted accent for backgrounds */
+  --border: rgba(255, 255, 255, 0.06);  /* Subtle borders */
+  --border-light: rgba(255, 255, 255, 0.1); /* Slightly visible borders */
   
   /* Status Colors */
   --success: #4ade80;
@@ -18,17 +24,45 @@
   --danger: #ef4444;
   --info: #3b82f6;
   
-  /* Layout Tokens */
-  --radius: 8px;
-  --gap: 12px;
-  --gap-sm: 8px;
-  --gap-lg: 16px;
-  --gap-xl: 24px;
+  /* Layout Tokens - Fintech Design System */
+  --radius: 16px;         /* Medium rounded corners */
+  --radius-sm: 8px;       /* Small radius */
+  --radius-lg: 20px;      /* Large radius */
+  --radius-xl: 24px;      /* Extra large for cards */
   
-  /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(4, 8, 20, 0.4);
-  --shadow: 0 6px 20px rgba(4, 8, 20, 0.6);
-  --shadow-lg: 0 12px 48px rgba(4, 8, 20, 0.8);
+  /* Spacing System - 8px base */
+  --gap: 16px;
+  --gap-xs: 8px;
+  --gap-sm: 12px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+  --gap-xl: 32px;
+  --gap-2xl: 48px;
+  
+  /* Shadows - Soft elevation */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  
+  /* Inner shadows for depth */
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  
+  /* Neon glow effects */
+  --glow-accent: 0 0 20px rgba(218, 221, 86, 0.3),
+                 0 0 40px rgba(218, 221, 86, 0.15);
+  --glow-accent-strong: 0 0 30px rgba(218, 221, 86, 0.5),
+                        0 0 60px rgba(218, 221, 86, 0.25);
+  
+  /* Glass effect */
+  --glass-bg: rgba(30, 31, 35, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: blur(12px);
+  
+  /* Transitions - Smooth and professional */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
   
   /* Typography Scale */
   --text-xs: 0.75rem;
@@ -37,6 +71,8 @@
   --text-lg: 1.125rem;
   --text-xl: 1.25rem;
   --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
   
   /* DEPRECATED - Remove after migration complete */
   --color-bg-primary: var(--bg);
@@ -95,72 +131,103 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text);
   font-weight: 600;
   line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
-h5 { font-size: 1.1rem; }
-h6 { font-size: 1rem; }
+h1 { font-size: var(--text-4xl); font-weight: 700; }
+h2 { font-size: var(--text-3xl); font-weight: 700; }
+h3 { font-size: var(--text-2xl); font-weight: 600; }
+h4 { font-size: var(--text-xl); font-weight: 600; }
+h5 { font-size: var(--text-lg); font-weight: 600; }
+h6 { font-size: var(--text-base); font-weight: 600; }
+
+/* Financial numbers styling */
+.number-display,
+.price-large {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
 
 a {
   color: var(--accent);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color var(--transition-fast);
 }
 
 a:hover {
   color: var(--accent-light);
+  text-shadow: var(--glow-accent);
 }
 
 button {
   font-family: inherit;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0.625rem 1.25rem;
-  border-radius: 6px;
-  border: 1px solid transparent;
-  background: var(--color-primary);
-  color: white;
+  font-size: var(--text-base);
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent);
+  color: var(--bg);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
 }
 
 button:hover:not(:disabled) {
-  background: var(--color-primary-light);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-accent);
 }
 
 button:active:not(:disabled) {
   transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
+  transform: none;
+}
+
+/* Secondary button variant */
+button.secondary {
+  background: var(--panel-elevated);
+  color: var(--text);
+  border: 1px solid var(--border-light);
+}
+
+button.secondary:hover:not(:disabled) {
+  background: var(--panel-hover);
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
 }
 
 input, select, textarea {
   font-family: inherit;
-  font-size: 1rem;
-  padding: 0.625rem;
-  border-radius: 6px;
-  border: 1px solid var(--color-border);
-  background: var(--color-bg-tertiary);
-  color: var(--color-text-primary);
-  transition: all 0.2s ease;
+  font-size: var(--text-base);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  transition: all var(--transition);
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+  border-color: var(--accent);
+  background: var(--panel-elevated);
+  box-shadow: 0 0 0 3px var(--accent-muted),
+              var(--glow-accent);
 }
 
 input::placeholder, textarea::placeholder {
-  color: var(--color-text-muted);
+  color: var(--text-secondary);
+  opacity: 0.6;
 }
 
 code {

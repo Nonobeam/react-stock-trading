@@ -3,9 +3,19 @@
  * Handles connection, subscriptions, and message routing
  */
 
-import type { PriceUpdateMessage, MarketIndexMessage, TickMessage } from '../../shared/types';
+import type { 
+  PriceUpdateMessage, 
+  MarketIndexMessage, 
+  TickMessage,
+  WebSocketMessage as WSMessage,
+  WebSocketMessageType,
+  StockInfoData,
+  TopPriceData,
+  OHLCData,
+  MarketIndexData
+} from '../../shared/types';
 
-type WebSocketMessage = 
+type LegacyWebSocketMessage = 
   | { type: 'price'; data: PriceUpdateMessage }
   | { type: 'index'; data: MarketIndexMessage }
   | { type: 'tick'; data: TickMessage }
@@ -13,10 +23,11 @@ type WebSocketMessage =
   | { type: 'setup'; data: unknown }
   | { type: 'position'; data: unknown };
 
-type MessageCallback = (message: WebSocketMessage) => void;
+type MessageCallback = (message: LegacyWebSocketMessage | WSMessage) => void;
+type TypedMessageHandler = (data: any) => void;
 
 // TODO: Configure from environment variables
-const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws/market';
+const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8080/ws';
 
 export class WebSocketClient {
   private ws: WebSocket | null = null;
@@ -27,6 +38,12 @@ export class WebSocketClient {
   private callbacks = new Map<string, Set<MessageCallback>>();
   private connectionStatus: 'connected' | 'disconnected' | 'reconnecting' = 'disconnected';
   private statusCallbacks = new Set<(status: typeof this.connectionStatus) => void>();
+  
+  // New: Topic-based subscription management
+  private subscriptions = new Set<string>();
+  private messageHandlers = new Map<WebSocketMessageType, Set<TypedMessageHandler>>();
+  private throttleMap = new Map<string, number>(); // For throttling high-frequency updates
+  private readonly THROTTLE_INTERVAL = 1000; // 1 second
 
   constructor(url: string = WS_URL) {
     this.url = url;
@@ -46,15 +63,19 @@ export class WebSocketClient {
           this.reconnectAttempts = 0;
           this.reconnectDelay = 1000;
           this.notifyStatusChange();
+          
+          // Restore subscriptions after reconnect
+          this.restoreSubscriptions();
+          
           resolve();
         };
 
         this.ws.onmessage = (event) => {
           try {
-            const message: WebSocketMessage = JSON.parse(event.data);
+            const message: LegacyWebSocketMessage | WSMessage = JSON.parse(event.data);
             this.routeMessage(message);
           } catch (error) {
-            console.error('[WebSocket] Failed to parse message:', error);
+            console.error('[WebSocket] Failed to parse message:', error, 'Raw:', event.data);
           }
         };
 
@@ -169,8 +190,40 @@ export class WebSocketClient {
   /**
    * Route incoming messages to appropriate callbacks
    */
-  private routeMessage(message: WebSocketMessage): void {
-    // Route to specific channel callbacks
+  private routeMessage(message: LegacyWebSocketMessage | WSMessage): void {
+    // Check if this is a new-style WebSocket message with type field
+    if ('type' in message && typeof message.type === 'string') {
+      // Handle new-style typed messages (STOCK_INFO, TOP_PRICE, OHLC, MARKET_INDEX)
+      const messageType = message.type as WebSocketMessageType;
+      const handlers = this.messageHandlers.get(messageType);
+      
+      if (handlers && handlers.size > 0) {
+        // Apply throttling for STOCK_INFO messages
+        if (messageType === 'STOCK_INFO' && 'data' in message) {
+          const data = message.data as StockInfoData;
+          const throttleKey = `${messageType}:${data.symbol}`;
+          const now = Date.now();
+          const lastUpdate = this.throttleMap.get(throttleKey) || 0;
+          
+          if (now - lastUpdate < this.THROTTLE_INTERVAL) {
+            return; // Skip this update (throttled)
+          }
+          
+          this.throttleMap.set(throttleKey, now);
+        }
+        
+        // Call all registered handlers for this message type
+        handlers.forEach((handler) => {
+          try {
+            handler('data' in message ? message.data : message);
+          } catch (error) {
+            console.error(`[WebSocket] Handler error for ${messageType}:`, error);
+          }
+        });
+      }
+    }
+    
+    // Also route to legacy channel-based callbacks for backward compatibility
     const channelCallbacks = this.callbacks.get(message.type);
     
     if (channelCallbacks) {
@@ -181,6 +234,81 @@ export class WebSocketClient {
           console.error('[WebSocket] Callback error:', error);
         }
       });
+    }
+  }
+
+  // ============================================================================
+  // Enhanced Topic-Based Subscription Methods
+  // ============================================================================
+
+  /**
+   * Subscribe to multiple topics at once
+   * Topics follow pattern: quotes/krx/mdds/v2/stockinfo/{symbol}
+   */
+  subscribeToTopics(topics: string[]): void {
+    topics.forEach(topic => this.subscriptions.add(topic));
+    
+    this.send({
+      action: 'subscribe',
+      topics: topics
+    });
+    
+    console.log('[WebSocket] Subscribed to topics:', topics);
+  }
+
+  /**
+   * Unsubscribe from multiple topics
+   */
+  unsubscribeFromTopics(topics: string[]): void {
+    topics.forEach(topic => this.subscriptions.delete(topic));
+    
+    this.send({
+      action: 'unsubscribe',
+      topics: topics
+    });
+    
+    console.log('[WebSocket] Unsubscribed from topics:', topics);
+  }
+
+  /**
+   * Restore all subscriptions (used after reconnect)
+   */
+  private restoreSubscriptions(): void {
+    if (this.subscriptions.size > 0) {
+      const topics = Array.from(this.subscriptions);
+      this.send({
+        action: 'subscribe',
+        topics: topics
+      });
+      console.log('[WebSocket] Restored subscriptions:', topics);
+    }
+  }
+
+  /**
+   * Register a handler for specific message type
+   * Multiple handlers can be registered for the same type
+   */
+  on(messageType: WebSocketMessageType, handler: TypedMessageHandler): () => void {
+    if (!this.messageHandlers.has(messageType)) {
+      this.messageHandlers.set(messageType, new Set());
+    }
+    
+    this.messageHandlers.get(messageType)!.add(handler);
+    
+    // Return unsubscribe function
+    return () => this.off(messageType, handler);
+  }
+
+  /**
+   * Remove a handler for specific message type
+   */
+  off(messageType: WebSocketMessageType, handler: TypedMessageHandler): void {
+    const handlers = this.messageHandlers.get(messageType);
+    if (handlers) {
+      handlers.delete(handler);
+      if (handlers.size === 0) {
+        this.messageHandlers.delete(messageType);
+      }
     }
   }
 

@@ -1,72 +1,61 @@
 .card {
   background: var(--panel);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
 }
 
 .card--default {
-  border-left: 4px solid var(--accent);
+  /* Base card styling */
 }
 
-.card--success {
-  border-left: 4px solid var(--success);
+.card--elevated {
+  box-shadow: var(--shadow-lg);
+  border: none;
 }
 
-.card--warning {
-  border-left: 4px solid var(--warning);
-}
-
-.card--danger {
-  border-left: 4px solid var(--danger);
-}
-
-.card--info {
-  border-left: 4px solid var(--info);
-}
-
-.card--small {
-  padding: 0.75rem;
-}
-
-.card--medium {
-  padding: 1.5rem;
-}
-
-.card--large {
-  padding: 2rem;
-}
-
-.card--clickable {
+.card--hoverable {
   cursor: pointer;
 }
 
-.card--clickable:hover {
+.card--hoverable:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
   border-color: var(--accent);
 }
 
+.card--small {
+  padding: var(--gap-3);
+}
+
+.card--medium {
+  padding: var(--gap-4);
+}
+
+.card--large {
+  padding: var(--gap-6);
+}
+
 .card__header {
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--gap-4);
+  padding-bottom: var(--gap-3);
+  border-bottom: 1px solid var(--border);
 }
 
 .card__title {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: var(--text);
 }
 
 .card__subtitle {
-  margin: 0.5rem 0 0 0;
+  margin: var(--gap-2) 0 0 0;
   font-size: 0.875rem;
-  color: var(--color-text-muted);
+  color: var(--muted);
 }
 
 .card__content {
-  color: var(--color-text-secondary);
+  color: var(--text);
 }

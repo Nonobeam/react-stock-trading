@@ -12,7 +12,14 @@ import type {
   RiskCalculationParams,
   Position,
   PerformanceMetrics,
-  EquityPoint
+  EquityPoint,
+  AccountInfo,
+  PortfolioHolding,
+  OrderRequest,
+  Order,
+  DailyBar,
+  IntradayBar,
+  SymbolInfo
 } from '../../shared/types';
 
 // TODO: Configure from environment variables
@@ -317,6 +324,84 @@ class APIClient {
     regime: Record<string, { winRate: number; avgR: number; count: number }>;
   }> {
     return this.get('/performance/distributions');
+  }
+
+  // ============================================================================
+  // Account & Portfolio APIs
+  // ============================================================================
+
+  /**
+   * Get account information (balance, account number, name)
+   */
+  async getAccountInfo(): Promise<AccountInfo> {
+    return this.get('/account/info');
+  }
+
+  /**
+   * Get portfolio holdings with current market prices
+   */
+  async getPortfolio(): Promise<PortfolioHolding[]> {
+    return this.get('/account/portfolio');
+  }
+
+  // ============================================================================
+  // Trading / Order APIs
+  // ============================================================================
+
+  /**
+   * Place a new order (BUY/SELL)
+   */
+  async placeOrder(request: OrderRequest): Promise<{ orderId: string; status: string; message: string }> {
+    return this.post('/orders', request);
+  }
+
+  /**
+   * Cancel an existing order
+   */
+  async cancelOrder(orderId: string): Promise<{ orderId: string; status: string; message: string }> {
+    return this.post(`/orders/${orderId}/cancel`, {});
+  }
+
+  /**
+   * Get all orders (pending, filled, cancelled)
+   * Note: This endpoint is assumed to exist based on typical trading API patterns
+   */
+  async getOrders(): Promise<Order[]> {
+    return this.get('/orders');
+  }
+
+  // ============================================================================
+  // Historical Market Data APIs
+  // ============================================================================
+
+  /**
+   * Get historical daily OHLCV bars
+   */
+  async getHistoricalDaily(
+    symbol: string,
+    from: string,
+    to: string
+  ): Promise<DailyBar[]> {
+    return this.get('/market/history/daily', { symbol, from, to });
+  }
+
+  /**
+   * Get historical intraday OHLCV bars (1m, 5m, 15m, 30m, 1h)
+   */
+  async getHistoricalIntraday(
+    symbol: string,
+    interval: string,
+    from: string,
+    to: string
+  ): Promise<IntradayBar[]> {
+    return this.get('/market/history/intraday', { symbol, interval, from, to });
+  }
+
+  /**
+   * Get current symbol information (price, ceiling, floor, bid/ask)
+   */
+  async getSymbolInfo(symbol: string): Promise<SymbolInfo> {
+    return this.get(`/market/symbol/${symbol}`);
   }
 }
 
