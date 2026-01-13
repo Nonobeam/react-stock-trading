@@ -3,20 +3,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem;
+  padding: var(--gap-2xl) var(--gap-xl); /* Major section padding */
   text-align: center;
   color: var(--color-text-muted);
 }
 
 .empty-state__title {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 var(--gap-xs) 0; /* Small gap */
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-text-secondary);
 }
 
 .empty-state__message {
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 var(--gap-lg) 0; /* Card padding */
   max-width: 400px;
   font-size: 0.875rem;
   line-height: 1.6;
@@ -24,7 +24,7 @@
 }
 
 .empty-state__action {
-  padding: 0.75rem 1.5rem;
+  padding: var(--gap-sm) var(--gap-lg); /* Button padding */
   font-size: 1rem;
   font-weight: 600;
   color: white;

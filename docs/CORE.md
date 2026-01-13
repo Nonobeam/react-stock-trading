@@ -1824,3 +1824,1952 @@ This screen is where the AI's monitoring work surfaces as actionable signals.
 │ │
 ```
 # Phase 2
+│                                                            ││
+│ │ │ [EXECUTE TRADE] [VIEW FULL CHART] [ASK AI] [DISMISS]     ││
+│ │ └────────────────────────────────────────────────────────────││
+│ └──────────────────────────────────────────────────────────────┘│
+│                                                                  │
+│ ┌──────────────────────────────────────────────────────────────┐│
+│ │ ⚡ SIGNAL CARD 2 (EXIT SIGNAL)                              ││
+│ │ ┌────────────────────────────────────────────────────────────││
+│ │ │ SELL SIGNAL                   Generated: 10:18 AM   [×] [⋮]││
+│ │ │ HPG - Hoa Phat Group                                       ││
+│ │ │ Priority: 🔴 URGENT                                        ││
+│ │ │                                                            ││
+│ │ │ Current Price: 34,200₫ (+0.6%)                            ││
+│ │ │ Your Position: 600 shares @ 28,500 entry                  ││
+│ │ │ Current P/L: +3,420,000₫ (+20.0%, +2.3R)                 ││
+│ │ │                                                            ││
+│ │ │ REASON: Target 2 Reached ✓                                ││
+│ │ │                                                            ││
+│ │ │ ┌─────────────────────────────────────────────────────┐  ││
+│ │ │ │ RECOMMENDED ACTION                                  │  ││
+│ │ │ ├─────────────────────────────────────────────────────┤  ││
+│ │ │ │ Sell 25% (150 shares) at current price             │  ││
+│ │ │ │                                                     │  ││
+│ │ │ │ Expected Proceeds: 5,130,000₫                      │  ││
+│ │ │ │ Profit on this sale: ~855,000₫ (+20%)              │  ││
+│ │ │ │                                                     │  ││
+│ │ │ │ After Sale:                                         │  ││
+│ │ │ │ • Remaining: 450 shares                             │  ││
+│ │ │ │ • Move stop to 31,000 (lock profit)                │  ││
+│ │ │ │ • Next target: T3 trail with 20 EMA                │  ││
+│ │ │ │                                                     │  ││
+│ │ │ │ This follows your scaling plan ✓                   │  ││
+│ │ │ └─────────────────────────────────────────────────────┘  ││
+│ │ │                                                            ││
+│ │ │ [EXECUTE SALE] [ADJUST STOP] [VIEW POSITION] [DISMISS]   ││
+│ │ └────────────────────────────────────────────────────────────││
+│ └──────────────────────────────────────────────────────────────┘│
+│                                                                  │
+│ ... (More signal cards if multiple active)                      │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Component Specifications - SIGNALS SCREEN
+
+**1. Signal Tabs**
+- **ACTIVE:** Signals requiring action NOW (entry ready or exit needed)
+- **WATCH:** Setups forming, 70-95% ready, not actionable yet
+- **DISMISSED:** Signals you chose to skip
+- **HISTORY:** All past signals (for learning)
+- Badge count on each tab
+
+**2. Signal Card Structure**
+
+Every signal (entry or exit) has consistent structure:
+
+**Card Header:**
+- Signal type badge: "BUY SIGNAL" or "SELL SIGNAL" or "CAUTION"
+- Stock symbol and company name
+- Score (for entry signals)
+- Priority level (for exit signals): URGENT / HIGH / MEDIUM
+- Generated timestamp
+- Actions: [×] Dismiss, [⋮] More options
+
+**Live Data Section:**
+- Current price (updates every 3 seconds)
+- Price change % and direction
+- For exit signals: Your position details
+- Validity timer: "Valid until 11:00 AM (37 minutes)"
+- Freshness indicator:
+  - 🟢 FRESH (0-15 min old)
+  - 🟡 AGING (15-30 min)
+  - 🔴 STALE (>30 min, needs recalculation)
+
+**Setup Description:**
+- Brief setup name/type
+- Example: "Pullback to 20 EMA in Strong Uptrend"
+- Example: "Breakout from 4-week consolidation"
+
+**Entry & Risk Panel** (for BUY signals):
+- Suggested entry price or range
+- Stop loss level with rationale
+- Risk per share (Entry - Stop)
+- Risk as percentage
+- Target levels (T1, T2, T3) with:
+  - Price
+  - % gain
+  - R-multiple
+  - Planned action ("Sell 25%")
+- Risk/Reward ratio
+- Visual: Horizontal diagram showing Stop ← Entry → T1 → T2 → T3
+
+**Position Sizing Panel** (for BUY signals):
+- User's current capital
+- Recommended risk % (based on score)
+- Calculated risk amount (VND)
+- Position size (shares)
+- Position value (VND and % of capital)
+- **Vietnam-specific:** Worst-case scenario (3-day floor)
+- **Impact preview:**
+  - How many open positions after entry
+  - New aggregate risk level
+  - Remaining available cash
+  - Warnings if approaching limits
+
+**Exit Action Panel** (for SELL signals):
+- Which portion to sell (25%, 50%, 100%)
+- Expected proceeds
+- Profit/loss on this sale
+- What to do with remaining shares
+- Stop adjustment recommendation
+
+**AI Reasoning Panel** (Expandable):
+- Checklist of met/failed criteria
+- Each item: ✓ (met), ✗ (failed), ⚠️ (concern)
+- Comparison to historical trades
+- ML-predicted win probability (optional, if model available)
+- Special notes or warnings
+
+**Action Buttons:**
+- **Primary action:** [EXECUTE TRADE] or [EXECUTE SALE]
+- **Supporting actions:**
+  - [VIEW FULL CHART]: Opens full-screen chart
+  - [ASK AI]: Opens chat pre-populated with question
+  - [ADJUST SIZING]: Modify position size/risk
+  - [VIEW POSITION]: (for exit signals) Jump to position details
+  - [DISMISS]: Remove from active, move to dismissed
+
+**3. Signal Priority System**
+
+Signals are color-coded by urgency:
+
+**BUY Signals:**
+- 🎯 Score 9-10: Green border, "HIGH CONVICTION"
+- 👀 Score 8-9: Blue border, "GOOD OPPORTUNITY"
+- ⚠️ Score 7-8: Amber border, "ACCEPTABLE"
+- ℹ️ Score <7: Gray, shown only in WATCH tab
+
+**SELL/EXIT Signals:**
+- 🔴 URGENT: Red border
+  - Stop loss hit
+  - Thesis invalidated
+  - Risk limit approaching
+- 🟠 HIGH: Orange border
+  - Target reached
+  - Time stop triggered
+- 🟡 MEDIUM: Yellow border
+  - Position review recommended
+  - Consider adjusting stop
+
+**4. Execute Trade Flow** (When clicking [EXECUTE TRADE])
+
+Opens a modal with SSI execution guide:
+
+```
+┌────────────────────────────────────────────────────┐
+│ EXECUTE TRADE: VCB                          [×]    │
+├────────────────────────────────────────────────────┤
+│                                                    │
+│ STEP-BY-STEP GUIDE                                 │
+│                                                    │
+│ ☐ Step 1: Open SSI iBoard Platform                │
+│   [Open SSI] (button that launches SSI if linked) │
+│                                                    │
+│ ☐ Step 2: Navigate to VCB Trading Screen          │
+│   • Click "Trade" → "Stock"                       │
+│   • Enter symbol: VCB                             │
+│                                                    │
+│ ☐ Step 3: Place LIMIT BUY Order                   │
+│   Order Type: LIMIT                               │
+│   Symbol: VCB                                     │
+│   Price: 85,600₫  [COPY]                         │
+│   Quantity: 341 shares  [COPY]                    │
+│   Total Value: ~29,205,800₫                       │
+│                                                    │
+│   Confirm order details before submitting!        │
+│                                                    │
+│ ☐ Step 4: Place STOP-LIMIT SELL Order            │
+│   (After buy order is filled)                     │
+│   Order Type: STOP-LIMIT                          │
+│   Stop Price: 81,100₫  [COPY]                    │
+│   Limit Price: 80,600₫  [COPY] (0.6% buffer)     │
+│   Quantity: 341 shares                            │
+│                                                    │
+│ ☐ Step 5: Set LIMIT SELL for T1 (Optional)       │
+│   Price: 94,300₫  [COPY]                         │
+│   Quantity: 85 shares (25%)                       │
+│                                                    │
+│ ☐ Step 6: Confirm in This System                 │
+│   [I'VE PLACED THE ORDERS]                        │
+│   Fill price: [   85,600   ] (if different)      │
+│                                                    │
+│ [OPEN CHECKLIST IN NEW WINDOW] [PRINT]           │
+│                                                    │
+│ Need Help? [ASK AI HOW TO PLACE ORDERS]          │
+└────────────────────────────────────────────────────┘
+```
+
+**Features of Execution Guide:**
+- Interactive checklist (can check off steps)
+- [COPY] buttons next to all important numbers
+- Opens SSI platform if integration available
+- Can open in new window (keep visible while trading)
+- Printable
+- After execution, user confirms:
+  - Actual fill price (if different from suggested)
+  - Number of shares filled
+  - System records the trade and moves signal to "executed" history
+
+**5. Watch Tab** (Setups Forming)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ WATCH TAB                                                        │
+│                                                                  │
+│ These setups are forming but NOT ready yet                      │
+│ I'll alert you when they become ACTIVE                          │
+│                                                                  │
+│ ┌──────────────────────────────────────────────────────────────┐│
+│ │ 👀 WATCH SIGNAL                                              ││
+│ │ ┌────────────────────────────────────────────────────────────││
+│ │ │ HPG - Hoa Phat Group                                       ││
+│ │ │ Score: 8/10 (Could become 9-10)                           ││
+│ │ │ Status: 85% READY                                         ││
+│ │ │                                                            ││
+│ │ │ Current Price: 33,700₫ (+1.8%)                            ││
+│ │ │                                                            ││
+│ │ │ SETUP: Breakout Pullback                                  ││
+│ │ │                                                            ││
+│ │ │ ┌─────────────────────────────────────────────────────┐  ││
+│ │ │ │ WHAT'S NEEDED FOR ENTRY SIGNAL?                    │  ││
+│ │ │ ├─────────────────────────────────────────────────────┤  ││
+│ │ │ │ ✓ Broke above 33,500 resistance                    │  ││
+│ │ │ │ ✓ High volume confirmed                            │  ││
+│ │ │ │ ✓ Pulled back to 33,500 (former resistance)        │  ││
+│ │ │ │ ⏳ WAITING FOR: Bounce confirmation                │  ││
+│ │ │ │    Need: Volume spike + bullish candle             │  ││
+│ │ │ │    Estimated: Today or tomorrow                    │  ││
+│ │ │ │                                                     │  ││
+│ │ │ │ If completes: Score → 9/10, Entry @ 33,700-34,000 │  ││
+│ │ │ └─────────────────────────────────────────────────────┘  ││
+│ │ │                                                            ││
+│ │ │ [VIEW CHART] [SET CUSTOM ALERT] [REMOVE FROM WATCH]      ││
+│ │ └────────────────────────────────────────────────────────────││
+│ └──────────────────────────────────────────────────────────────┘│
+│                                                                  │
+│ ... (More watch signals)                                         │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Watch Signal Features:**
+- Shows % readiness (e.g., "85% READY")
+- Progress bar visual
+- Checklist of what's met and what's still needed
+- Estimated timeframe: "Today", "1-2 days", "3-5 days", "1-2 weeks"
+- If setup meets criteria, automatically moves to ACTIVE tab and triggers notification
+
+**6. Dismissed Tab**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ DISMISSED TAB                                                    │
+│                                                                  │
+│ Signals you chose not to take                                   │
+│                                                                  │
+│ ┌──────────────────────────────────────────────────────────────┐│
+│ │ VPB - Dismissed on Jan 13 at 11:05 AM                        ││
+│ │ Reason: "Too correlated with VCB"                            ││
+│ │ Outcome: +2.1% next day (missed opportunity)                 ││
+│ │ [VIEW DETAILS] [LEARN FROM THIS]                             ││
+│ └──────────────────────────────────────────────────────────────┘│
+│                                                                  │
+│ ... (More dismissed signals)                                     │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Purpose:** Learning tool - see which signals you dismissed and what happened
+- Required to enter reason for dismissal
+- System tracks outcome: Did stock move as predicted?
+- Monthly review: "You dismissed 5 signals, 3 would have been winners"
+- AI uses this to learn your preferences
+
+**7. History Tab**
+
+Similar to trade history, but for signals:
+- All signals ever generated
+- Filterable by: Date, Stock, Type, Score, Outcome
+- Outcome categories:
+  - Executed: You took the trade
+  - Missed: Signal expired before you acted
+  - Dismissed: You chose not to take it
+  - Invalid: Setup failed before entry
+- Shows what happened to the stock afterward
+- Used for system performance analysis:
+  - "AI generated 200 signals this quarter"
+  - "You executed 45 (22%)"
+  - "Of executed: 65% were winners"
+  - "Of dismissed: 55% would have been winners (opportunity cost)"
+
+---
+
+### 4.5 SCREEN 5: 📚 JOURNAL
+
+**Purpose:** Complete trade logging, performance tracking, and learning system
+
+Based on research of trading journal apps (Edgewonk, TraderSync, TradingDiary Pro), this combines automated data capture with manual reflections.
+
+#### Layout Structure (Desktop)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ JOURNAL HEADER                                                   │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ [ALL TRADES] [TAGGED] [FAVORITES] [CASE STUDIES]           │ │
+│ │                                                              │ │
+│ │ Search: [Filter by stock, date, tags...]                    │ │
+│ │ Sort: [Most Recent ▼]                                       │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────┐  ┌────────────────────────────────────────┐
+│ LEFT PANEL (30%)     │  │ RIGHT PANEL (70%)                      │
+│                      │  │                                        │
+│ TRADE LIST           │  │ SELECTED TRADE DETAIL                  │
+│ (Chronological)      │  │                                        │
+│                      │  │ (Opens when you click a trade)         │
+│ ┌──────────────────┐ │  │                                        │
+│ │✓ VCB Jan 17     +││  │ [Content shows when trade selected]    │
+│ │  +1.9M  +2.1R   ││  │                                        │
+│ │  15 days        ││  │                                        │
+│ ├──────────────────┤ │  │                                        │
+│ │✗ TCB Jan 13     -││  │                                        │
+│ │  -920K  -0.9R   ││  │                                        │
+│ │  8 days         ││  │                                        │
+│ ├──────────────────┤ │  │                                        │
+│ │✓ FPT Jan 9      +││  │                                        │
+│ │  +2.4M  +2.8R   ││  │                                        │
+│ │  22 days        ││  │                                        │
+│ ├──────────────────┤ │  │                                        │
+│ │  ... 20 more     │  │                                        │
+│ └──────────────────┘ │  │                                        │
+│                      │  │                                        │
+│ [+ MANUAL ENTRY]     │  │                                        │
+│ [EXPORT JOURNAL]     │  │                                        │
+└──────────────────────┘  └────────────────────────────────────────┘
+```
+
+#### Component Specifications - JOURNAL SCREEN
+
+**1. Trade List (Left Panel)**
+
+Compact list of all trades:
+- Symbol and date
+- Win/Loss icon (✓/✗)
+- Net P/L (VND)
+- R-multiple
+- Days held
+- Tags (if any)
+- Click to select → Shows detail in right panel
+- Selected trade highlighted
+- Color-coded: Green tint for winners, red for losers
+
+**2. Trade Detail Panel (Right Panel)**
+
+When you click a trade from the list, full details appear:
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ TRADE DETAIL: VNM (Jan 2 - Jan 17, 2025)                      │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│ [OVERVIEW] [CHART] [ANALYSIS] [NOTES] [LESSONS]               │
+│                                                                │
+│ ═══ OVERVIEW TAB (Default) ═══                                │
+│                                                                │
+│ ┌──────────────────────────────────────────────────────────┐  │
+│ │ ENTRY                                                    │  │
+│ ├──────────────────────────────────────────────────────────┤  │
+│ │ Date: Jan 2, 2025 at 10:23 AM                           │  │
+│ │ Price: 88,000₫                                           │  │
+│ │ Shares: 400                                              │  │
+│ │ Value: 35,200,000₫                                       │  │
+│ │                                                           │  │
+│ │ Setup Type: Pullback to 20 EMA                           │  │
+│ │ Setup Score: 8/10                                        │  │
+│ │ Market Regime: BULL (VN-Index 1,220)                    │  │
+│ │ Sector: Consumer Goods                                   │  │
+│ │                                                           │  │
+│ │ Entry Thesis:                                            │  │
+│ │ "Perfect pullback setup. Weekly uptrend strong,          │  │
+│ │ daily pulled back to 20 EMA with decreasing volume.      │  │
+│ │ Hammer candle formed today with volume spike.            │  │
+│ │ Consumer sector showing relative strength."              │  │
+│ └──────────────────────────────────────────────────────────┘  │
+│                                                                │
+│ ┌──────────────────────────────────────────────────────────┐  │
+│ │ EXIT                                                     │  │
+│ ├──────────────────────────────────────────────────────────┤  │
+│ │ Date: Jan 17, 2025 at 2:15 PM                           │  │
+│ │ Price: 93,500₫                                           │  │
+│ │ Reason: T1 Target Hit                                    │  │
+│ │ Days Held: 15 days                                       │  │
+│ │                                                           │  │
+│ │ Exit Thesis:                                             │  │
+│ │ "Hit T1 target as planned. Sold 25% (100 shares).       │  │
+│ │ In retrospect, should have held remaining 75% longer -   │  │
+│ │ stock continued to 96K the next day. Lesson: Don't       │  │
+│ │ exit entire position at T1."                             │  │
+│ └──────────────────────────────────────────────────────────┘  │
+│                                                                │
+│ ┌──────────────────────────────────────────────────────────┐  │
+│ │ FINANCIAL OUTCOME                                        │  │
+│ ├──────────────────────────────────────────────────────────┤  │
+│ │ Entry Value:        35,200,000₫                          │  │
+│ │ Exit Value:         37,400,000₫                          │  │
+│ │ Gross P/L:          +2,200,000₫ (+6.25%)                │  │
+│ │                                                           │  │
+│ │ Entry Commission:       -88,000₫ (0.25%)                │  │
+│ │ Exit Commission:        -93,500₫ (0.25%)                │  │
+│ │ Exit Tax:               -37,400₫ (0.10%)                │  │
+│ │ ─────────────────────────────────────                    │  │
+│ │ NET P/L:            +1,981,100₫ (+5.63%)                │  │
+│ │ R-Multiple:          +2.1R                               │  │
+│ │                                                           │  │
+│ │ Initial Risk:        1,200,000₫ (1.2% of capital)       │  │
+│ │ Actual Return:       +1.2% of capital                    │  │
+│ └──────────────────────────────────────────────────────────┘  │
+│                                                                │
+│ ┌──────────────────────────────────────────────────────────┐  │
+│ │ EXECUTION QUALITY: 8/10                                  │  │
+│ ├──────────────────────────────────────────────────────────┤  │
+│ │ Entry Timing: 9/10 ⭐                                    │  │
+│ │ Entry Price: 8/10                                        │  │
+│ │ Exit Timing: 7/10                                        │  │
+│ │ Exit Price: 8/10                                         │  │
+│ │ Risk Management: 9/10 ⭐                                 │  │
+│ │ Emotional Control: 8/10                                  │  │
+│ │                                                           │  │
+│ │ Overall: WELL EXECUTED ✓                                 │  │
+│ └──────────────────────────────────────────────────────────┘  │
+│                                                                │
+│ Tags: #pullback #winner #consumer #good-execution              │
+│ [+ ADD TAG]                                                   │
+│                                                                │
+│ [EDIT] [DELETE] [EXPORT] [ADD TO CASE STUDY]                 │
+└────────────────────────────────────────────────────────────────┘
+```
+
+**3. Chart Tab**
+
+Shows annotated chart of the trade:
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ ═══ CHART TAB ═══                                              │
+│                                                                │
+│ [Interactive price chart showing:]                             │
+│                                                                │
+│ • 30 days before entry to 30 days after exit                  │
+│ • Entry point marked with green arrow up                      │
+│ • Stop level as horizontal red line                           │
+│ • Targets (T1, T2, T3) as horizontal blue lines               │
+│ • Exit point marked with green arrow down                     │
+│ • 20 EMA and 50 EMA overlaid                                  │
+│ • Volume bars below                                            │
+│ • Annotations:                                                 │
+│   "Entered here on pullback"                                   │
+│   "Maximum favorable: 94,200"                                  │
+│   "Exited at T1"                                              │
+│                                                                │
+│ [FULL SCREEN] [DOWNLOAD IMAGE] [COMPARE TO SIMILAR TRADES]    │
+└────────────────────────────────────────────────────────────────┘
+```
+
+**4. Analysis Tab**
+
+Advanced metrics and comparisons:
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ ═══ ANALYSIS TAB ═══                                           │
+│                                                                │
+│ ┌──────────────────────────────────────────────────────────┐  │
+│ │ PERFORMANCE METRICS                                      │  │
+│ ├──────────────────────────────────────────────────────────┤  │
+│ │ Max Favorable Excursion (MFE): 94,200₫ (+7.0%, +2.3R)  │  │
+│ │ Max Adverse Excursion (MAE): 87,100₫ (-1.0%, -0.2R)    │  │
+│ │                                                           │  │
+│ │ Entry to MFE: 4 days                                     │  │
+│ │ MAE occurred: Day 2 (early shake-out)                    │  │
+│ │                                                           │  │
+│ │ Did stop need adjustment? NO ✓                           │  │
+│ │ (MAE of -0.2R shows stop was well-placed)               │  │
+│ │                                                           │  │
+│ │ Did targets need adjustment? MAYBE                       │  │
+│ │ (MFE reached +2.3R but exited at +2.1R - slightly       │  │
+│ │ early, but acceptable)                                   │  │
+│ └──────────────────────────────────────────────────────────┘  │
+│                                                                │
+│ ┌──────────────────────────────────────────────────────────┐  │
+│ │ COMPARISON TO SIMILAR TRADES                             │  │
+│ ├──────────────────────────────────────────────────────────┤  │
+│ │ You've made 8 "Pullback to 20 EMA" trades                │  │
+│ │                                                           │  │
+│ │ This trade: +2.1R in 15 days                             │  │
+│ │ Your average: +1.8R in 18 days                           │  │
+│ │ Status: ABOVE AVERAGE ✓                                  │  │
+│ │                                                           │  │
+│ │ Similar trades:                                           │  │
+│ │ • HPG Dec 5: +3.2R (your best pullback)                 │  │
+│ │ • VPB Nov 18: +2.8R                                      │  │
+│ │ • TCB Oct 22: +2.5R                                      │  │
+│ │ • STB Aug 15: +1.2R                                      │  │
+│ │ • MBB Jul 3: -0.8R (only loser)                         │  │
+│ │                                                           │  │
+│ │ [VIEW ALL SIMILAR TRADES]                                │  │
+│ └──────────────────────────────────────────────────────────┘  │
+│                                                                │
+│ ┌──────────────────────────────────────────────────────────┐  │
+│ │ CORRELATION ANALYSIS                                     │  │
+│ ├──────────────────────────────────────────────────────────┤  │
+│ │ This trade (VNM - Consumer) coincided with:             │  │
+│ │ • VCB (Banking): Open, uncorrelated (0.12)              │  │
+│ │ • HPG (Steel): Open, uncorrelated (0.18)                │  │
+│ │                                                           │  │
+│ │ Portfolio was well-diversified ✓                         │  │
+│ └──────────────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────────┘
+```
+
+**5. Notes Tab**
+
+Free-form notes with prompts:
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ ═══ NOTES TAB ═══                                              │
+│                                                                │
+│ ┌──────────────────────────────────────────────────────────┐  │
+│ │ PRE-TRADE (Entered before opening position)             │  │
+│ ├──────────────────────────────────────────────────────────┤  │
+│ │ Why am I entering this trade?                            │  │
+│ │ "Perfect technical setup matching my best historical     │  │
+│ │ trades. All criteria met. Consumer sector strong."       │  │
+│ │                                                           │  │
+│ │ What could go wrong?                                     │  │
+│ │ "Consumer spending could weaken. Sector rotation out     │  │
+│ │ of consumer goods. Stop at 85K protects me."            │  │
+│ │                                                           │  │
+│ │ Emotional state: CALM AND CONFIDENT                      │  │
+│ └──────────────────────────────────────────────────────────┘  │
+│                                                                │
+│ ┌──────────────────────────────────────────────────────────┐  │
+│ │ DURING TRADE (Updates while position open)              │  │
+│ ├──────────────────────────────────────────────────────────┤  │
+│ │ Jan 4: Dipped to 87,100 today. Feeling slight anxiety   │  │
+│ │ but stop still safe. Remind myself this is normal       │  │
+│ │ pullback volatility.                                     │  │
+│ │                                                           │  │
+│ │ Jan 9: Back aboveentry. Feeling good. Resisting urge   │  │
+│ │ to take profit too early.                                │  │
+│ │                                                           │  │
+│ │ Jan 15: Approaching T1 target. Ready to execute scaling │  │
+│ │ plan.                                                    │  │
+│ └──────────────────────────────────────────────────────────┘  │
+│                                                                │
+│ ┌──────────────────────────────────────────────────────────┐  │
+│ │ POST-TRADE (Reflection after closing)                   │  │
+│ ├──────────────────────────────────────────────────────────┤  │
+│ │ What went right?                                         │  │
+│ │ • Entry timing perfect                                   │  │
+│ │ • Stop placement good (MAE only -0.2R)                  │  │
+│ │ • Followed plan disciplined                              │  │
+│ │ • Emotional control maintained                           │  │
+│ │                                                           │  │
+│ │ What went wrong?                                         │  │
+│ │ • Exited entire position at T1 - should have held 75%   │  │
+│ │ • Stock went to 96K next day - left money on table      │  │
+│ │                                                           │  │
+│ │ What did I learn?                                        │  │
+│ │ • T1 means "take SOME profit" not "exit completely"     │  │
+│ │ • Need to follow scaling plan more strictly              │  │
+│ │ • In strong trends, targets are conservative             │  │
+│ │                                                           │  │
+│ │ Would I take this trade again?                           │  │
+│ │ YES - setup was excellent. Execution 8/10.               │  │
+│ │ Next time: Only sell 25% at T1, hold rest for T2.       │  │
+│ └──────────────────────────────────────────────────────────┘  │
+│                                                                │
+│ [SAVE NOTES] [ASK AI TO ANALYZE MY NOTES]                     │
+└────────────────────────────────────────────────────────────────┘
+```
+
+**6. Lessons Tab**
+
+AI-generated insights from this trade:
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ ═══ LESSONS TAB ═══                                            │
+│                                                                │
+│ 💡 AI-Generated Lessons from This Trade:                       │
+│                                                                │
+│ 1. SCALING OUT IS CRITICAL                                     │
+│    You exited 100% at T1, but stock continued +3% more.       │
+│    Following the 25-25-50 scaling plan would have added       │
+│    ~600K to your profit.                                       │
+│                                                                │
+│    Action: Create checklist reminder before every exit        │
+│                                                                │
+│ 2. YOUR PULLBACK SETUPS ARE STRONG                             │
+│    This is your 6th winning pullback in a row.                │
+│    Win rate on pullbacks: 88% (7/8)                           │
+│    Average: +1.9R                                              │
+│                                                                │
+│    Insight: You have an edge in pullback trading. Focus here. │
+│                                                                │
+│ 3. EARLY VOLATILITY IS NORMAL                                  │
+│    Your notes show anxiety on day 2 when price dipped.        │
+│    But MAE was only -0.2R - well within normal.               │
+│    8 of your 10 winners had MAE between -0.1R and -0.5R.      │
+│                                                                │
+│    Reminder: Don't panic at small adverse moves.              │
+│                                                                │
+│ [ADD TO MY TRADING RULES] [DISCUSS WITH AI]                   │
+└────────────────────────────────────────────────────────────────┘
+```
+
+**7. Manual Entry Feature**
+
+For trades done before using system:
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ ADD MANUAL TRADE ENTRY                                    [×]  │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│ Symbol: [____]                                                 │
+│                                                                │
+│ Entry Date: [___/___/____]  Time: [__:__]                     │
+│ Entry Price: [________]₫                                       │
+│ Shares: [____]                                                 │
+│                                                                │
+│ Exit Date: [___/___/____]  Time: [__:__]                      │
+│ Exit Price: [________]₫                                        │
+│                                                                │
+│ Setup Type: [Pullback ▼]                                      │
+│ Exit Reason: [Target Hit ▼]                                   │
+│                                                                │
+│ Notes (optional):                                              │
+│ [_______________________________]                              │
+│ [_______________________________]                              │
+│                                                                │
+│ [CALCULATE P/L] → System auto-calculates commissions/tax      │
+│                                                                │
+│ Net P/L: +1,981,100₫ (+5.63%)                                │
+│ R-Multiple: (Enter your stop) [________]₫ → [Calculate]       │
+│                                                                │
+│ [SAVE TRADE] [CANCEL]                                          │
+└────────────────────────────────────────────────────────────────┘
+```
+
+Allows importing historical trades for complete record.
+
+---
+
+### 4.6 SCREEN 6: 🤖 AI COACH
+
+**Purpose:** Conversational interface for trading questions, analysis, coaching, and learning
+
+Based on research of ChatGPT, Claude.ai, and specialized trading coaches, this combines chat with rich visualizations.
+
+#### Layout Structure (Desktop)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ AI COACH                                                         │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ [NEW CHAT] [CONVERSATION HISTORY ▼]          [@VCB] [@Portfolio]│ │
+│ └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────┐  ┌──────────────────────────────────────┐
+│ CONVERSATION         │  │ ARTIFACTS PANEL                      │
+│ HISTORY (20%)        │  │ (Optional, appears when AI creates   │
+│                      │  │  rich content like charts/tables)    │
+│ Today                │  │                                      │
+│ • VCB Setup Analysis │  │ [Shows charts, tables, code, etc.]   │
+│ • Portfolio Review   │  │                                      │
+│ • Risk Question      │  │                                      │
+│                      │  │                                      │
+│ Yesterday            │  │                                      │
+│ • Backtest Help      │  │                                      │
+│ • Stop Loss Advice   │  │                                      │
+│                      │  │                                      │
+│ Jan 11               │  │                                      │
+│ • Learning Session   │  │                                      │
+│ ...                  │  │                                      │
+└──────────────────────┘  └──────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ CHAT AREA (Full width if no artifacts, 55% if artifacts shown) │
+│                                                                  │
+│ [Scroll area with conversation]                                 │
+│                                                                  │
+│ ┌──────────────────────────────────────────────────────────┐   │
+│ │ 🤖 AI: Hello! I'm your trading coach. I can help you    │   │
+│ │ with strategy, analysis, risk management, and learning.  │   │
+│ │                                                           │   │
+│ │ Quick actions:                                            │   │
+│ │ • Analyze a setup: @VCB or @HPG                          │   │
+│ │ • Review portfolio: @Portfolio                            │   │
+│ │ • Check a trade: @Trade-VNM-Jan17                        │   │
+│ │ • Ask anything!                                           │   │
+│ └──────────────────────────────────────────────────────────┘   │
+│                                                                  │
+│ ┌──────────────────────────────────────────────────────────┐   │
+│ │ 👤 You: Should I take the VCB signal?                    │   │
+│ └──────────────────────────────────────────────────────────┘   │
+│                                                                  │
+│ ┌──────────────────────────────────────────────────────────┐   │
+│ │ 🤖 AI: Let me analyze the VCB signal for you...          │   │
+│ │                                                           │   │
+│ │ **SETUP QUALITY: 9/10** 🟢                               │   │
+│ │                                                           │   │
+│ │ ✅ STRENGTHS:                                             │   │
+│ │ • Perfect technical setup (pullback to 20 EMA)           │   │
+│ │ • Strong weekly uptrend confirmed                        │   │
+│ │ • Volume pattern ideal (decreased then spiked)           │   │
+│ │ • Matches your 3 best historical trades                  │   │
+│ │ • Banking sector showing strength                        │   │
+│ │                                                           │   │
+│ │ ⚠️ CONCERNS:                                              │   │
+│ │ • Banking exposure would reach 38% (near 40% limit)      │   │
+│ │ • You already hold VPB (correlation: 0.74)               │   │
+│ │ • Aggregate risk would be 5.7% (near 6% limit)           │   │
+│ │                                                           │   │
+│ │ **MY RECOMMENDATION: YES, BUT...**                        │   │
+│ │                                                           │   │
+│ │ Take the trade, but consider:                             │   │
+│ │ 1. Reduce size to 1.2% risk (instead of 1.5%)           │   │
+│ │ 2. Exit VPB first if it's weaker setup                   │   │
+│ │ 3. Don't add more banking stocks after this              │   │
+│ │                                                           │   │
+│ │ This setup is high quality and matches your edge.        │   │
+│ │                                                           │   │
+│ │ Want me to walk through the execution?                   │   │
+│ │                                                           │   │
+│ │ [EXECUTE TRADE] [ADJUST SIZE] [COMPARE TO VPB]          │   │
+│ └──────────────────────────────────────────────────────────┘   │
+│                                                                  │
+│ ... (conversation continues)                                     │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ INPUT AREA (Bottom, fixed)                                      │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ Type your question...                                       │ │
+│ │ [📎 Attach] [@Mention] [🎤 Voice]            [Send →]     │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+│                                                                  │
+│ Suggested questions:                                             │
+│ [Why did I lose on TCB?] [Analyze my last 10 trades]           │
+│ [What's my biggest weakness?] [Quiz me on risk management]      │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Component Specifications - AI COACH
+
+**1. Chat Interface Features**
+
+**@Mentions (Context Injection):**
+- @VCB → Injects current VCB data (price, indicators, setup status)
+- @Portfolio → Injects current portfolio state
+- @Trade-VNM-Jan17 → Injects specific trade details
+- @Watchlist → Injects entire watchlist
+- Autocomplete as you type @
+
+**Message Types:**
+
+**User Messages:**
+- Right-aligned, distinct background
+- Timestamp below
+- Can edit recent messages
+- Can regenerate AI response
+
+**AI Messages:**
+- Left-aligned
+- Supports markdown formatting:
+  - **Bold**, *italic*, `code`
+  - Bullet lists
+  - Number lists
+  - Tables
+  - Code blocks
+- Collapsible sections for long responses
+- Copy button for code/numbers
+- Thumbs up/down feedback
+- Regenerate button
+
+**Rich Content in AI Messages:**
+
+**Inline Action Buttons:**
+```
+Want me to execute this trade?
+[YES, GUIDE ME] [NO, JUST LEARNING]
+```
+
+**Data Tables:**
+```
+Here's your performance by setup type:
+
+| Setup Type | Trades | Win % | Avg R |
+|------------|--------|-------|-------|
+| Pullback   | 12     | 75%   | +1.8R |
+| Breakout   | 8      | 50%   | +0.8R |
+```
+
+**Embedded Charts:**
+AI can generate charts that appear inline or in artifacts panel
+
+**2. Artifacts Panel**
+
+When AI creates complex visual content (charts, detailed tables, interactive tools), they appear in separate panel:
+
+**Example Artifacts:**
+- **Equity curve chart** with annotations
+- **Risk breakdown pie chart**
+- **Trade comparison tables** (sortable, filterable)
+- **Backtest results** with full statistics
+- **Custom calculators** (position sizing, R:R, etc.)
+- **Educational diagrams** (explaining concepts)
+
+**Artifact Features:**
+- Full-screen option
+- Download as image/PDF
+- Interactive (can manipulate data)
+- Stays visible while continuing chat
+- Can have multiple artifacts, tab between them
+
+**3. Conversation History**
+
+Left sidebar showing past conversations:
+- Organized by date
+- Auto-titled based on content
+- Search within conversations
+- Star important conversations
+- Delete conversations
+- Export conversation as PDF
+
+**4. Specialized AI Modes**
+
+AI adapts tone and depth based on query type:
+
+**Coach Mode** (default):
+- Supportive, educational
+- Points out mistakes gently
+- Celebrates wins appropriately
+- Asks probing questions
+- Example: "I noticed you're cutting winners early. Let's explore why..."
+
+**Analyst Mode:**
+- Data-focused
+- Shows calculations
+- References specific metrics
+- Example: "Your Sharpe ratio of 1.45 is good. Here's the breakdown..."
+
+**Teacher Mode:**
+- Explains concepts
+- Uses analogies
+- Quizzes understanding
+- Example: "Let me explain RSI divergence with an example from your trades..."
+
+**Drill Sergeant Mode** (optional, user can toggle):
+- Strict, no-nonsense
+- Calls out rule violations directly
+- Example: "You broke your rule again. This is the third time this month."
+
+**5. Common AI Coach Use Cases**
+
+**A) Trade Analysis:**
+```
+You: "Should I take this HPG trade?"
+
+AI: [Analyzes signal]
+    [Shows pros/cons]
+    [Gives recommendation with reasoning]
+    [Offers to execute or adjust]
+```
+
+**B) Performance Review:**
+```
+You: "How am I doing this month?"
+
+AI: [Generates performance summary]
+    [Creates equity curve chart in artifacts]
+    [Highlights strengths and weaknesses]
+    [Suggests improvements]
+```
+
+**C) Learning & Education:**
+```
+You: "Explain Bollinger Band squeeze"
+
+AI: [Explains concept]
+    [Shows example from your watchlist]
+    [Links to trade where you used it]
+    [Offers to quiz you]
+```
+
+**D) Risk Management:**
+```
+You: "Can I add another position?"
+
+AI: [Checks current risk]
+    [Calculates remaining capacity]
+    [Warns if approaching limits]
+    [Suggests safer alternatives if needed]
+```
+
+**E) Psychological Support:**
+```
+You: "I'm frustrated after 3 losses in a row"
+
+AI: "I understand the frustration. Let me put this in perspective:
+    
+    Your last 3 trades: -1R, -0.8R, -1R = -2.8R total
+    Your last 20 trades: +12.4R
+    
+    Losing streaks are normal. Your system has 55% win rate,
+    which means 45% losers. Three losses happens often.
+    
+    Let's check: Did you follow your rules on these trades?
+    [Shows trade-by-trade analysis]
+    
+    ✓ All three followed entry criteria
+    ✓ All three had proper stops
+    ✓ Position sizing was correct
+    
+    These were good trades that didn't work. That's trading.
+    Your next trade should be taken with full confidence.
+    
+    Want to review your trading rules together?"
+```
+
+**F) Mistake Prevention:**
+```
+You: "I want to enter VCB at 2% risk"
+
+AI: "⚠️ HOLD ON
+    
+    VCB score is 9/10, which suggests 1.5% risk, not 2%.
+    
+    Also, entering VCB at 2% would:
+    • Push aggregate risk to 6.2% (exceeds 6% limit)
+    • Increase banking exposure to 40% (at limit)
+    
+    I recommend:
+    • Use 1.2% risk for VCB
+    • This keeps aggregate at 5.4% (safe)
+    
+    Still want 2%? I'll need you to confirm you're
+    overriding the risk management system."
+```
+
+**G) Historical Pattern Recognition:**
+```
+You: "This VCB setup looks good"
+
+AI: "Yes! This setup has 87% similarity to your best trades.
+    
+    [Shows comparison chart in artifacts panel]
+    
+    Similar past trades:
+    • HPG Dec 5: +3.2R (closest match: 92% similar)
+    • VPB Nov 18: +2.8R (89% similar)
+    • TCB Oct 22: +2.5R (85% similar)
+    
+    All three were pullback setups with similar:
+    • Volume patterns
+    • RSI levels (46-50 range)
+    • Sector momentum
+    
+    Your win rate on trades with >85% similarity: 78%
+    
+    This is YOUR type of trade. High confidence."
+```
+
+**6. Voice Mode**
+
+Click microphone icon to speak:
+- Speech-to-text
+- AI responds in text or voice (toggle)
+- Useful for:
+  - Hands-free while commuting
+  - Quick questions during market hours
+  - Accessibility
+
+**7. Suggested Questions**
+
+Below input, AI suggests relevant questions based on context:
+- After a loss: "Why did this trade fail?"
+- After opening position: "What should I watch for?"
+- Morning: "What setups are forming today?"
+- End of week: "Review my week"
+- After signal: "Should I take this?"
+
+---
+
+### 4.7 SCREEN 7: 🧪 BACKTEST LAB
+
+**Purpose:** Historical testing of strategies, parameter optimization, and system validation
+
+Based on research of QuantConnect, TradingView Strategy Tester, and Amibroker, this provides visual backtesting without coding.
+
+#### Layout Structure (Desktop)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ BACKTEST LAB                                                     │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ [MY BACKTESTS] [NEW BACKTEST] [TEMPLATES] [HELP]           │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────┐
+│ NEW BACKTEST CONFIGURATION                                        │
+│                                                                   │
+│ ┌────────────────────────────────────────────────────────────┐  │
+│ │ BASIC SETTINGS                                             │  │
+│ ├────────────────────────────────────────────────────────────┤  │
+│ │ Backtest Name: [____________________]                      │  │
+│ │                                                             │  │
+│ │ Date Range:                                                 │  │
+│ │ From: [Jan 1, 2022 ▼]  To: [Dec 31, 2024 ▼]              │  │
+│ │ Duration: 3 years                                           │  │
+│ │                                                             │  │
+│ │ Stocks to Test:                                             │  │
+│ │ ( ) All VN30                                               │  │
+│ │ (•) Custom List: [VCB, VPB, HPG, VNM, FPT + Add]          │  │
+│ │ ( ) Single Stock: [___]                                    │  │
+│ │                                                             │  │
+│ │ Starting Capital: [100,000,000]₫                           │  │
+│ └────────────────────────────────────────────────────────────┘  │
+│                                                                   │
+│ ┌────────────────────────────────────────────────────────────┐  │
+│ │ STRATEGY PARAMETERS                                        │  │
+│ ├────────────────────────────────────────────────────────────┤  │
+│ │ Setup Types to Include:                                    │  │
+│ │ ☑ Pullback to 20 EMA                                      │  │
+│ │ ☑ Pullback to 50 EMA                                      │  │
+│ │ ☑ Breakout                                                 │  │
+│ │ ☐ Mean Reversion                                           │  │
+│ │                                                             │  │
+│ │ Moving Averages:                                            │  │
+│ │ Fast EMA: [20 ▼]  Slow EMA: [50 ▼]                        │  │
+│ │ Long-term: 200 SMA (fixed)                                 │  │
+│ │                                                             │  │
+│ │ RSI Period: [14 ▼]                                         │  │
+│ │ ATR Period: [14 ▼]                                         │  │
+│ │                                                             │  │
+│ │ Entry Criteria:                                             │  │
+│ │ Minimum Score: [7 ▼] out of 10                            │  │
+│ │ Require volume confirmation: ☑                             │  │
+│ │ Require trend alignment: ☑                                 │  │
+│ │                                                             │  │
+│ │ Stop Loss:                                                  │  │
+│ │ Method: (•) ATR-based  ( ) Percentage  ( ) Technical      │  │
+│ │ ATR Multiplier: [2.0 ▼]                                    │  │
+│ │                                                             │  │
+│ │ Profit Targets:                                             │  │
+│ │ T1: [2R ▼] - Exit [25%]                                    │  │
+│ │ T2: [3R ▼] - Exit [25%]                                    │  │
+│ │ T3: Trail remaining with [20 EMA ▼]                        │  │
+│ │                                                             │  │
+│ │ Position Sizing:                                            │  │
+│ │ Risk per trade: [1.5%] of capital                          │  │
+│ │ Max positions: [6]                                          │  │
+│ │ Max risk aggregate: [6%]                                    │  │
+│ │                                                             │  │
+│ │ [OPTIMIZE PARAMETERS] [USE CURRENT LIVE SETTINGS]          │  │
+│ └────────────────────────────────────────────────────────────┘  │
+│                                                                   │
+│ ┌────────────────────────────────────────────────────────────┐  │
+│ │ COSTS & SLIPPAGE                                           │  │
+│ ├────────────────────────────────────────────────────────────┤  │
+│ │ Commission: [0.25%] per side                               │  │
+│ │ Tax: [0.1%] on sells                                       │  │
+│ │ Slippage: [0.3%] per side                                  │  │
+│ │                                                             │  │
+│ │ Total round-trip cost: ~0.7%                               │  │
+│ └────────────────────────────────────────────────────────────┘  │
+│                                                                   │
+│ [RUN BACKTEST] [SAVE AS TEMPLATE] [CANCEL]                      │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+**After clicking [RUN BACKTEST]:**
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│ BACKTEST RESULTS: "VN30 Pullback Strategy 2022-2024"            │
+│ ┌────────────────────────────────────────────────────────────┐  │
+│ │ Status: ✅ Complete (Ran 156 trades in 3.2 seconds)        │  │
+│ └────────────────────────────────────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────┐  ┌────────────────────────────────────────┐
+│ RESULTS TABS         │  │ [Content changes based on tab]         │
+│                      │  │                                        │
+│ • Overview           │  │                                        │
+│ • Equity Curve       │  │                                        │
+│ • Trade List         │  │                                        │
+│ • Analytics          │  │                                        │
+│ • Comparison         │  │                                        │
+│ • Export             │  │                                        │
+└──────────────────────┘  └────────────────────────────────────────┘
+
+═══ OVERVIEW TAB ═══
+
+┌────────────────────────────────────────────────────────────────┐
+│ KEY PERFORMANCE METRICS                                        │
+├────────────────────────────────────────────────────────────────┤
+│ ┌──────────────────┐ ┌──────────────────┐ ┌─────────────────┐│
+│ │ TOTAL RETURN     │ │ ANNUAL RETURN    │ │ EXPECTANCY      ││
+│ │                  │ │                  │ │                 ││
+│ │  +42.8%          │ │  +12.7% CAGR     │ │  +0.67R         ││
+│ │  (+42,800,000₫)  │ │                  │ │  per trade      ││
+│ └──────────────────┘ └──────────────────┘ └─────────────────┘│
+│                                                                │
+│ ┌──────────────────┐ ┌──────────────────┐ ┌─────────────────┐│
+│ │ WIN RATE         │ │ PROFIT FACTOR    │ │ MAX DRAWDOWN    ││
+│ │                  │ │                  │ │                 ││
+│ │  58.3%           │ │  2.15            │ │  -14.2%         ││
+│ │  (91W / 65L)     │ │  (Good)          │ │  (Acceptable)   ││
+│ └──────────────────┘ └──────────────────┘ └─────────────────┘│
+│                                                                │
+│ ┌──────────────────┐ ┌──────────────────┐ ┌─────────────────┐│
+│ │ SHARPE RATIO     │ │ AVG WIN / LOSS   │ │ TOTAL TRADES    ││
+│ │                  │ │                  │ │                 ││
+│ │  1.52            │ │  +2.1R / -0.9R   │ │  156            ││
+│ │  (Excellent)     │ │  (Ratio: 2.3)    │ │  (52/year)      ││
+│ └──────────────────┘ └──────────────────┘ └─────────────────┘│
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ COMPARISON TO BENCHMARK                                        │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│                Your Strategy    VN-Index Buy & Hold            │
+│ Return:            +42.8%            +18.2%          ✅        │
+│ Annual:            +12.7%            +5.8%           ✅        │
+│ Max DD:            -14.2%            -22.1%          ✅        │
+│ Sharpe:             1.52              0.41           ✅        │
+│                                                                │
+│ Your strategy BEATS buy-and-hold by +24.6 percentage points!  │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ MONTHLY RETURNS HEATMAP                                        │
+├────────────────────────────────────────────────────────────────┤
+│         Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   │
+│ 2022   +2.1  +3.4  -1.2  +4.5  +2.8  -2.1  +3.2  +1.8  -0.5   │
+│ 2023   +5.2  +2.1  +3.8  +1.2  -1.8  +4.1  +2.5  +3.9  +2.2   │
+│ 2024   +3.1  +4.2  +1.9  +5.1  +2.4  +3.3  -2.8  +2.1  +4.5   │
+│                                                                │
+│ [Green = positive, Red = negative, intensity = magnitude]     │
+└────────────────────────────────────────────────────────────────┘
+
+[COMPARE TO LIVE TRADING] [SAVE BACKTEST] [EXPORT REPORT]
+```
+
+**═══ EQUITY CURVE TAB ═══**
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ EQUITY CURVE CHART                                             │
+│                                                                │
+│ [Interactive line chart showing:]                              │
+│ • Starting capital: 100M                                       │
+│ • Ending capital: 142.8M                                       │
+│ • Drawdown periods shaded in red                               │
+│ • Each trade marked as dot on line                             │
+│ • Hoverable: Shows trade details at that point                 │
+│                                                                │
+│ [Options:]                                                     │
+│ ( ) Absolute value  (•) Percentage gain  ( ) R-multiples      │
+│ ☑ Show drawdowns  ☑ Show ☐ Show benchmark            │
+│                                                                │
+│ Notable Events:                                                │
+│ • Largest drawdown: Aug 2023 (-14.2%)                         │
+│ • Best month: Jan 2023 (+5.2%)                                │
+│ • Longest flat period: Apr-Jun 2022 (3 months)                │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ DRAWDOWN ANALYSIS                                              │
+│                                                                │
+│ [Chart showing underwater equity - distance from peak]         │
+│                                                                │
+│ Drawdown Statistics:                                           │
+│ • Maximum: -14.2% (lasted 47 days)                            │
+│ • Average: -4.3%                                               │
+│ • Recovery time (avg): 18 days                                 │
+│ • Time underwater: 32% of backtest period                      │
+│                                                                │
+│ Longest drawdowns:                                             │
+│ 1. Aug 15 - Oct 1, 2023: -14.2% (47 days)                    │
+│ 2. Mar 8 - Apr 22, 2022: -11.8% (45 days)                    │
+│ 3. Jun 12 - Jul 28, 2024: -9.5% (46 days)                    │
+└────────────────────────────────────────────────────────────────┘
+```
+
+**═══ TRADE LIST TAB ═══**
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ ALL BACKTEST TRADES (156 total)                               │
+│                                                                │
+│ Filter: [All ▼] [Winners] [Losers]                            │
+│ Sort: [Date ▼] [R-Multiple] [% Gain] [Days Held]              │
+│                                                                │
+│ ┌──┬──────┬──────────┬──────────┬──────┬───────┬─────┬─────┐ │
+│ │# │Symbol│Entry     │Exit      │Days  │Net P/L│R    │Reason││
+│ ├──┼──────┼──────────┼──────────┼──────┼───────┼─────┼─────┤ │
+│ │1 │VCB   │Jan 5,'22 │Jan 20,'22│15    │+1.8M  │+2.1R│T1   ││
+│ │  │      │85,000    │93,500    │      │+6.2%  │     │     ││
+│ ├──┼──────┼──────────┼──────────┼──────┼───────┼─────┼─────┤ │
+│ │2 │HPG   │Jan 12,'22│Feb 3,'22 │22    │+3.2M  │+2.9R│T2   ││
+│ │  │      │28,500    │37,100    │      │+18.5% │     │     ││
+│ ├──┼──────┼──────────┼──────────┼──────┼───────┼─────┼─────┤ │
+│ │3 │VPB   │Jan 18,'22│Jan 25,'22│7     │-880K  │-0.9R│Stop ││
+│ │  │      │24,500    │22,100    │      │-9.8%  │     │     ││
+│ │  │... 153 more rows                                        │ │
+│ └──┴──────┴──────────┴──────────┴──────┴───────┴─────┴─────┘ │
+│                                                                │
+│ Click any trade → View detailed replay with chart              │
+│                                                                │
+│ [EXPORT TO CSV] [ANALYZE SUBSET]                               │
+└────────────────────────────────────────────────────────────────┘
+```
+
+**Click a trade → Opens Trade Replay Modal:**
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ TRADE REPLAY: VCB (Jan 5 - Jan 20, 2022)              [×]    │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│ [Chart showing:]                                               │
+│ • 60 days before entry to 30 days after exit                  │
+│ • Entry point marked                                           │
+│ • Stop level                                                   │
+│ • Targets                                                      │
+│ • Exit point                                                   │
+│ • All indicators at entry time                                 │
+│                                                                │
+│ Entry Conditions:                                              │
+│ ✅ Score: 8/10                                                 │
+│ ✅ Price at 20 EMA                                             │
+│ ✅ Volume decreased during pullback                            │
+│ ✅ Weekly uptrend confirmed                                    │
+│                                                                │
+│ Outcome:                                                       │
+│ • Hit T1 target on day 15                                     │
+│ • Exited as planned                                            │
+│ • MFE: +2.3R  |  MAE: -0.1R                                   │
+│                                                                │
+│ [◀ PREVIOUS TRADE] [NEXT TRADE ▶] [ADD TO CASE STUDY]        │
+└────────────────────────────────────────────────────────────────┘
+```
+
+**═══ ANALYTICS TAB ═══**
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ DETAILED ANALYTICS                                             │
+│                                                                │
+│ ┌────────────────────────────────────────────────────────────┐│
+│ │ SETUP TYPE BREAKDOWN                                       ││
+│ ├────────────────────────────────────────────────────────────┤│
+│ │ Setup           Trades  Win%    Avg R   Total R   Best     ││
+│ │ Pullback 20EMA  87      62%     +0.8R   +69.6R   +4.2R     ││
+│ │ Pullback 50EMA  45      53%     +0.5R   +22.5R   +3.8R     ││
+│ │ Breakout        24      50%     +0.3R   +7.2R    +3.1R     ││
+│ │                                                             ││
+│ │ INSIGHT: Pullback to 20 EMA is your best setup!            ││
+│ │ Focus optimization efforts here.                            ││
+│ └────────────────────────────────────────────────────────────┘│
+│                                                                │
+│ ┌────────────────────────────────────────────────────────────┐│
+│ │ R-MULTIPLE DISTRIBUTION                                    ││
+│ │                                                             ││
+│ │ [Histogram chart]                                           ││
+│ │                                                             ││
+│ │ -2R: █ (2)                                                  ││
+│ │ -1R: ██████████ (58)  ← Losers cluster here (good!)       ││
+│ │  0R: ███ (7)                                                ││
+│ │ +1R: ████████ (32)                                          ││
+│ │ +2R: ████████████ (42)  ← Most common winner               ││
+│ │ +3R: ██████ (12)                                            ││
+│ │ +4R: ██ (3)                                                 ││
+│ │ +5R+: █ (2)           ← Long tail (excellent!)             ││
+│ │                                                             ││
+│ │ Pattern: Good (losers tight, winners spread)                ││
+│ └────────────────────────────────────────────────────────────┘│
+│                                                                │
+│ ┌────────────────────────────────────────────────────────────┐│
+│ │ MAE vs FINAL R SCATTER PLOT                                ││
+│ │                                                             ││
+│ │ [Scatter plot with regression line]                         ││
+│ │                                                             ││
+│ │ Finding: Most winners had MAE < 0.6R                        ││
+│ │ → Current stops (2.0 ATR) are well-positioned              ││
+│ │ → Don't widen stops                                         ││
+│ └────────────────────────────────────────────────────────────┘│
+│                                                                │
+│ ┌────────────────────────────────────────────────────────────┐│
+│ │ HOLDING PERIOD ANALYSIS                                    ││
+│ │                                                             ││
+│ │ Days Held    Trades    Win%     Avg R                       ││
+│ │ 1-7 days     23        48%      +0.2R  (Cut too early?)    ││
+│ │ 8-14 days    45        58%      +0.7R  (Sweet spot)        ││
+│ │ 15-21 days   52        61%      +0.9R  (Sweet spot)        ││
+│ │ 22-30 days   28        57%      +0.6R  (Still good)        ││
+│ │ 30+ days     8         50%      +0.4R  (Held too long?)    ││
+│ │                                                             ││
+│ │ INSIGHT: Best hold time is 8-21 days.                      ││
+│ │ Consider adding time stop at 25 days if not profitable.    ││
+│ └────────────────────────────────────────────────────────────┘│
+└────────────────────────────────────────────────────────────────┘
+```
+
+**═══ COMPARISON TAB ═══**
+
+Compare multiple backtests side-by-side:
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ COMPARE BACKTESTS                                              │
+│                                                                │
+│ Select backtests to compare:                                   │
+│ ☑ Current (20 EMA, 2.0 ATR stop)                              │
+│ ☑ Test A (25 EMA, 2.0 ATR stop)                               │
+│ ☑ Test B (20 EMA, 2.5 ATR stop)                               │
+│                                                                │
+│ ┌────────────────────────────────────────────────────────────┐│
+│ │ COMPARISON TABLE                                           ││
+│ ├────────────────────────────────────────────────────────────┤│
+│ │ Metric          Current    Test A      Test B              ││
+│ │ Total Return    +42.8%     +38.2%     +45.1%    ← Best    ││
+│ │ Expect          +0.67R     +0.58R     +0.71R    ← Best    ││
+│ │ Win Rate        58.3%      55.1%      54.2%                ││
+│ │ Profit Factor   2.15       1.98       2.28      ← Best    ││
+│ │ Max DD          -14.2%     -12.8%     -16.5%    ← Worse   ││
+│ │ Sharpe          1.52       1.38       1.58      ← Best    ││
+│ │ Total Trades    156        168        142                  ││
+│ │                                                             ││
+│ │ WINNER: Test B (2.5 ATR stops)                             ││
+│ │ → Higher returns and better risk-adjusted performance      ││
+│ │ → Slightly larger drawdown is acceptable tradeoff          ││
+│ └────────────────────────────────────────────────────────────┘│
+│                                                                │
+│ [Overlay equity curves chart - all 3 strategies shown]        │
+│                                                                │
+│ [ADOPT TEST B PARAMETERS] [RUN MORE COMPARISONS]               │
+└────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### 4.8 SCREEN 8: ⚙️ SETTINGS
+
+**Purpose:** Configure system preferences, risk parameters, notifications, integrations
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ SETTINGS                                                         │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ [GENERAL] [TRADING] [RISK] [NOTIFICATIONS] [INTEGRATIONS]  │ │
+│ │ [DATA] [APPEARANCE] [ACCOUNT]                               │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+
+═══ TRADING SETTINGS ═══
+
+┌────────────────────────────────────────────────────────────────┐
+│ DEFAULT PARAMETERS                                             │
+├────────────────────────────────────────────────────────────────┤
+│ Moving Averages:                                               │
+│ Fast EMA: [20]  Slow EMA: [50]  Long-term SMA: [200]         │
+│                                                                │
+│ Indicators:                                                    │
+│ RSI Period: [14]                                               │
+│ MACD: [12, 26, 9]                                              │
+│ ATR Period: [14]                                               │
+│                                                                │
+│ Entry Criteria:                                                │
+│ Minimum Score: [7] out of 10                                   │
+│ Volume Threshold: [75th percentile]                            │
+│                                                                │
+│ [RESET TO DEFAULTS] [SAVE CHANGES]                             │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ POSITION SIZING                                                │
+├────────────────────────────────────────────────────────────────┤
+│ Risk Per Trade:                                                │
+│ Score 7-8: [1.0%]  Score 9: [1.5%]  Score 10: [2.0%]         │
+│                                                                │
+│ Stop Loss Method:                                              │
+│ (•) ATR-based: [2.0] multiplier                               │
+│ ( ) Percentage: [__]%                                          │
+│ ( ) Technical: Manual per trade                               │
+│                                                                │
+│ Gap Risk Adjustment (Vietnam-specific):                        │
+│ Multiplier: [3.0] (accounts for multi-day floor scenarios)    │
+│                                                                │
+│ [CALCULATE EXAMPLE] [SAVE]                                     │
+└────────────────────────────────────────────────────────────────┘
+
+═══ RISK SETTINGS ═══
+
+┌────────────────────────────────────────────────────────────────┐
+│ PORTFOLIO LIMITS                                               │
+├────────────────────────────────────────────────────────────────┤
+│ Maximum Aggregate Risk: [6.0%]                                 │
+│ Maximum Single Position: [25%] of capital                      │
+│ Maximum Open Positions: [6]                                    │
+│                                                                │
+│ Sector Limits:                                                 │
+│ Max in Single Sector: [40%]                                    │
+│                                                                │
+│ Correlation Limit:                                             │
+│ Max Correlation Between Positions: [0.70]                      │
+│                                                                │
+│ [SAVE CHANGES]                                                 │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ DAILY LOSS LIMITS                                              │
+├────────────────────────────────────────────────────────────────┤
+│ Stop new trades at: [-2.0%] daily loss                        │
+│ Close all positions at: [-3.0%] daily loss                    │
+│                                                                │
+│ Weekly loss limit: [-5.0%]                                     │
+│ Monthly loss limit: [-10.0%]                                   │
+│                                                                │
+│ Action on limit:                                               │
+│ ☑ Lock trading (require manual override)                      │
+│ ☑ Send alert email                                             │
+│ ☐ Send SMS (premium feature)                                   │
+│                                                                │
+│ [SAVE CHANGES]                                                 │
+└────────────────────────────────────────────────────────────────┘
+
+═══ NOTIFICATION SETTINGS ═══
+
+┌────────────────────────────────────────────────────────────────┐
+│ ALERT PREFERENCES                                              │
+├────────────────────────────────────────────────────────────────┤
+│ Entry Signals:                                                 │
+│ ☑ Score 9-10 (High conviction)                                │
+│ ☑ Score 8-9 (Good opportunity)                                │
+│ ☐ Score 7-8 (Acceptable)                                       │
+│                                                                │
+│ Exit Signals:                                                  │
+│ ☑ Stop loss hit                                                │
+│ ☑ Target reached                                               │
+│ ☑ Time stop triggered                                          │
+│ ☑ Thesis invalidation                                          │
+│                                                                │
+│ Risk Alerts:                                                   │
+│ ☑ Aggregate risk > 5%                                          │
+│ ☑ Daily loss approaching limit                                 │
+│ ☑ Correlation warning                                          │
+│                                                                │
+│ Delivery Method:                                               │
+│ ☑ Browser notification                                         │
+│ ☑ Email                                                         │
+│ ☐ SMS (premium)                                                 │
+│ ☐ Push to mobile app                                           │
+│                                                                │
+│ Quiet Hours:                                                   │
+│ From: [22:00] To: [7:00]                                       │
+│ (Only critical alerts during this time)                        │
+│                                                                │
+│ [TEST NOTIFICATION] [SAVE]                                     │
+└────────────────────────────────────────────────────────────────┘
+
+And more sections for Integrations, Data sources, Appearance, Account...
+```
+
+---
+
+## 5. COMPONENT LIBRARY
+
+### 5.1 Reusable UI Components
+
+Based on modern design systems (Material Design, Chakra UI, Ant Design), here are the core components:
+
+**1. Cards**
+- **Purpose:** Container for related information
+- **Variants:**
+  - Basic Card: White/dark background, rounded corners, shadow
+  - Interactive Card: Hover state, clickable
+  - Status Card: Color-coded border (green/red/amber/blue)
+  - Collapsible Card: Expand/collapse content
+- **Usage:** Portfolio summary, signal cards, trade cards, insight cards
+
+**2. Tables**
+- **Features:**
+  - Sortable columns (click header)
+  - Filterable (top filters bar)
+  - Selectable rows (checkbox)
+  - Hoverable rows (highlight)
+  - Fixed header (scrollable body)
+  - Sticky columns (for wide tables)
+  - Inline actions (appear on hover)
+  - Expandable rows (click to show details)
+  - Pagination or virtual scrolling
+- **Variants:**
+  - Dense (more rows visible)
+  - Comfortable (more spacing)
+  - Compact (minimal padding)
+- **Usage:** Watchlist, positions, trade history, backtest results
+
+**3. Modals/Dialogs**
+- **Sizes:** Small (400px), Medium (600px), Large (800px), Full-screen
+- **Types:**
+  - Confirmation: "Are you sure?"
+  - Form: Input data
+  - Detail View: Show complex information
+  - Alert: Important message
+- **Features:**
+  - Close button (×)
+  - Backdrop click to close (optional)
+  - Escape key to close
+  - Focus trap (tab cycles within modal)
+- **Usage:** Trade execution guide, signal details, settings, confirmations
+
+**4. Buttons**
+- **Variants:**
+  - Primary: Main action (filled, brand color)
+  - Secondary: Less important (outlined)
+  - Tertiary: Minimal (text only)
+  - Danger: Destructive action (red)
+  - Ghost: Very subtle (transparent)
+- **States:** Normal, Hover, Active, Disabled, Loading
+- **Sizes:** Small, Medium, Large
+- **With Icons:** Icon left, icon right, icon only
+- **Usage:** Throughout app for actions
+
+**5. Inputs**
+- **Types:**
+  - Text input
+  - Number input (with increment/decrement buttons)
+  - Select/Dropdown
+  - Multi-select
+  - Date picker
+  - Time picker
+  - Search (with autocomplete)
+  - Textarea
+  - Checkbox
+  - Radio
+  - Toggle/Switch
+- **States:** Normal, Focus, Error, Disabled, Success
+- **Features:**
+  - Label
+  - Helper text
+  - Error message
+  - Prefix/suffix (icons or text)
+  - Character count
+- **Usage:** Forms, filters, settings
+
+**6. Badges/Tags**
+- **Purpose:** Label or categorize
+- **Variants:**
+  - Status badge: Score (9/10), Priority (HIGH), Freshness (FRESH)
+  - Removable tag: With × icon
+  - Count badge: Number in circle
+- **Colors:** Match semantic colors (green/red/amber/blue/gray)
+- **Usage:** Scores, tags, notification counts, status indicators
+
+**7. Progress Indicators**
+- **Types:**
+  - Linear progress bar
+  - Circular/radial gauge
+  - Spinner (loading)
+  - Skeleton screens (content loading)
+- **Variants:**
+  - Determinate (known progress %)
+  - Indeterminate (unknown duration)
+  - Segmented (multiple steps)
+- **Usage:** Risk gauge, target progress, loading states, setup readiness
+
+**8. Tooltips**
+- **Trigger:** Hover (desktop), long-press (mobile)
+- **Positioning:** Auto (smart placement to stay on screen)
+- **Content:** Short text, or rich content (mini chart)
+- **Usage:** Explain abbreviations, show calculations, provide context
+
+**9. Charts (Via library like Recharts, Chart.js, or Plotly)**
+- **Types:**
+  - Line chart: Equity curve, price chart
+  - Bar chart: Performance by setup type, monthly returns
+  - Pie/Donut chart: Capital allocation, sector exposure
+  - Scatter plot: MAE vs R-multiple
+  - Heatmap: Monthly returns calendar
+  - Candlestick: Price action
+  - Area chart: Filled equity curve
+- **Features:**
+  - Interactive (hover for details)
+  - Zoomable/pannable
+  - Annotations (mark important events)
+  - Legend (toggle series on/off)
+  - Export as image
+- **Usage:** Throughout analytics, journal, backtest, AI artifacts
+
+**10. Alerts/Notifications**
+- **Types:**
+  - Toast: Temporary, bottom-right, auto-dismiss
+  - Banner: Top of page, persists until dismissed
+  - Inline: Within content flow
+- **Severity:** Info (blue), Success (green), Warning (amber), Error (red)
+- **Features:**
+  - Icon
+  - Title
+  - Message
+  - Action button (optional)
+  - Dismiss button
+- **Usage:** Signal alerts, error messages, success confirmations
+
+**11. Empty States**
+- **Purpose:** When no data exists
+- **Content:**
+  - Icon or illustration
+  - Explanatory text
+  - Call-to-action button
+- **Examples:**
+  - "No positions open - Browse watchlist for opportunities"
+  - "Watchlist is empty - Add your first stock"
+  - "No signals today - Market is ranging"
+- **Usage:** Empty watchlist, no open positions, no signals
+
+**12. Loading States**
+- **Patterns:**
+  - Skeleton screens: Gray placeholders mimicking layout
+  - Spinners: For small components
+  - Progress bars: For longer operations
+  - Shimmer effect: Animated gradient across skeleton
+- **Best practice:** Show skeleton matching final content structure
+- **Usage:** While fetching data, running calculations
+
+---
+
+## 6. USER FLOWS & INTERACTIONS
+
+### 6.1 Core User Journeys
+
+**Journey 1: Morning Routine**
+```
+1. User opens app
+2. Lands on Dashboard
+3. Sees portfolio summary (overnight changes)
+4. Checks any overnight alerts (in notification panel)
+5. Reviews open positions (any approaching targets/stops?)
+6. Checks "Today's Active Signals" section
+7. If signal present:
+   a. Clicks signal card
+   b. Reviews details in modal
+   c. Clicks [EXECUTE TRADE]
+   d. Follows SSI execution guide
+   e. Confirms execution in system
+8. Checks AI Insights panel for recommendations
+9. Ready for trading day
+```
+**Time:** 5-10 minutes
+
+**Journey 2: Responding to Entry Signal**
+```
+1. Browser notification: "VCB ready to enter (Score 9/10)"
+2. User clicks notification → Opens app to Signals screen
+3. Signal card displayed with all details
+4. User reviews:
+   - Setup description
+   - Entry/stop/targets
+   - Position sizing
+   - AI reasoning
+5. Has questions → Clicks [ASK AI]
+   - Chat opens: "Should I take this VCB trade?"
+   - AI provides recommendation
+6. Decides to enter → Clicks [EXECUTE TRADE]
+7. Execution modal opens with step-by-step SSI guide
+8. User places orders in SSI platform (separate window/app)
+9. Returns to system, clicks [I'VE PLACED THE ORDERS]
+10. Confirms fill price
+11. System records trade, updates portfolio
+12. User sees updated:
+    - Open positions count
+    - Aggregate risk
+    - Available cash
+13. Done
+```
+**Time:** 5-15 minutes
+
+**Journey 3: Managing Open Position**
+```
+1. User navigates to Portfolio tab → Positions
+2. Sees list of open positions
+3. Clicks position card (e.g., HPG)
+4. Reviews:
+   - Current P/L
+   - Distance to targets
+   - Days held
+5. Notices approaching T1 target
+6. Sets alert: "Notify when HPG reaches 37,500"
+7. Later: Alert triggers
+8. User opens app → Sees exit signal
+9. Reviews recommendation: "Sell 25% at current price"
+10. Clicks [EXECUTE SALE]
+11. Follows guide to place sell order in SSI
+12. Confirms sale
+13. System updates position:
+    - Reduces share count
+    - Records partial profit
+    - Adjusts stop on remaining shares
+14. User adds notes: "Took T1 profit as planned"
+```
+**Time:** 10-20 minutes
+
+**Journey 4: Reviewing Weekly Performance**
+```
+1. Sunday evening, user opens app
+2. Goes to Journal tab
+3. Sees weekly summary auto-generated
+4. Reviews:
+   - Trades this week (count, win rate)
+   - Total P/L
+   - Best and worst trades
+5. Clicks worst trade (loser) to review
+6. Opens trade detail modal
+7. Reviews:
+   - Chart showing what happened
+   - Entry thesis vs actual outcome
+   - Notes from during trade
+8. Reflects: "I entered against weekly trend - mistake"
+9. Adds lesson: "Always check weekly trend before entry"
+10. AI suggests: "Add this to your pre-trade checklist?"
+11. User accepts → Checklist updated
+12. Reviews best trade (winner)
+13. Notes what went right
+14. AI generates summary: "Your pullback setups are strong - 4/5 winners this week"
+15. User feels confident for next week
+```
+**Time:** 20-30 minutes
+
+**Journey 5: Learning from AI Coach**
+```
+1. User curious about RSI divergence (saw it mentioned)
+2. Opens AI Coach tab
+3. Types: "Explain RSI divergence"
+4. AI responds with:
+   - Text explanation
+   - Diagram in artifacts panel
+   - Example from user's watchlist
+5. User asks: "Have I ever traded RSI divergence?"
+6. AI searches journal, finds 2 trades
+7. Shows both trades with outcomes
+8. User asks: "Should I look for this setup?"
+9. AI analyzes:
+   - User's win rate on divergence: 50% (2 trades, small sample)
+   - Recommends: "Need more data. Focus on your proven pullback setups for now."
+10. User satisfied, closes chat
+11. Conversation saved in history
+```
+**Time:** 10-15 minutes
+
+### 6.2 Navigation Patterns
+
+**Primary Navigation:** Horizontal tabs at top
+- Fast switching between main sections
+- Current tab highlighted
+- Icon + label for clarity
+- Badge on tabs for notifications (e.g., "Signals (3)")
+
+**Secondary Navigation:** Within each screen
+- Tabs for sub-sections (e.g., Capital/Positions/History/Analytics)
+- Breadcrumbs for deep pages (rare, mostly flat structure)
+
+**Contextual Navigation:**
+- Right-click menus on items
+- Inline action buttons (appear on hover)
+- "View" or "Details" buttons on cards
+
+**Quick Access:**
+- Search bar (global, top-right): Find stocks, trades, conversations
+- Keyboard shortcuts:
+  - `/` : Focus search
+  - `D` : Dashboard
+  - `W` : Watchlist
+  - `P` : Portfolio
+  - `S` : Signals
+  - `J` : Journal
+  - `A` : AI Coach
+  - `Esc` : Close modal
+  - `?` : Show keyboard shortcuts
+
+### 6.3 Error Handling & Edge Cases
+
+**Connection Lost:**
+```
+┌────────────────────────────────────────────┐
+│ ⚠️ Connection Lost                         │
+│                                            │
+│ Real-time data unavailable.                │
+│ Showing last known prices.                 │
+│                                            │
+│ [RETRY CONNECTION] [VIEW OFFLINE MODE]     │
+└────────────────────────────────────────────┘
+```
+- Prices frozen, timestamp shown
+- Signal generation paused
+- Can still view history and notes
+- Retries automatically every 30 seconds
+
+**Data Stale:**
+```
+⚠️ VCB price is 5 minutes old (last update: 10:18 AM)
+Market may have moved. Refresh before trading.
+[REFRESH NOW]
+```
+
+**Order Execution Failed:**
+```
+❌ Could not verify order placement in SSI
+
+What happened?
+• You placed order in SSI
+• But didn't confirm in our system
+• Position not recorded
+
+What to do:
+1. Check SSI to confirm order filled
+2. Return here and click "Add Manual Entry"
+3. Enter fill details so we can track position
+
+[ADD MANUAL ENTRY] [IGNORE]
+```
+
+**Risk Limit Exceeded:**
+```
+🛑 CANNOT ENTER TRADE
+
+This VCB trade would push aggregate risk to 6.4%
+Your limit: 6.0%
+
+Options:
+1. Reduce position size to 280 shares (keeps risk at 6.0%)
+2. Close weakest existing position (FPT -0.4R)
+3. Skip this trade
+
+[REDUCE SIZE] [VIEW POSITIONS] [CANCEL]
+```
+
+**Conflicting Signals:**
+```
+⚠️ SIGNAL CONFLICT
+
+Both VCB and VPB ready to enter, but:
+• Correlation: 0.74 (too high)
+• Both banking sector
+• Would exceed sector limit
+
+Recommendation: Choose ONE
+
+VCB: Score 9/10, R:R 2.8:1 ✅ Better
+VPB: Score 8/10, R:R 2.2:1
+
+[TAKE VCB] [TAKE VPB] [SKIP BOTH]
+```
+
+---
+
+## 7. RESPONSIVE DESIGN STRATEGY
+
+### 7.1 Breakpoints
+
+```
+Mobile:     < 768px   (phones)
+Tablet:     768-1024px  (tablets, small laptops)
+Desktop:    1024-1440px (standard monitors)
+Large:      > 1440px   (wide monitors)
+```
+
+### 7.2 Mobile Adaptations (< 768px)
+
+**Dashboard:**
+- Vertical stack (no columns)
+- Portfolio summary: Full width card
+- Signals: Full width cards, swipeable carousel
+- AI Insights: Collapsible accordion
+- Positions: Card view (not table)
+
+**Watchlist:**
+- Table → Card view
+- Each stock = tappable card
+- Swipe left on card → Quick actions (remove, alert)
+- Detail panel → Full-screen overlay
+
+**Portfolio:**
+- Tabs become dropdown menu
+- Charts: Simplified, touch-optimized
+- Tables: Horizontal scroll or card view toggle
+
+**Signals:**
+- Full-screen cards
+- Swipe between signals
+- Execution guide: Full-screen modal
+
+**Journal:**
+- List view only (no split panel)
+- Tap trade → Full-screen detail
+- Charts: Simplified
+
+**AI Coach:**
+- Full-screen chat
+- Artifacts: Full-screen when opened
+- Voice input prominent
+
+**Backtest:**
+- Simplified configuration (wizard-style)
+- Charts: Touch-zoom enabled
+- Tables: Scrollable
+
+### 7.3 Tablet Adaptations (768-1024px)
+
+- 2-column layouts where desktop has 3
+- Slightly reduced spacing
+- Touch-friendly targets (larger buttons)
+- Tables: Show fewer columns, hide least important
+
+### 7.4 Large Screen (> 1440px)
+
+- Utilize extra space for:
+  - Side-by-side comparisons
+  - Larger charts
+  - More dashboard widgets visible
+- Don't just enlarge everything (wasted space)
+- Option: Multi-window mode (watchlist + chat side-by-side)

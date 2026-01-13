@@ -9,17 +9,17 @@
 }
 
 .badge--small {
-  padding: var(--gap-1) var(--gap-2);
+  padding: 4px var(--gap-xs);
   font-size: 0.75rem;
 }
 
 .badge--medium {
-  padding: var(--gap-2) var(--gap-3);
+  padding: var(--gap-xs) var(--gap-sm);
   font-size: 0.875rem;
 }
 
 .badge--large {
-  padding: var(--gap-3) var(--gap-4);
+  padding: var(--gap-sm) var(--gap-md);
   font-size: 1rem;
 }
 

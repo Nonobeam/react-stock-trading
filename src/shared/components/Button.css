@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--gap-2);
+  gap: var(--gap-xs);
   font-weight: 600;
   border-radius: var(--radius-md);
   border: none;
@@ -13,17 +13,17 @@
 }
 
 .button--small {
-  padding: var(--gap-2) var(--gap-3);
+  padding: var(--gap-xs) var(--gap-sm);
   font-size: 0.875rem;
 }
 
 .button--medium {
-  padding: var(--gap-3) var(--gap-4);
+  padding: var(--gap-sm) var(--gap-md);
   font-size: 1rem;
 }
 
 .button--large {
-  padding: var(--gap-4) var(--gap-6);
+  padding: var(--gap-md) var(--gap-lg);
   font-size: 1.125rem;
 }
 
@@ -131,5 +131,5 @@
 .button__content {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--gap-xs); /* 8px - icon + text spacing */
 }

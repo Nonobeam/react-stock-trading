@@ -38,17 +38,17 @@
 
 /* Chart Skeleton */
 .skeleton-chart {
-  padding: 1.5rem;
+  padding: var(--gap-lg); /* Card padding */
   background: var(--panel);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
 .skeleton-chart__header {
-  margin-bottom: 1rem;
+  margin-bottom: var(--gap-md); /* Component grouping */
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--gap-xs); /* Small gap for header items */
 }
 
 .skeleton-chart__body {
@@ -57,7 +57,7 @@
 
 .skeleton-chart__footer {
   display: flex;
-  gap: 1rem;
+  gap: var(--gap-md); /* Component grouping */
   flex-wrap: wrap;
 }
 
@@ -65,15 +65,15 @@
 .skeleton-table {
   background: white;
   border-radius: 8px;
-  padding: 1rem;
+  padding: var(--gap-md); /* Card padding */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .skeleton-table__row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 1rem;
-  padding: 0.75rem;
+  gap: var(--gap-md); /* Component grouping */
+  padding: var(--gap-sm); /* Small row padding */
   border-bottom: 1px solid #f3f4f6;
 }
 
@@ -88,7 +88,7 @@
 
 /* Card Skeleton */
 .skeleton-card {
-  padding: 1.5rem;
+  padding: var(--gap-lg); /* Card padding */
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -96,7 +96,7 @@
 }
 
 .skeleton-card__footer {
-  margin-top: 1rem;
+  margin-top: var(--gap-md); /* Component grouping */
   display: flex;
-  gap: 0.5rem;
+  gap: var(--gap-xs); /* Small gap */
 }

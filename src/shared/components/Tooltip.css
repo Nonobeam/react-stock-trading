@@ -7,7 +7,7 @@
   position: absolute;
   background: var(--panel);
   color: var(--text);
-  padding: 0.5rem 0.75rem;
+  padding: var(--gap-xs) var(--gap-sm); /* Small component padding */
   border-radius: 6px;
   border: 1px solid var(--border);
   font-size: 0.875rem;

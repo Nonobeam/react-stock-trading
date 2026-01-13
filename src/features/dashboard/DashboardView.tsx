@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useMarketData } from '../../context/MarketDataContext';
 import { useAccount } from '../../context/AccountContext';
 import { usePositions } from '../../context/PositionsContext';
@@ -6,6 +6,13 @@ import { useSetups } from '../../context/SetupsContext';
 import { Card } from '../../shared/components/Card';
 import { Badge } from '../../shared/components/Badge';
 import { LoadingSkeleton } from '../../shared/components/LoadingSkeleton';
+import { PortfolioChart } from './components/PortfolioChart';
+import { StatCard } from './components/StatCard';
+import { WatchlistPanel } from './components/WatchlistPanel';
+import { RecommendButton } from './components/RecommendButton';
+import { RecommendModal } from './components/RecommendModal';
+import { fetchRecommendation } from './utils/mockRecommendations';
+import type { Recommendation } from './utils/mockRecommendations';
 import './DashboardView.css';
 
 export const DashboardView: React.FC = () => {
@@ -13,6 +20,10 @@ export const DashboardView: React.FC = () => {
   const { account, isLoading: accountLoading } = useAccount();
   const { portfolioSummary, isLoading: positionsLoading } = usePositions();
   const { signals, isLoading: signalsLoading } = useSetups();
+
+  const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoadingRec, setIsLoadingRec] = useState(false);
 
   const isLoading = marketLoading || accountLoading || positionsLoading || signalsLoading;
 
@@ -43,6 +54,26 @@ export const DashboardView: React.FC = () => {
     }
   };
 
+  // Handle recommendation request
+  const handleGetRecommendation = async () => {
+    setIsLoadingRec(true);
+    try {
+      const rec = await fetchRecommendation();
+      setRecommendation(rec);
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error('Failed to fetch recommendation:', error);
+    } finally {
+      setIsLoadingRec(false);
+    }
+  };
+
+  // Calculate stats for summary cards
+  const totalBalance = account?.capital ?? 0;
+  const totalEarnings = portfolioSummary?.totalPnL ?? 0 > 0 ? portfolioSummary?.totalPnL ?? 0 : 0;
+  const totalLosses = portfolioSummary?.totalPnL ?? 0 < 0 ? Math.abs(portfolioSummary?.totalPnL ?? 0) : 0;
+  const netPnL = (portfolioSummary?.totalPnL ?? 0);
+
   return (
     <div className="dashboard">
       <div className="dashboard__header">
@@ -50,6 +81,63 @@ export const DashboardView: React.FC = () => {
         <p className="dashboard__subtitle">Real-time overview of your trading activity</p>
       </div>
 
+      {/* Enhanced Analytics Section */}
+      <div className="dashboard__analytics">
+        <div className="dashboard__analytics-main">
+          <PortfolioChart
+            balance={totalBalance}
+            earnings={totalEarnings}
+            losses={totalLosses}
+            isLoading={isLoading}
+          />
+        </div>
+        <div className="dashboard__analytics-side">
+          <div className="dashboard__stats-grid">
+            <StatCard
+              label="Total Money"
+              value={totalBalance}
+              trend={netPnL >= 0 ? 'up' : 'down'}
+              trendValue={portfolioSummary?.totalPnLPercent ?? 0}
+              variant="primary"
+              isLoading={isLoading}
+            />
+            <StatCard
+              label="Total Earn"
+              value={totalEarnings}
+              trend="up"
+              isLoading={isLoading}
+            />
+            <StatCard
+              label="Total Loss"
+              value={totalLosses}
+              trend="down"
+              isLoading={isLoading}
+            />
+            <StatCard
+              label="Net P/L"
+              value={netPnL}
+              trend={netPnL >= 0 ? 'up' : 'down'}
+              trendValue={portfolioSummary?.totalPnLPercent ?? 0}
+              isLoading={isLoading}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* AI Recommendation Button */}
+      <div className="dashboard__recommend-section">
+        <RecommendButton
+          onRecommend={handleGetRecommendation}
+          isLoading={isLoadingRec}
+        />
+      </div>
+
+      {/* Watchlist Panel */}
+      <div className="dashboard__watchlist-section">
+        <WatchlistPanel maxItems={20} />
+      </div>
+
+      {/* Existing Dashboard Grid */}
       <div className="dashboard__grid">
         {/* Market Overview Card */}
         <Card title="Market Overview" variant="elevated">
@@ -201,6 +289,13 @@ export const DashboardView: React.FC = () => {
           </div>
         </Card>
       </div>
+
+      {/* Recommendation Modal */}
+      <RecommendModal
+        recommendation={recommendation}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };

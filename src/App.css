@@ -9,7 +9,7 @@
 .app-nav {
   background: var(--panel);
   border-bottom: 1px solid var(--border);
-  padding: 0 2rem;
+  padding: 0 var(--gap-xl); /* Section padding */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,7 +22,7 @@
 .app-nav__brand {
   display: flex;
   align-items: baseline;
-  gap: 0.75rem;
+  gap: var(--gap-sm); /* Icon + text spacing */
 }
 
 .app-nav__logo {
@@ -42,7 +42,7 @@
 
 .app-nav__links {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--gap-xs); /* Small gap between nav links */
 }
 
 .app-nav__link {
@@ -51,7 +51,7 @@
   color: var(--muted);
   font-size: 0.9rem;
   font-weight: 500;
-  padding: 0.5rem 1rem;
+  padding: var(--gap-xs) var(--gap-md); /* Component padding */
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s;
@@ -72,7 +72,7 @@
 
 .app-main {
   flex: 1;
-  padding: 2rem;
+  padding: var(--gap-xl); /* Major section padding */
   overflow-y: auto;
   max-width: 1920px;
   margin: 0 auto;
@@ -84,8 +84,8 @@
   .app-nav {
     flex-direction: column;
     height: auto;
-    padding: 1rem;
-    gap: 1rem;
+    padding: var(--gap-md); /* Compact mobile padding */
+    gap: var(--gap-md); /* Component grouping */
   }
 
   .app-nav__links {
@@ -96,12 +96,12 @@
   .app-nav__link {
     flex: 1;
     text-align: center;
-    padding: 0.5rem;
+    padding: var(--gap-xs); /* Compact mobile padding */
     font-size: 0.75rem;
   }
 
   .app-main {
-    padding: 1rem;
+    padding: var(--gap-md); /* Compact mobile padding */
   }
 }
 

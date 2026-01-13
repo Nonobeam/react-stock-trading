@@ -1,0 +1,106 @@
+.portfolio-chart {
+  background: var(--panel);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: var(--gap-lg);
+  animation: chartEntry 500ms ease-out;
+}
+
+@keyframes chartEntry {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.portfolio-chart__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 var(--gap-md) 0;
+}
+
+/* Empty state */
+.portfolio-chart--empty {
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portfolio-chart__empty-state {
+  text-align: center;
+  padding: var(--gap-xl);
+}
+
+.portfolio-chart__empty-icon {
+  margin-bottom: var(--gap-md);
+  opacity: 0.5;
+}
+
+.portfolio-chart__empty-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 var(--gap-xs) 0;
+}
+
+.portfolio-chart__empty-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Custom tooltip */
+.portfolio-chart__tooltip {
+  background: var(--panel-elevated);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: var(--gap-sm);
+  box-shadow: var(--shadow-lg);
+}
+
+.portfolio-chart__tooltip-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0 0 4px 0;
+}
+
+.portfolio-chart__tooltip-value {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 4px 0;
+}
+
+.portfolio-chart__tooltip-percent {
+  font-size: 0.875rem;
+  color: var(--accent);
+  margin: 0;
+}
+
+/* Recharts legend styling */
+.portfolio-chart :global(.recharts-legend-wrapper) {
+  padding-top: var(--gap-md);
+}
+
+.portfolio-chart :global(.recharts-legend-item) {
+  margin-right: var(--gap-md);
+  margin-bottom: var(--gap-xs);
+}
+
+.portfolio-chart :global(.recharts-legend-item-text) {
+  color: var(--text) !important;
+  font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .portfolio-chart {
+    padding: var(--gap-md);
+  }
+}

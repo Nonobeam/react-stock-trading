@@ -33,7 +33,7 @@
 }
 
 .navigation__brand {
-  padding: 4.5rem 1.5rem 2rem 1.5rem;
+  padding: var(--gap-2xl) var(--gap-lg) var(--gap-xl) var(--gap-lg); /* Major section padding */
   border-bottom: 1px solid var(--border);
   background: linear-gradient(135deg, var(--panel), var(--panel-elevated));
   opacity: 1;
@@ -56,7 +56,7 @@
 }
 
 .navigation__subtitle {
-  margin: 0.25rem 0 0 0;
+  margin: 4px 0 0 0; /* Micro spacing for text lines */
   font-size: 0.75rem;
   color: var(--muted);
   font-weight: 500;
@@ -70,8 +70,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 1rem 0.75rem;
-  gap: 0.5rem;
+  padding: var(--gap-md) var(--gap-sm); /* Component grouping */
+  gap: var(--gap-xs); /* Small gap between nav items */
   overflow-y: auto;
 }
 
@@ -79,8 +79,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 0.75rem;
-  padding: 0.875rem 1rem;
+  gap: var(--gap-sm); /* Icon + text spacing */
+  padding: var(--gap-sm) var(--gap-md); /* Component padding */
   background: transparent;
   color: var(--muted);
   border: 1px solid transparent;
@@ -97,7 +97,7 @@
 }
 
 .navigation--collapsed .navigation__item {
-  padding: 0.875rem;
+  padding: var(--gap-sm); /* Compact padding */
   justify-content: center;
   gap: 0;
 }
@@ -146,7 +146,7 @@
 }
 
 .navigation__status {
-  padding: 1rem 1.5rem;
+  padding: var(--gap-md) var(--gap-lg); /* Card padding */
   border-top: 1px solid var(--border);
   background: var(--panel-elevated);
   opacity: 1;
@@ -155,7 +155,7 @@
 
 .navigation--collapsed .navigation__status {
   opacity: 0;
-  padding: 0.5rem;
+  padding: var(--gap-xs); /* Minimal padding when collapsed */
   overflow: hidden;
 }
 
@@ -180,14 +180,14 @@
 
   .navigation__items {
     flex-direction: row;
-    padding: 0.5rem;
+    padding: var(--gap-xs); /* Compact mobile padding */
     overflow-x: auto;
     overflow-y: hidden;
   }
 
   .navigation__item {
     flex-shrink: 0;
-    padding: 0.625rem 0.875rem;
+    padding: var(--gap-xs) var(--gap-sm); /* Compact mobile item padding */
     font-size: 0.75rem;
   }
 

@@ -85,6 +85,38 @@
 --gap-2xl: 48px;
 ```
 
+### Spacing Rules (Recommended)
+
+**Between major sections (big blocks)**  
+→ `32–48px` (`--gap-xl` to `--gap-2xl`)
+
+**Between cards**  
+→ `24–32px` (`--gap-lg` to `--gap-xl`)
+
+**Inside a card (padding)**  
+→ `16–24px` (`--gap-md` to `--gap-lg`)
+
+**Between related components (inputs, labels, buttons)**  
+→ `12–16px` (`--gap-sm` to `--gap-md`)
+
+**Between text lines**  
+→ `4–8px` (use line-height or small margin)
+
+**Between icon + text**  
+→ `8–12px` (`--gap-xs` to `--gap-sm`)
+
+### Spacing Scale Reference
+
+| Value | Token | Usage |
+|-------|-------|-------|
+| `4px` | — | Micro spacing (tight text lines, inline elements) |
+| `8px` | `--gap-xs` | Small gaps (icon + text, compact grouping) |
+| `12px` | `--gap-sm` | Label → input, related small elements |
+| `16px` | `--gap-md` | Component grouping, card padding (minimum) |
+| `24px` | `--gap-lg` | Card padding (comfortable), gaps between cards |
+| `32px` | `--gap-xl` | Section separation, card gaps (spacious) |
+| `48px` | `--gap-2xl` | Major layout splits, top-level section breaks |
+
 ### Shadows & Elevation
 ```css
 /* Standard shadows */

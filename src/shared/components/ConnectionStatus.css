@@ -1,8 +1,8 @@
 .connection-status {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  padding: 0.75rem 1rem;
+  gap: var(--gap-xs); /* Icon + text spacing */
+  padding: var(--gap-sm) var(--gap-md); /* Component padding */
   background: var(--panel);
   border-radius: var(--radius);
   border: 1px solid var(--border);
