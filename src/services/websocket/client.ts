@@ -9,10 +9,7 @@ import type {
   TickMessage,
   WebSocketMessage as WSMessage,
   WebSocketMessageType,
-  StockInfoData,
-  TopPriceData,
-  OHLCData,
-  MarketIndexData
+  StockInfoData
 } from '../../shared/types';
 
 type LegacyWebSocketMessage = 

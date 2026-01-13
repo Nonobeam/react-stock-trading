@@ -11,7 +11,7 @@ interface NavigationProps {
 
 export const Navigation: React.FC<NavigationProps> = ({ currentView, onNavigate }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isPinned, setIsPinned] = useState(false);
+  const [isPinned] = useState(false);
 
   const navItems = [
     { 
@@ -109,17 +109,16 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, onNavigate 
     },
   ];
 
-  const handleToggleClick = useCallback(() => {
-    if (isPinned) {
-      // If pinned, unpin and collapse
-      setIsPinned(false);
-      setIsExpanded(false);
-    } else {
-      // If not pinned, pin and expand
-      setIsPinned(true);
-      setIsExpanded(true);
-    }
-  }, [isPinned]);
+  // Toggle function for future use
+  // const handleToggleClick = useCallback(() => {
+  //   if (isPinned) {
+  //     setIsPinned(false);
+  //     setIsExpanded(false);
+  //   } else {
+  //     setIsPinned(true);
+  //     setIsExpanded(true);
+  //   }
+  // }, [isPinned]);
 
   const handleMouseEnter = useCallback(() => {
     if (!isPinned) {

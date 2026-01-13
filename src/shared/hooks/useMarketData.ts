@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
 import { apiClient } from '../../services/api/client';
 import type { OHLCVBar, TechnicalIndicators } from '../types';
-import type { Timeframe } from '../../features/market/components/TimeframeSelector';
+
+export type Timeframe = '1m' | '5m' | '15m' | '30m' | '1h' | '4h' | 'D' | 'W';
 
 interface UseMarketDataResult {
   ohlcvData: OHLCVBar[];
