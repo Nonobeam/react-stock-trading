@@ -1,0 +1,178 @@
+/* TradeEntryModal Styles - Fintech Neon Theme */
+
+.trade-entry-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--gap-lg);
+}
+
+.trade-entry-modal {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--gap-lg);
+  border-bottom: 1px solid var(--border);
+  background: var(--panel-elevated);
+}
+
+.modal-header h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+}
+
+.close-button {
+  padding: 0.5rem;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-lg);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.close-button:hover {
+  background: var(--panel-hover);
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.modal-form {
+  padding: var(--gap-lg);
+}
+
+.form-section {
+  margin-bottom: var(--gap-xl);
+}
+
+.form-section h3 {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 var(--gap-md) 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--gap-md);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.form-field label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  padding: 0.75rem;
+  background: var(--panel-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: var(--text-base);
+  transition: all var(--transition);
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--glow-accent);
+}
+
+.form-field textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--gap-md);
+  padding-top: var(--gap-lg);
+  border-top: 1px solid var(--border);
+}
+
+.btn-secondary {
+  padding: 0.75rem 1.5rem;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-secondary:hover {
+  background: var(--panel-hover);
+  border-color: var(--accent);
+}
+
+.btn-primary {
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-accent);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .trade-entry-modal-overlay {
+    padding: 0;
+  }
+
+  .trade-entry-modal {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

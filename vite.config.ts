@@ -5,7 +5,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    cssMinify: false, // Disable CSS minification to avoid lightningcss keyframes bug
+    cssMinify: 'esbuild', // Use esbuild for CSS minification instead of lightningcss
+    cssCodeSplit: true,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
 })
 

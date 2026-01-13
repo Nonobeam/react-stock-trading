@@ -10,3 +10,8 @@ export { ErrorBoundary } from './ErrorBoundary';
 export { EmptyState } from './EmptyState';
 export { ConnectionStatus } from './ConnectionStatus';
 export { Navigation } from './Navigation';
+export { TabNavigation } from './TabNavigation';
+export type { Tab } from './TabNavigation';
+export { MarkdownRenderer } from './MarkdownRenderer';
+export { CodeBlock } from './CodeBlock';
+export { ChartContainer } from './ChartContainer';

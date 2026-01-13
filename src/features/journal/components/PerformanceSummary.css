@@ -1,0 +1,59 @@
+/* PerformanceSummary Styles - Fintech Neon Theme */
+
+.performance-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--gap-md);
+}
+
+.metric-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--gap-md);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--accent);
+}
+
+.metric-label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--gap-xs);
+  font-weight: 500;
+}
+
+.metric-value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.metric-value.positive {
+  color: var(--success);
+}
+
+.metric-value.negative {
+  color: var(--error);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .performance-summary {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-sm);
+  }
+
+  .metric-card {
+    padding: var(--gap-sm);
+  }
+
+  .metric-value {
+    font-size: var(--text-xl);
+  }
+}

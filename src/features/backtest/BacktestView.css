@@ -1,0 +1,181 @@
+/* BacktestView Styles - Fintech Neon Theme */
+
+.backtest-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--gap-lg);
+  gap: var(--gap-lg);
+}
+
+.backtest-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.backtest-title {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.backtest-subtitle {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: var(--gap-xs) 0 0;
+}
+
+.backtest-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.backtest-main {
+  flex: 1;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: var(--gap-lg);
+  overflow-y: auto;
+}
+
+.backtest-config {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+.config-section h3 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 var(--gap-md) 0;
+}
+
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--gap-md);
+}
+
+.config-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.config-field label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.config-field input,
+.config-field select {
+  padding: 0.75rem;
+  background: var(--panel-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: var(--text-base);
+  transition: all var(--transition);
+}
+
+.config-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--glow-accent);
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+}
+
+.config-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--gap-lg);
+  border-top: 1px solid var(--border);
+}
+
+.btn-primary {
+  padding: 0.75rem 2rem;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-accent);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.backtest-results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+.results-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--gap-md);
+}
+
+.metric-card {
+  background: var(--panel-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--gap-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.metric-label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.metric-value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.metric-value.positive {
+  color: var(--success);
+}
+
+.metric-value.negative {
+  color: var(--error);
+}
+
+@media (max-width: 768px) {
+  .backtest-view {
+    padding: var(--gap-md);
+  }
+  
+  .results-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

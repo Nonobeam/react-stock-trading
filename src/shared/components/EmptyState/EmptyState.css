@@ -1,0 +1,55 @@
+/* EmptyState Styles - Fintech Neon Theme */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gap-2xl);
+  text-align: center;
+  min-height: 300px;
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: var(--gap-lg);
+  opacity: 0.3;
+}
+
+.empty-state-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: var(--gap-sm);
+}
+
+.empty-state-description {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  max-width: 400px;
+  margin-bottom: var(--gap-lg);
+}
+
+.empty-state-action {
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.empty-state-action:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-accent);
+}
+
+.empty-state-action:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}

@@ -14,7 +14,13 @@ import { WatchlistView } from './features/watchlist'
 import { PortfolioView } from './features/portfolio'
 import { SignalsView } from './features/signals'
 
-type ViewType = 'dashboard' | 'watchlist' | 'portfolio' | 'signals';
+// Import Phase 2 screens
+import { JournalView } from './features/journal'
+import { SettingsView } from './features/settings'
+import { BacktestView } from './features/backtest'
+import { CoachView } from './features/coach'
+
+type ViewType = 'dashboard' | 'watchlist' | 'portfolio' | 'signals' | 'journal' | 'settings' | 'backtest' | 'coach';
 
 function App() {
   const [currentView, setCurrentView] = useState<ViewType>('dashboard');
@@ -30,7 +36,7 @@ function App() {
                 <nav className="app-nav">
                   <div className="app-nav__brand">
                     <span className="app-nav__logo">VN Trading</span>
-                    <span className="app-nav__subtitle">Phase 1 MVP</span>
+                    <span className="app-nav__subtitle">Phase 2 Complete</span>
                   </div>
                   
                   <div className="app-nav__links">
@@ -58,6 +64,30 @@ function App() {
                     >
                       Signals
                     </button>
+                    <button
+                      className={`app-nav__link ${currentView === 'journal' ? 'active' : ''}`}
+                      onClick={() => setCurrentView('journal')}
+                    >
+                      Journal
+                    </button>
+                    <button
+                      className={`app-nav__link ${currentView === 'backtest' ? 'active' : ''}`}
+                      onClick={() => setCurrentView('backtest')}
+                    >
+                      Backtest
+                    </button>
+                    <button
+                      className={`app-nav__link ${currentView === 'coach' ? 'active' : ''}`}
+                      onClick={() => setCurrentView('coach')}
+                    >
+                      AI Coach
+                    </button>
+                    <button
+                      className={`app-nav__link ${currentView === 'settings' ? 'active' : ''}`}
+                      onClick={() => setCurrentView('settings')}
+                    >
+                      Settings
+                    </button>
                   </div>
                 </nav>
 
@@ -67,6 +97,10 @@ function App() {
                   {currentView === 'watchlist' && <WatchlistView />}
                   {currentView === 'portfolio' && <PortfolioView />}
                   {currentView === 'signals' && <SignalsView />}
+                  {currentView === 'journal' && <JournalView />}
+                  {currentView === 'backtest' && <BacktestView />}
+                  {currentView === 'coach' && <CoachView />}
+                  {currentView === 'settings' && <SettingsView />}
                 </main>
               </div>
             </SetupsProvider>
