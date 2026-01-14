@@ -10,6 +10,7 @@ import { TradesProvider } from './TradesContext';
 import { SettingsProvider } from './SettingsContext';
 import { BacktestProvider } from './BacktestContext';
 import { ChatProvider } from './ChatContext';
+import { WatchlistProvider } from './WatchlistContext';
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -29,21 +30,23 @@ export const AppProviders: React.FC<AppProvidersProps> = ({
       <WebSocketProvider url={wsUrl} autoConnect={true}>
         <MarketDataProvider>
           <SetupsProvider>
-            <PositionsProvider>
-              <PerformanceProvider>
-                <AccountProvider>
-                  <TradingProvider>
-                    <TradesProvider>
-                      <BacktestProvider>
-                        <ChatProvider>
-                          {children}
-                        </ChatProvider>
-                      </BacktestProvider>
-                    </TradesProvider>
-                  </TradingProvider>
-                </AccountProvider>
-              </PerformanceProvider>
-            </PositionsProvider>
+            <WatchlistProvider>
+              <PositionsProvider>
+                <PerformanceProvider>
+                  <AccountProvider>
+                    <TradingProvider>
+                      <TradesProvider>
+                        <BacktestProvider>
+                          <ChatProvider>
+                            {children}
+                          </ChatProvider>
+                        </BacktestProvider>
+                      </TradesProvider>
+                    </TradingProvider>
+                  </AccountProvider>
+                </PerformanceProvider>
+              </PositionsProvider>
+            </WatchlistProvider>
           </SetupsProvider>
         </MarketDataProvider>
       </WebSocketProvider>
@@ -60,6 +63,7 @@ export { TradesProvider } from './TradesContext';
 export { SettingsProvider } from './SettingsContext';
 export { BacktestProvider } from './BacktestContext';
 export { ChatProvider } from './ChatContext';
+export { WatchlistProvider } from './WatchlistContext';
 
 // Re-export hooks for convenience
 export { useWebSocket } from './WebSocketContext';
@@ -73,3 +77,4 @@ export { usePositions } from './PositionsContext';
 export { usePerformance } from './PerformanceContext';
 export { useAccount } from './AccountContext';
 export { useTrading } from './TradingContext';
+export { useWatchlist } from './WatchlistContext';

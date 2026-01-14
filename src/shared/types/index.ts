@@ -10,6 +10,7 @@ export * from './Trade';
 export * from './Settings';
 export * from './Backtest';
 export * from './ChatMessage';
+export * from './dashboard';
 
 // ============================================================================
 // Market Data Types

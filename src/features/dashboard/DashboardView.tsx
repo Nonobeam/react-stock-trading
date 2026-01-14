@@ -6,14 +6,32 @@ import { useSetups } from '../../context/SetupsContext';
 import { Card } from '../../shared/components/Card';
 import { Badge } from '../../shared/components/Badge';
 import { LoadingSkeleton } from '../../shared/components/LoadingSkeleton';
-import { PortfolioChart } from './components/PortfolioChart';
+import { Portfolio } from './components/Portfolio';
 import { MarketIndexChart } from './components/MarketIndexChart';
 import { WatchlistPanel } from './components/WatchlistPanel';
 import { RecommendButton } from './components/RecommendButton';
 import { RecommendModal } from './components/RecommendModal';
 import { fetchRecommendation } from './utils/mockRecommendations';
+import { recommendationsApi } from '../../services/api';
+import { API_CONFIG } from '../../shared/constants/config';
 import type { Recommendation } from './utils/mockRecommendations';
+import type { RecommendationResponse } from '../../shared/types/dashboard';
 import './DashboardView.css';
+
+/**
+ * Map API recommendation response to internal Recommendation type
+ */
+function mapRecommendationResponse(res: RecommendationResponse): Recommendation {
+  return {
+    symbol: res.symbol,
+    action: res.action,
+    confidence: res.confidence,
+    rationale: res.rationale,
+    targetPrice: res.targetPrice,
+    stopLoss: res.stopLoss,
+    timeframe: res.timeframe,
+  };
+}
 
 export const DashboardView: React.FC = () => {
   const { isLoading: marketLoading } = useMarketData();
@@ -53,7 +71,28 @@ export const DashboardView: React.FC = () => {
   const handleGetRecommendation = async () => {
     setIsLoadingRec(true);
     try {
-      const rec = await fetchRecommendation();
+      let rec: Recommendation;
+      
+      if (API_CONFIG.useMockData) {
+        rec = await fetchRecommendation();
+      } else {
+        try {
+          const response = await recommendationsApi.get({
+            IncludePortfolio: true,
+            IncludeMarketRegime: true,
+            IncludeSignals: true,
+          });
+          rec = mapRecommendationResponse(response);
+        } catch (apiError) {
+          console.warn('API unavailable, falling back to mock data:', apiError);
+          if (API_CONFIG.enableFallback) {
+            rec = await fetchRecommendation();
+          } else {
+            throw apiError;
+          }
+        }
+      }
+      
       setRecommendation(rec);
       setIsModalOpen(true);
     } catch (error) {
@@ -83,47 +122,16 @@ export const DashboardView: React.FC = () => {
           <WatchlistPanel maxItems={20} />
         </div>
 
-        {/* Right Column: Portfolio + Account Info + Signals + AI Recommend */}
+        {/* Right Column: Portfolio + Positions + Signals + AI Recommend */}
         <div className="dashboard__right-column">
-          {/* Portfolio Pie Chart */}
-          <PortfolioChart
+          {/* Combined Portfolio: Pie Chart + Account Summary */}
+          <Portfolio
             balance={totalBalance}
             earnings={totalEarnings}
             losses={totalLosses}
             isLoading={isLoading}
+            account={account}
           />
-
-          {/* Account Summary Card */}
-          <Card title="Account Summary" variant="elevated">
-            <div className="account-summary">
-              <div className="account-summary__row">
-                <span className="label">Total Capital:</span>
-                <span className="value">{account?.capital.toLocaleString()} VND</span>
-              </div>
-              <div className="account-summary__row">
-                <span className="label">Available Cash:</span>
-                <span className="value">{account?.cash.toLocaleString()} VND</span>
-              </div>
-              <div className="account-summary__row">
-                <span className="label">Positions Value:</span>
-                <span className="value">{account?.positionsValue.toLocaleString()} VND</span>
-              </div>
-              <div className="account-summary__divider"></div>
-              <div className="account-summary__row highlight">
-                <span className="label">Total P&L:</span>
-                <span className={`value ${(account?.totalPnL ?? 0) >= 0 ? 'text-success' : 'text-danger'}`}>
-                  {(account?.totalPnL ?? 0) >= 0 ? '+' : ''}{account?.totalPnL.toLocaleString()} VND
-                  <span className="percentage">
-                    ({(account?.totalPnLPercent ?? 0) >= 0 ? '+' : ''}{account?.totalPnLPercent.toFixed(2)}%)
-                  </span>
-                </span>
-              </div>
-              <div className="account-summary__row">
-                <span className="label">Risk Exposure:</span>
-                <span className="value">{account?.riskPercent.toFixed(2)}%</span>
-              </div>
-            </div>
-          </Card>
 
           {/* Open Positions Card */}
           <Card title="Open Positions" variant="elevated">

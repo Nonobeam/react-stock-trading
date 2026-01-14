@@ -36,7 +36,7 @@ function App() {
                 <nav className="app-nav">
                   <div className="app-nav__brand">
                     <span className="app-nav__logo">VN Trading</span>
-                    <span className="app-nav__subtitle">Phase 2 Complete</span>
+                    <span className="app-nav__subtitle">v1.0.0</span>
                   </div>
                   
                   <div className="app-nav__links">

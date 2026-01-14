@@ -23,7 +23,7 @@ import type {
 } from '../../shared/types';
 
 // TODO: Configure from environment variables
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
 class APIError extends Error {
   status: number;
@@ -113,7 +113,7 @@ class APIClient {
   /**
    * GET request
    */
-  private async get<T>(endpoint: string, params?: Record<string, unknown>): Promise<T> {
+  async get<T>(endpoint: string, params?: Record<string, unknown>): Promise<T> {
     const queryString = params
       ? '?' + new URLSearchParams(
           Object.entries(params).map(([key, value]) => [key, String(value)])
@@ -128,7 +128,7 @@ class APIClient {
   /**
    * POST request
    */
-  private async post<T>(endpoint: string, data: unknown): Promise<T> {
+  async post<T>(endpoint: string, data: unknown): Promise<T> {
     return this.request<T>(endpoint, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -138,10 +138,19 @@ class APIClient {
   /**
    * PATCH request
    */
-  private async patch<T>(endpoint: string, data: unknown): Promise<T> {
+  async patch<T>(endpoint: string, data: unknown): Promise<T> {
     return this.request<T>(endpoint, {
       method: 'PATCH',
       body: JSON.stringify(data),
+    });
+  }
+
+  /**
+   * DELETE request
+   */
+  async delete<T>(endpoint: string): Promise<T> {
+    return this.request<T>(endpoint, {
+      method: 'DELETE',
     });
   }
 
