@@ -1,6 +1,7 @@
 export { Card } from './Card';
 export { Badge } from './Badge';
 export { Button } from './Button';
+export { IconButton } from './IconButton';
 export { LoadingSpinner } from './LoadingSpinner';
 export { LoadingSkeleton, ChartSkeleton, TableSkeleton, CardSkeleton } from './LoadingSkeleton';
 export { Tooltip } from './Tooltip';

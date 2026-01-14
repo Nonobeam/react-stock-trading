@@ -1,0 +1,144 @@
+/* IconButton - Compact icon-only action button */
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: inherit;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Sizes */
+.icon-button--small {
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  border-radius: var(--radius-sm);
+}
+
+.icon-button--medium {
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  border-radius: var(--radius);
+}
+
+.icon-button--large {
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  border-radius: var(--radius);
+}
+
+/* Primary Variant */
+.icon-button--primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.icon-button--primary:hover:not(.icon-button--disabled) {
+  background: var(--accent-light);
+  transform: scale(1.05);
+  box-shadow: var(--glow-accent);
+}
+
+.icon-button--primary:active:not(.icon-button--disabled) {
+  background: var(--accent-dark);
+  transform: scale(1);
+  box-shadow: none;
+}
+
+/* Secondary Variant */
+.icon-button--secondary {
+  background: var(--panel-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.icon-button--secondary:hover:not(.icon-button--disabled) {
+  background: var(--panel-hover);
+  border-color: var(--accent);
+}
+
+.icon-button--secondary:active:not(.icon-button--disabled) {
+  background: var(--panel);
+}
+
+/* Ghost Variant */
+.icon-button--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.icon-button--ghost:hover:not(.icon-button--disabled) {
+  background: var(--panel-hover);
+  color: var(--text);
+}
+
+.icon-button--ghost:active:not(.icon-button--disabled) {
+  background: var(--panel-elevated);
+}
+
+/* Danger Variant */
+.icon-button--danger {
+  background: var(--danger);
+  color: var(--text);
+}
+
+.icon-button--danger:hover:not(.icon-button--disabled) {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+}
+
+.icon-button--danger:active:not(.icon-button--disabled) {
+  filter: brightness(0.95);
+  transform: scale(1);
+  box-shadow: none;
+}
+
+/* Focus State */
+.icon-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-muted);
+}
+
+/* Disabled State */
+.icon-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading State */
+.icon-button--loading {
+  pointer-events: none;
+}
+
+.icon-button__spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: icon-button-spin 0.8s linear infinite;
+}
+
+.icon-button--small .icon-button__spinner {
+  width: 12px;
+  height: 12px;
+}
+
+.icon-button--large .icon-button__spinner {
+  width: 18px;
+  height: 18px;
+}
+
+@keyframes icon-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

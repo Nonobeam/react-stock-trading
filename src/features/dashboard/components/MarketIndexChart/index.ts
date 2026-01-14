@@ -1,0 +1,1 @@
+export { MarketIndexChart } from './MarketIndexChart';

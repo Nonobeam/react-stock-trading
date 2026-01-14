@@ -20,9 +20,10 @@ Track these steps as TODOs and complete them one by one.
    - Component styles follow the established patterns (borders, shadows, hover effects, transitions)
    - Typography, spacing, and visual hierarchy align with the design principles
    - No unauthorized colors, emoji, or visual elements were introduced
-5. Confirm completion before updating statuses—make sure every item in `tasks.md` is finished and theme compliance is verified.
-6. Update the checklist after all work is done so each task is marked `- [x]` and reflects reality.
-7. Reference `openspec list` or `openspec show <item>` when additional context is required.
+5. Run `npm run build` to ensure everything compiles and passes tests.
+6. Confirm completion before updating statuses—make sure every item in `tasks.md` is finished and theme compliance is verified.
+7. Update the checklist after all work is done so each task is marked `- [x]` and reflects reality.
+8. Reference `openspec list` or `openspec show <item>` when additional context is required.
 
 **Reference**
 - Use `openspec show <id> --json --deltas-only` if you need additional context from the proposal while implementing.

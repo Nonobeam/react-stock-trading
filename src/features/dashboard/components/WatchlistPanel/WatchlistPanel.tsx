@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import { generateSparklineData, calculateChange } from '../../utils/sparklineGenerator';
+import { IconButton } from '../../../../shared/components';
 import './WatchlistPanel.css';
 
 export interface WatchlistItem {
@@ -178,14 +179,12 @@ export const WatchlistPanel: React.FC<{ maxItems?: number }> = ({ maxItems = MAX
         <h3 className="watchlist-panel__title">
           Watchlist {items.length > 0 && <span className="watchlist-panel__count">({items.length})</span>}
         </h3>
-        <button
-          className="watchlist-panel__add-btn"
+        <IconButton
+          icon={isAdding ? '×' : '+'}
           onClick={() => setIsAdding(!isAdding)}
           disabled={items.length >= maxItems}
-          aria-label="Add symbol to watchlist"
-        >
-          {isAdding ? '×' : '+'}
-        </button>
+          ariaLabel={isAdding ? 'Cancel adding' : 'Add symbol to watchlist'}
+        />
       </div>
 
       {isAdding && (
