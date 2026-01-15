@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 import type { PerformanceMetrics, EquityPoint } from '../shared/types';
 
 interface PerformanceContextValue {
@@ -20,58 +20,24 @@ interface PerformanceProviderProps {
 export const PerformanceProvider: React.FC<PerformanceProviderProps> = ({ children }) => {
   const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null);
   const [equityCurve, setEquityCurve] = useState<EquityPoint[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [loading] = useState(false);
+  const [error] = useState<string | null>(null);
 
   const fetchMetrics = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      // TODO: Replace with actual API call
-      const response = await fetch('/api/performance/metrics');
-      if (!response.ok) throw new Error('Failed to fetch metrics');
-      
-      const data = await response.json();
-      setMetrics(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch metrics');
-      console.error('Error fetching performance metrics:', err);
-    } finally {
-      setLoading(false);
-    }
+    // Performance metrics API not implemented yet - skip silently
+    setMetrics(null);
   }, []);
 
   const fetchEquityCurve = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      // TODO: Replace with actual API call
-      const response = await fetch('/api/performance/equity-curve');
-      if (!response.ok) throw new Error('Failed to fetch equity curve');
-      
-      const data = await response.json();
-      setEquityCurve(data.map((point: any) => ({
-        ...point,
-        date: new Date(point.date)
-      })));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch equity curve');
-      console.error('Error fetching equity curve:', err);
-    } finally {
-      setLoading(false);
-    }
+    // Equity curve API not implemented yet - skip silently
+    setEquityCurve([]);
   }, []);
 
   const refreshData = useCallback(async () => {
     await Promise.all([fetchMetrics(), fetchEquityCurve()]);
   }, [fetchMetrics, fetchEquityCurve]);
 
-  // Auto-fetch on mount
-  useEffect(() => {
-    refreshData();
-  }, [refreshData]);
+  // NOTE: Auto-fetch disabled - performance APIs not yet implemented
 
   const value: PerformanceContextValue = {
     metrics,

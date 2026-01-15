@@ -13,3 +13,8 @@ export { positionsApi } from './positionsApi';
 export { signalsApi } from './signalsApi';
 export { watchlistApi } from './watchlistApi';
 export { recommendationsApi } from './recommendationsApi';
+export { preferencesApi } from './preferencesApi';
+export { otpApi } from './otpApi';
+
+// MQTT services
+export { mqttApi } from '../mqtt/api';

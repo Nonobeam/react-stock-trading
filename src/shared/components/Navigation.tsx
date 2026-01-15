@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { ConnectionStatus } from './ConnectionStatus';
 import './Navigation.css';
 
 type ViewType = 'dashboard' | 'market-data' | 'regime' | 'scanner' | 'risk' | 'monitoring' | 'analytics' | 'account' | 'trading';
@@ -156,10 +155,6 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, onNavigate 
             <span className="navigation__label">{item.label}</span>
           </button>
         ))}
-      </div>
-
-      <div className="navigation__status">
-        <ConnectionStatus />
       </div>
     </nav>
     <div className={`navigation-spacer ${isExpanded ? 'navigation-spacer--expanded' : 'navigation-spacer--collapsed'}`} />

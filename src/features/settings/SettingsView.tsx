@@ -13,6 +13,7 @@ import { RiskSettings } from './components/RiskSettings';
 import { NotificationSettings } from './components/NotificationSettings';
 import { AppearanceSettings } from './components/AppearanceSettings';
 import { DataSettings } from './components/DataSettings';
+import { StockPreferencesSettings } from './components/StockPreferencesSettings';
 import './SettingsView.css';
 
 export function SettingsView() {
@@ -24,6 +25,7 @@ export function SettingsView() {
     { id: 'position', label: 'Position Sizing' },
     { id: 'portfolio', label: 'Portfolio' },
     { id: 'risk', label: 'Risk Limits' },
+    { id: 'stock-preferences', label: 'Stock Preferences' },
     { id: 'notifications', label: 'Notifications' },
     { id: 'appearance', label: 'Appearance' },
     { id: 'data', label: 'Data' },
@@ -39,6 +41,8 @@ export function SettingsView() {
         return <PortfolioSettings />;
       case 'risk':
         return <RiskSettings />;
+      case 'stock-preferences':
+        return <StockPreferencesSettings />;
       case 'notifications':
         return <NotificationSettings />;
       case 'appearance':

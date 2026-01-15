@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, useMemo, type ReactNode } from 'react';
 import { generateMarketData, createMarketDataStream, type MarketData } from '../services/mock/marketData';
 import { marketApi } from '../services/api';
 import { API_CONFIG, REFRESH_CONFIG } from '../shared/constants/config';
+import { useMQTT } from './MQTTContext';
 
 interface MarketDataContextValue {
   marketData: MarketData | null;
@@ -10,6 +11,8 @@ interface MarketDataContextValue {
   lastUpdated: Date | null;
   refresh: () => void;
   clearError: () => void;
+  /** Whether MQTT is providing real-time data */
+  isMqttConnected: boolean;
 }
 
 const MarketDataContext = createContext<MarketDataContextValue | null>(null);
@@ -23,6 +26,10 @@ export const MarketDataProvider: React.FC<MarketDataProviderProps> = ({ children
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+
+  // Get MQTT connection status only - don't sync data here to avoid render loops
+  // Components that need MQTT quotes should use useIndexQuotes() directly
+  const { isConnected: isMqttConnected } = useMQTT();
 
   const clearError = useCallback(() => {
     setError(null);
@@ -115,14 +122,20 @@ export const MarketDataProvider: React.FC<MarketDataProviderProps> = ({ children
     }
   }, [refresh]);
 
-  const value: MarketDataContextValue = {
+  // NOTE: MQTT data sync removed to prevent render loops with recharts
+  // Components that need real-time MQTT quotes should use useIndexQuotes() hook directly
+  // This context provides static/polling market data only
+
+  // Memoize context value to prevent unnecessary re-renders
+  const value = useMemo<MarketDataContextValue>(() => ({
     marketData,
     isLoading,
     error,
     lastUpdated,
     refresh,
     clearError,
-  };
+    isMqttConnected,
+  }), [marketData, isLoading, error, lastUpdated, refresh, clearError, isMqttConnected]);
 
   return (
     <MarketDataContext.Provider value={value}>

@@ -79,6 +79,28 @@
   width: 100%;
 }
 
+/* OTP Badge in Navbar */
+.app-nav__otp {
+  margin-left: auto;
+}
+
+/* App Loading State */
+.app-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-lg);
+  background: var(--bg);
+}
+
+.app-loading__text {
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  margin: 0;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .app-nav {

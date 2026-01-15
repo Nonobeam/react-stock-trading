@@ -1,0 +1,146 @@
+/* OTP Gate Modal Styles */
+
+.otp-gate-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: otp-gate-fade-in 0.3s ease-out;
+}
+
+@keyframes otp-gate-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.otp-gate-modal {
+  background: var(--panel);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xl), var(--glow-accent);
+  padding: var(--gap-xl);
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  animation: otp-gate-slide-up 0.4s ease-out;
+}
+
+@keyframes otp-gate-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.otp-gate-modal__icon {
+  width: 72px;
+  height: 72px;
+  background: var(--accent-muted);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--gap-lg);
+  color: var(--accent);
+}
+
+.otp-gate-modal__title {
+  margin: 0 0 var(--gap-xs);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.otp-gate-modal__subtitle {
+  margin: 0 0 var(--gap-xl);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}
+
+.otp-gate-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.otp-gate-modal__error {
+  padding: var(--gap-sm) var(--gap-md);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius);
+  color: var(--danger);
+  font-size: var(--text-sm);
+  animation: otp-error-appear 0.2s ease-out;
+}
+
+@keyframes otp-error-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.otp-gate-modal__submit {
+  width: 100%;
+  padding: var(--gap-md) var(--gap-xl);
+  font-size: var(--text-base);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-sm);
+}
+
+.otp-gate-modal__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.otp-gate-modal__hint {
+  margin: var(--gap-lg) 0 0;
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .otp-gate-modal {
+    padding: var(--gap-lg);
+    margin: var(--gap-md);
+  }
+
+  .otp-gate-modal__icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .otp-gate-modal__icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .otp-gate-modal__title {
+    font-size: var(--text-xl);
+  }
+}

@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import './App.css'
-import { ErrorBoundary } from './shared/components'
+import { ErrorBoundary, OtpGateModal, OtpBadge, LoadingSpinner } from './shared/components'
 import { 
   MarketDataProvider, 
   AccountProvider, 
   PositionsProvider, 
-  SetupsProvider 
+  SetupsProvider,
+  OTPProvider,
+  useOtp
 } from './context'
 
 // Import Phase 1 screens
@@ -22,11 +24,30 @@ import { CoachView } from './features/coach'
 
 type ViewType = 'dashboard' | 'watchlist' | 'portfolio' | 'signals' | 'journal' | 'settings' | 'backtest' | 'coach';
 
-function App() {
+function AppContent() {
   const [currentView, setCurrentView] = useState<ViewType>('dashboard');
+  const { isAuthenticated, isLoading, otpStatus, error, submitOtp, clearError } = useOtp();
+
+  // Show loading state during initial OTP check
+  if (isLoading) {
+    return (
+      <div className="app-loading">
+        <LoadingSpinner size="large" />
+        <p className="app-loading__text">Verifying access...</p>
+      </div>
+    );
+  }
 
   return (
-    <ErrorBoundary>
+    <>
+      {/* OTP Gate Modal - blocks access when not authenticated */}
+      <OtpGateModal
+        isOpen={!isAuthenticated}
+        onSubmit={submitOtp}
+        error={error}
+        onClearError={clearError}
+      />
+
       <MarketDataProvider>
         <AccountProvider>
           <PositionsProvider>
@@ -89,6 +110,13 @@ function App() {
                       Settings
                     </button>
                   </div>
+
+                  {/* OTP Badge - shows current OTP and TTL */}
+                  {isAuthenticated && otpStatus && (
+                    <div className="app-nav__otp">
+                      <OtpBadge otp={otpStatus.otp} ttl={otpStatus.ttl} />
+                    </div>
+                  )}
                 </nav>
 
                 {/* Main Content */}
@@ -107,8 +135,18 @@ function App() {
           </PositionsProvider>
         </AccountProvider>
       </MarketDataProvider>
-    </ErrorBoundary>
+    </>
   )
+}
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <OTPProvider>
+        <AppContent />
+      </OTPProvider>
+    </ErrorBoundary>
+  );
 }
 
 export default App

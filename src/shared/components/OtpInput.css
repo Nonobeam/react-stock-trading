@@ -1,0 +1,80 @@
+/* OTP Input Component Styles */
+
+.otp-input {
+  display: flex;
+  gap: var(--gap-sm);
+  justify-content: center;
+}
+
+.otp-input__digit {
+  width: 48px;
+  height: 56px;
+  background: var(--panel);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  transition: all var(--transition);
+  caret-color: var(--accent);
+}
+
+.otp-input__digit:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--panel-elevated);
+  box-shadow: 0 0 0 3px var(--accent-muted), var(--glow-accent);
+}
+
+.otp-input__digit--filled {
+  background: var(--accent-muted);
+  border-color: var(--accent);
+}
+
+.otp-input__digit--error {
+  border-color: var(--danger);
+  animation: otp-shake 0.4s ease-in-out;
+}
+
+.otp-input__digit--error:focus {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.otp-input__digit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.otp-input__digit::placeholder {
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+/* Shake animation for error */
+@keyframes otp-shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-4px);
+  }
+  40%, 80% {
+    transform: translateX(4px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .otp-input__digit {
+    width: 40px;
+    height: 48px;
+    font-size: var(--text-xl);
+  }
+
+  .otp-input {
+    gap: var(--gap-xs);
+  }
+}

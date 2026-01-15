@@ -15,15 +15,13 @@ import type {
   EquityPoint,
   AccountInfo,
   PortfolioHolding,
-  OrderRequest,
-  Order,
   DailyBar,
   IntradayBar,
   SymbolInfo
 } from '../../shared/types';
 
 // TODO: Configure from environment variables
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
 
 class APIError extends Error {
   status: number;
@@ -70,7 +68,9 @@ class APIClient {
     endpoint: string,
     options: RequestInit = {}
   ): Promise<T> {
-    const url = `${this.baseURL}${endpoint}`;
+    // Ensure all endpoints have /api prefix
+    const apiEndpoint = endpoint.startsWith('/api') ? endpoint : `/api${endpoint}`;
+    const url = `${this.baseURL}${apiEndpoint}`;
     
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -131,6 +131,16 @@ class APIClient {
   async post<T>(endpoint: string, data: unknown): Promise<T> {
     return this.request<T>(endpoint, {
       method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  /**
+   * PUT request
+   */
+  async put<T>(endpoint: string, data: unknown): Promise<T> {
+    return this.request<T>(endpoint, {
+      method: 'PUT',
       body: JSON.stringify(data),
     });
   }
@@ -351,32 +361,6 @@ class APIClient {
    */
   async getPortfolio(): Promise<PortfolioHolding[]> {
     return this.get('/account/portfolio');
-  }
-
-  // ============================================================================
-  // Trading / Order APIs
-  // ============================================================================
-
-  /**
-   * Place a new order (BUY/SELL)
-   */
-  async placeOrder(request: OrderRequest): Promise<{ orderId: string; status: string; message: string }> {
-    return this.post('/orders', request);
-  }
-
-  /**
-   * Cancel an existing order
-   */
-  async cancelOrder(orderId: string): Promise<{ orderId: string; status: string; message: string }> {
-    return this.post(`/orders/${orderId}/cancel`, {});
-  }
-
-  /**
-   * Get all orders (pending, filled, cancelled)
-   * Note: This endpoint is assumed to exist based on typical trading API patterns
-   */
-  async getOrders(): Promise<Order[]> {
-    return this.get('/orders');
   }
 
   // ============================================================================

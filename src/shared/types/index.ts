@@ -11,6 +11,9 @@ export * from './Settings';
 export * from './Backtest';
 export * from './ChatMessage';
 export * from './dashboard';
+export * from './preferences';
+export * from './otp';
+export * from './mqtt';
 
 // ============================================================================
 // Market Data Types

@@ -42,3 +42,47 @@ export const REFRESH_CONFIG = {
     account: 30000,
   },
 };
+
+/**
+ * MQTT Configuration for Real-Time Market Data
+ */
+export const MQTT_CONFIG = {
+  /** Whether MQTT is enabled */
+  enabled: import.meta.env.VITE_MQTT_ENABLED !== 'false',
+
+  /** MQTT broker connection settings */
+  broker: {
+    /** WebSocket Secure URL */
+    url: import.meta.env.VITE_MQTT_BROKER_URL || 'wss://datafeed-lts-krx.dnse.com.vn:443/wss',
+    
+    /** Username for authentication */
+    username: import.meta.env.VITE_MQTT_USERNAME || '1001986205',
+  },
+
+  /** Auto-connect on application startup */
+  autoConnect: import.meta.env.VITE_MQTT_AUTO_CONNECT !== 'false',
+
+  /** Reconnection settings */
+  reconnect: {
+    /** Maximum reconnection attempts */
+    maxAttempts: 5,
+    
+    /** Initial delay between reconnection attempts (ms) */
+    initialDelay: 1000,
+    
+    /** Maximum delay between reconnection attempts (ms) */
+    maxDelay: 30000,
+  },
+
+  /** Default topic subscriptions */
+  defaultTopics: {
+    /** Topic pattern for index data */
+    indexPattern: 'plaintext/quotes/krx/mdds/index',
+    
+    /** Default indices to subscribe to */
+    defaultIndices: ['VNINDEX', 'VN30'],
+  },
+
+  /** Quality of Service level (0, 1, or 2) */
+  qos: 0 as 0 | 1 | 2,
+};

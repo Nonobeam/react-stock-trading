@@ -1,7 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, memo } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { useMarketData } from '../../../../context/MarketDataContext';
+import { useIndexQuotes } from '../../../../shared/hooks/useIndexQuotes';
 import { LoadingSkeleton } from '../../../../shared/components/LoadingSkeleton';
+import { IndexQuotesDisplay } from '../../../../shared/components/IndexQuotesDisplay';
+import { IndexSubscriptionInput } from '../../../../shared/components/IndexSubscriptionInput';
 import type { IndexData } from '../../../../services/mock/marketData';
 import './MarketIndexChart.css';
 
@@ -15,7 +18,6 @@ interface IndexConfig {
 const INDICES: IndexConfig[] = [
   { key: 'vnIndex', label: 'VNINDEX' },
   { key: 'vn30', label: 'VN30' },
-  { key: 'vn100', label: 'VN100' },
 ];
 
 const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
@@ -41,18 +43,38 @@ const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
 interface SingleIndexChartProps {
   indexData: IndexData;
   label: string;
+  mqttValue?: number;     // Real-time MQTT value (overrides indexData.value)
+  mqttChange?: number;    // Real-time MQTT change
+  mqttChangePercent?: number; // Real-time MQTT change percent
 }
 
-const SingleIndexChart: React.FC<SingleIndexChartProps> = ({ indexData, label }) => {
+// Memoize the chart component to prevent re-renders when parent updates
+// Only re-render when the actual data changes
+const SingleIndexChart: React.FC<SingleIndexChartProps> = memo(({ 
+  indexData, 
+  label,
+  mqttValue,
+  mqttChange,
+  mqttChangePercent
+}) => {
+  // Use MQTT values when available, otherwise fall back to mock data
+  const displayValue = mqttValue ?? indexData.value;
+  const displayChange = mqttChange ?? indexData.change;
+  const displayChangePercent = mqttChangePercent ?? indexData.changePercent;
+  // Memoize chart data - depend on the actual data array
   const chartData = useMemo(() => {
-    if (!indexData?.data) return [];
+    if (!indexData?.data || indexData.data.length === 0) {
+      console.log('[Chart] No data for', label);
+      return [];
+    }
+    console.log('[Chart] Rendering', label, 'with', indexData.data.length, 'points');
     return indexData.data.map((point) => ({
       timestamp: point.timestamp,
       value: point.value,
     }));
-  }, [indexData]);
+  }, [indexData?.data, label]);
 
-  const isPositive = (indexData?.changePercent ?? 0) >= 0;
+  const isPositive = displayChangePercent >= 0;
   const lineColor = isPositive ? 'var(--success)' : 'var(--danger)';
 
   return (
@@ -62,10 +84,10 @@ const SingleIndexChart: React.FC<SingleIndexChartProps> = ({ indexData, label })
         <span className="market-index-chart__item-label">{label}</span>
         <div className="market-index-chart__item-values">
           <span className="market-index-chart__item-value">
-            {indexData.value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            {displayValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </span>
           <span className={`market-index-chart__item-change ${isPositive ? 'market-index-chart__item-change--positive' : 'market-index-chart__item-change--negative'}`}>
-            {isPositive ? '+' : ''}{indexData.change.toFixed(2)} ({isPositive ? '+' : ''}{indexData.changePercent.toFixed(2)}%)
+            {isPositive ? '+' : ''}{displayChange.toFixed(2)} ({isPositive ? '+' : ''}{displayChangePercent.toFixed(2)}%)
           </span>
         </div>
       </div>
@@ -116,13 +138,34 @@ const SingleIndexChart: React.FC<SingleIndexChartProps> = ({ indexData, label })
       </div>
     </div>
   );
-};
+});
+
+// Display name for debugging
+SingleIndexChart.displayName = 'SingleIndexChart';
 
 export const MarketIndexChart: React.FC = () => {
-  const { marketData, isLoading } = useMarketData();
+  const { marketData, isLoading, lastUpdated } = useMarketData();
+  const { getQuote, quotesVersion, isConnected: isMqttConnected } = useIndexQuotes();
+  const [showMqttPanel, setShowMqttPanel] = useState(false);
 
-  const lastUpdateTime = marketData?.lastUpdate
-    ? new Date(marketData.lastUpdate).toLocaleTimeString('en-US', {
+  // Get MQTT quotes for each index, memoized based on quotesVersion
+  const mqttQuotes = useMemo(() => {
+    if (!isMqttConnected) {
+      console.log('[MarketIndexChart] MQTT not connected, using mock data');
+      return {};
+    }
+    const quotes = {
+      vnIndex: getQuote('VNINDEX'),
+      vn30: getQuote('VN30'),
+      vn100: getQuote('VN100'),
+    };
+    console.log('[MarketIndexChart] MQTT quotes:', quotes, 'version:', quotesVersion);
+    return quotes;
+  }, [isMqttConnected, getQuote, quotesVersion]);
+
+  // Use lastUpdated from context (the refresh timestamp), not marketData.lastUpdate
+  const lastUpdateTime = lastUpdated
+    ? lastUpdated.toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
@@ -152,20 +195,53 @@ export const MarketIndexChart: React.FC = () => {
     <div className="market-index-chart">
       <div className="market-index-chart__header">
         <span className="market-index-chart__title">Market Indices</span>
-        <span className="market-index-chart__update-time">
-          Updated: {lastUpdateTime}
-        </span>
+        <div className="market-index-chart__header-right">
+          {isMqttConnected && (
+            <span className="market-index-chart__live-badge">LIVE</span>
+          )}
+          <button
+            className="market-index-chart__mqtt-toggle"
+            onClick={() => setShowMqttPanel(!showMqttPanel)}
+            title="Manage subscriptions"
+          >
+            {showMqttPanel ? '−' : '+'}
+          </button>
+          <span className="market-index-chart__update-time">
+            Updated: {lastUpdateTime}
+          </span>
+        </div>
       </div>
+
+      {/* MQTT Real-Time Quotes */}
+      {isMqttConnected && (
+        <div className="market-index-chart__mqtt-quotes">
+          <IndexQuotesDisplay />
+        </div>
+      )}
+
+      {/* Subscription Management Panel */}
+      {showMqttPanel && (
+        <div className="market-index-chart__mqtt-panel">
+          <IndexSubscriptionInput />
+        </div>
+      )}
 
       <div className="market-index-chart__list">
         {INDICES.map((index) => {
           const indexData = marketData.indices[index.key];
           if (!indexData) return null;
+          
+          // Get MQTT real-time quote for this index (from memoized object)
+          const mqttQuote = mqttQuotes[index.key];
+          
           return (
             <SingleIndexChart
               key={index.key}
               indexData={indexData}
               label={index.label}
+              mqttValue={mqttQuote?.value}
+              mqttChange={mqttQuote?.change}
+              mqttChangePercent={mqttQuote?.changePercent}
             />
           );
         })}

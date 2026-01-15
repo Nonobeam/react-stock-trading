@@ -1,0 +1,153 @@
+/**
+ * IndexSubscriptionInput Styles
+ * Follows Fintech Neon Theme
+ */
+
+.index-subscription {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.index-subscription__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.index-subscription__title {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.index-subscription__status {
+  font-size: var(--text-xs);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  text-transform: capitalize;
+}
+
+.index-subscription__status--connected {
+  background: rgba(74, 222, 128, 0.15);
+  color: var(--success);
+}
+
+.index-subscription__status--connecting,
+.index-subscription__status--reconnecting {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--warning);
+}
+
+.index-subscription__status--disconnected,
+.index-subscription__status--error {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+}
+
+.index-subscription__form {
+  display: flex;
+  gap: var(--gap-sm);
+}
+
+.index-subscription__input {
+  flex: 1;
+  padding: 8px 12px;
+  background: var(--panel-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: var(--text-sm);
+  transition: var(--transition);
+}
+
+.index-subscription__input::placeholder {
+  color: var(--muted);
+}
+
+.index-subscription__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(218, 221, 86, 0.15);
+}
+
+.index-subscription__input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.index-subscription__error {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--danger);
+}
+
+.index-subscription__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+.index-subscription__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.index-subscription__section-label {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.index-subscription__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-xs);
+}
+
+.index-subscription__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 500;
+}
+
+.index-subscription__tag--default {
+  background: var(--accent-muted);
+  color: var(--accent);
+}
+
+.index-subscription__tag--custom {
+  background: var(--panel-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.index-subscription__tag-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin-left: 2px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.index-subscription__tag-remove:hover {
+  background: var(--danger);
+  color: white;
+}
