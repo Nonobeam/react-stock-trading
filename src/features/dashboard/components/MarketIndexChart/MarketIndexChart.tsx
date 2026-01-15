@@ -149,10 +149,10 @@ export const MarketIndexChart: React.FC = () => {
   const [showMqttPanel, setShowMqttPanel] = useState(false);
 
   // Get MQTT quotes for each index, memoized based on quotesVersion
-  const mqttQuotes = useMemo(() => {
+  const mqttQuotes = useMemo<Record<IndexKey, ReturnType<typeof getQuote> | undefined>>(() => {
     if (!isMqttConnected) {
       console.log('[MarketIndexChart] MQTT not connected, using mock data');
-      return {};
+      return { vnIndex: undefined, vn30: undefined, vn100: undefined };
     }
     const quotes = {
       vnIndex: getQuote('VNINDEX'),
