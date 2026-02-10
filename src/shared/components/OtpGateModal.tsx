@@ -3,11 +3,10 @@
  * Full-screen modal that blocks access until valid OTP is entered
  */
 
-import React, { useState, useCallback } from 'react';
-import { OtpInput } from './OtpInput';
-import { Button } from './Button';
-import { LoadingSpinner } from './LoadingSpinner';
-import './OtpGateModal.css';
+import React, { useState, useCallback } from "react";
+import { OtpInput } from "./OtpInput";
+import { Button } from "./Button";
+import "./OtpGateModal.css";
 
 interface OtpGateModalProps {
   isOpen: boolean;
@@ -22,31 +21,37 @@ export const OtpGateModal: React.FC<OtpGateModalProps> = ({
   isOpen,
   onSubmit,
   error,
-  onClearError
+  onClearError,
 }) => {
-  const [otpValue, setOtpValue] = useState('');
+  const [otpValue, setOtpValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleOtpChange = useCallback((value: string) => {
-    setOtpValue(value);
-    if (error) {
-      onClearError();
-    }
-  }, [error, onClearError]);
+  const handleOtpChange = useCallback(
+    (value: string) => {
+      setOtpValue(value);
+      if (error) {
+        onClearError();
+      }
+    },
+    [error, onClearError],
+  );
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (otpValue.length !== OTP_LENGTH || isSubmitting) return;
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (otpValue.length !== OTP_LENGTH || isSubmitting) return;
 
-    setIsSubmitting(true);
-    const success = await onSubmit(otpValue);
-    setIsSubmitting(false);
+      setIsSubmitting(true);
+      const success = await onSubmit(otpValue);
+      setIsSubmitting(false);
 
-    if (!success) {
-      // Clear input on error
-      setOtpValue('');
-    }
-  }, [otpValue, isSubmitting, onSubmit]);
+      if (!success) {
+        // Clear input on error
+        setOtpValue("");
+      }
+    },
+    [otpValue, isSubmitting, onSubmit],
+  );
 
   const isValid = otpValue.length === OTP_LENGTH;
 
@@ -54,9 +59,23 @@ export const OtpGateModal: React.FC<OtpGateModalProps> = ({
 
   return (
     <div className="otp-gate-backdrop">
-      <div className="otp-gate-modal" role="dialog" aria-modal="true" aria-labelledby="otp-gate-title">
+      <div
+        className="otp-gate-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="otp-gate-title"
+      >
         <div className="otp-gate-modal__icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
@@ -65,7 +84,7 @@ export const OtpGateModal: React.FC<OtpGateModalProps> = ({
         <h1 id="otp-gate-title" className="otp-gate-modal__title">
           Access Required
         </h1>
-        
+
         <p className="otp-gate-modal__subtitle">
           Enter your 6-digit access code to continue
         </p>
@@ -92,7 +111,7 @@ export const OtpGateModal: React.FC<OtpGateModalProps> = ({
             loading={isSubmitting}
             className="otp-gate-modal__submit"
           >
-            {isSubmitting ? 'Verifying...' : 'Unlock Access'}
+            {isSubmitting ? "Verifying..." : "Unlock Access"}
           </Button>
         </form>
 
