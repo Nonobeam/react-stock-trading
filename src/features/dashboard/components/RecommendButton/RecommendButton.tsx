@@ -31,8 +31,8 @@ export const RecommendButton: React.FC<RecommendButtonProps> = ({
         </>
       ) : (
         <>
-          <span className="recommend-button__icon">✨</span>
           <span>Get AI Recommendation</span>
+          <span className="recommend-button__icon"></span>
         </>
       )}
     </button>

@@ -106,10 +106,6 @@
   padding: var(--gap-md) var(--gap-xl);
   font-size: var(--text-base);
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--gap-sm);
 }
 
 .otp-gate-modal__submit:disabled {

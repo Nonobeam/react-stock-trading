@@ -225,7 +225,7 @@
 
 - [ ] **Task 5.1**: Create RecommendButton component
   - File: `src/features/dashboard/components/RecommendButton/RecommendButton.tsx`
-  - Button text: "Get AI Recommendation" with sparkle icon (✨)
+  - Button text: "Get AI Recommendation"
   - Background: `--accent`, text: `--bg`
   - Loading state: spinner + "Generating..." text
   - **Validation**: Button renders with correct styling

@@ -17,7 +17,7 @@ The system SHALL display a prominent recommendation button that triggers AI-powe
 **Given** the dashboard is loaded  
 **When** the summary stats section renders  
 **Then** a button SHALL appear with:
-- Label: "Get AI Recommendation" with sparkle icon (✨)
+- Label: "Get AI Recommendation"
 - Background: `--accent` (#dadd56)
 - Text color: `--bg` (high contrast)
 - Border radius: `--radius` (16px)

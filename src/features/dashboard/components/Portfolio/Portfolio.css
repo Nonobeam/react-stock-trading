@@ -1,8 +1,9 @@
-.portfolio {
+.portfolio-card {
   background: var(--panel);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
-  padding: var(--gap-lg);
+  padding: var(--gap-md);
+  border: 1px solid var(--border);
   animation: portfolioEntry 500ms ease-out;
   width: 100%;
 }
@@ -18,15 +19,24 @@
   }
 }
 
-.portfolio__title {
-  font-size: 1.125rem;
+/* Header */
+.portfolio-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--gap-md);
+  padding-bottom: var(--gap-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+.portfolio-card__title {
+  font-size: var(--text-base);
   font-weight: 600;
   color: var(--text);
-  margin: 0 0 var(--gap-md) 0;
 }
 
 /* Two-column layout: chart left, summary right */
-.portfolio__content {
+.portfolio-card__content {
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: var(--gap-xl);
@@ -34,7 +44,7 @@
 }
 
 /* Chart section */
-.portfolio__chart {
+.portfolio-card__chart {
   min-height: 280px;
   width: 100%;
   display: flex;
@@ -43,17 +53,17 @@
 }
 
 /* Empty state */
-.portfolio__empty-state {
+.portfolio-card__empty-state {
   text-align: center;
   padding: var(--gap-xl);
 }
 
-.portfolio__empty-icon {
+.portfolio-card__empty-icon {
   margin-bottom: var(--gap-md);
   opacity: 0.5;
 }
 
-.portfolio__empty-title {
+.portfolio-card__empty-title {
   font-size: 1rem;
   font-weight: 600;
   color: var(--text);
@@ -61,7 +71,7 @@
 }
 
 /* Custom tooltip */
-.portfolio__tooltip {
+.portfolio-card__tooltip {
   background: var(--panel-elevated);
   border: 1px solid var(--border-light);
   border-radius: var(--radius);
@@ -69,34 +79,34 @@
   box-shadow: var(--shadow-lg);
 }
 
-.portfolio__tooltip-label {
+.portfolio-card__tooltip-label {
   font-size: 0.875rem;
   color: var(--text-secondary);
   margin: 0 0 4px 0;
 }
 
-.portfolio__tooltip-value {
+.portfolio-card__tooltip-value {
   font-size: 1.125rem;
   font-weight: 600;
   color: var(--text);
   margin: 0 0 4px 0;
 }
 
-.portfolio__tooltip-percent {
+.portfolio-card__tooltip-percent {
   font-size: 0.875rem;
   color: var(--accent);
   margin: 0;
 }
 
 /* Summary section */
-.portfolio__summary {
+.portfolio-card__summary {
   padding: var(--gap-md);
   background: var(--panel-elevated);
   border-radius: var(--radius);
   border: 1px solid var(--border-light);
 }
 
-.portfolio__summary-title {
+.portfolio-card__summary-title {
   font-size: 1rem;
   font-weight: 600;
   color: var(--text);
@@ -105,79 +115,79 @@
   border-bottom: 1px solid var(--border-light);
 }
 
-.portfolio__summary-content {
+.portfolio-card__summary-content {
   display: flex;
   flex-direction: column;
   gap: var(--gap-sm);
 }
 
-.portfolio__summary-row {
+.portfolio-card__summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: var(--gap-xs) 0;
 }
 
-.portfolio__summary-row--highlight {
+.portfolio-card__summary-row--highlight {
   background: rgba(var(--accent-rgb), 0.1);
   margin: var(--gap-xs) calc(-1 * var(--gap-sm));
   padding: var(--gap-sm);
   border-radius: var(--radius);
 }
 
-.portfolio__summary-label {
+.portfolio-card__summary-label {
   font-size: 0.875rem;
   color: var(--text-secondary);
 }
 
-.portfolio__summary-value {
+.portfolio-card__summary-value {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text);
   text-align: right;
 }
 
-.portfolio__summary-percentage {
+.portfolio-card__summary-percentage {
   font-size: 0.75rem;
   margin-left: var(--gap-xs);
   opacity: 0.8;
 }
 
-.portfolio__summary-divider {
+.portfolio-card__summary-divider {
   height: 1px;
   background: var(--border-light);
   margin: var(--gap-xs) 0;
 }
 
 /* Recharts legend styling */
-.portfolio :global(.recharts-legend-wrapper) {
+.portfolio-card :global(.recharts-legend-wrapper) {
   padding-top: var(--gap-sm);
 }
 
-.portfolio :global(.recharts-legend-item) {
+.portfolio-card :global(.recharts-legend-item) {
   margin-right: var(--gap-md);
   margin-bottom: var(--gap-xs);
 }
 
-.portfolio :global(.recharts-legend-item-text) {
+.portfolio-card :global(.recharts-legend-item-text) {
   color: var(--text) !important;
   font-size: 0.75rem;
 }
 
 /* Responsive */
 @media (max-width: 992px) {
-  .portfolio__content {
+  .portfolio-card__content {
     grid-template-columns: 1fr;
     gap: var(--gap-lg);
   }
-  
-  .portfolio__chart {
+
+  .portfolio-card__chart {
     min-height: 260px;
   }
 }
 
 @media (max-width: 768px) {
-  .portfolio {
+  .portfolio-card {
     padding: var(--gap-md);
   }
 }

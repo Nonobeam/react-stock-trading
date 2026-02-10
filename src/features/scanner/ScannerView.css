@@ -1,0 +1,128 @@
+.scanner {
+  padding: var(--gap-6);
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-4);
+}
+
+.scanner__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--gap-4);
+}
+
+.scanner__header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.scanner__subtitle {
+  margin: var(--gap-2) 0 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.scanner__filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-3);
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+}
+
+.filter-group label {
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-width: 70px;
+}
+
+.scanner__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--gap-4);
+}
+
+/* Scorecard Visuals in Modal */
+.scorecard-13 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-4);
+  padding: var(--gap-4);
+  background: var(--panel-hover);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.scorecard-13__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--gap-2);
+}
+
+.scorecard-13__total {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.scorecard-13__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--gap-2);
+}
+
+.score-item {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--gap-2) var(--gap-3);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+}
+
+.score-item__label {
+  color: var(--muted);
+}
+
+.score-item__value {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.score-item--pass .score-item__value {
+  color: var(--success);
+}
+
+@media (max-width: 768px) {
+  .scanner {
+    padding: var(--gap-4);
+  }
+
+  .scanner__header {
+    flex-direction: column;
+    gap: var(--gap-4);
+  }
+
+  .scanner__filters {
+    width: 100%;
+  }
+
+  .filter-group {
+    flex-wrap: wrap;
+  }
+
+  .scanner__grid {
+    grid-template-columns: 1fr;
+  }
+}

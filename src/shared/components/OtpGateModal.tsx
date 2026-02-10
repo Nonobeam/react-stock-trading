@@ -89,16 +89,10 @@ export const OtpGateModal: React.FC<OtpGateModalProps> = ({
             type="submit"
             variant="primary"
             disabled={!isValid || isSubmitting}
+            loading={isSubmitting}
             className="otp-gate-modal__submit"
           >
-            {isSubmitting ? (
-              <>
-                <LoadingSpinner size="small" />
-                <span>Verifying...</span>
-              </>
-            ) : (
-              'Unlock Access'
-            )}
+            {isSubmitting ? 'Verifying...' : 'Unlock Access'}
           </Button>
         </form>
 

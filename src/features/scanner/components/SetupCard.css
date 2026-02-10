@@ -1,0 +1,115 @@
+.setup-card {
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.setup-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glow-accent);
+}
+
+.setup-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--gap-3);
+}
+
+.setup-card__symbol {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.setup-card__pattern {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-top: var(--gap-1);
+}
+
+.setup-card__price-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--gap-2);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--gap-3);
+}
+
+.setup-card__price-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.setup-card__price-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.setup-card__price-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.setup-card__metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-3);
+  margin-bottom: var(--gap-3);
+}
+
+.setup-card__metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-1);
+}
+
+.setup-card__metric-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.setup-card__metric-value {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.setup-card__score-section {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-3);
+}
+
+.setup-card__score-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--panel-hover);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.setup-card__score-fill {
+  height: 100%;
+  background: var(--accent);
+  box-shadow: var(--glow-accent);
+}
+
+.setup-card__score-text {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 45px;
+  text-align: right;
+}
+
+.setup-card__footer {
+  margin-top: var(--gap-3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+}

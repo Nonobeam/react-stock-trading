@@ -22,7 +22,10 @@ import { SettingsView } from './features/settings'
 import { BacktestView } from './features/backtest'
 import { CoachView } from './features/coach'
 
-type ViewType = 'dashboard' | 'watchlist' | 'portfolio' | 'signals' | 'journal' | 'settings' | 'backtest' | 'coach';
+// Import Phase 3 screens
+import { ScannerView } from './features/scanner'
+
+type ViewType = 'dashboard' | 'watchlist' | 'portfolio' | 'signals' | 'scanner' | 'journal' | 'settings' | 'backtest' | 'coach';
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<ViewType>('dashboard');
@@ -86,6 +89,12 @@ function AppContent() {
                       Signals
                     </button>
                     <button
+                      className={`app-nav__link ${currentView === 'scanner' ? 'active' : ''}`}
+                      onClick={() => setCurrentView('scanner')}
+                    >
+                      Scanner
+                    </button>
+                    <button
                       className={`app-nav__link ${currentView === 'journal' ? 'active' : ''}`}
                       onClick={() => setCurrentView('journal')}
                     >
@@ -125,6 +134,7 @@ function AppContent() {
                   {currentView === 'watchlist' && <WatchlistView />}
                   {currentView === 'portfolio' && <PortfolioView />}
                   {currentView === 'signals' && <SignalsView />}
+                  {currentView === 'scanner' && <ScannerView />}
                   {currentView === 'journal' && <JournalView />}
                   {currentView === 'backtest' && <BacktestView />}
                   {currentView === 'coach' && <CoachView />}
