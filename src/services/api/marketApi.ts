@@ -3,13 +3,13 @@
  * Handles all market-related API calls for the dashboard
  */
 
-import { apiClient } from './client';
+import { apiClient } from "./client";
 import type {
   MarketIndicesResponse,
   IndexHistoryResponse,
   MarketRegimeResponse,
   StockQuoteResponse,
-} from '../../shared/types/dashboard';
+} from "../../shared/types/dashboard";
 
 /**
  * Market API service object
@@ -20,7 +20,7 @@ export const marketApi = {
    * @returns Market indices data including VN-Index, VN30, VN100
    */
   async getIndices(): Promise<MarketIndicesResponse> {
-    return apiClient.get<MarketIndicesResponse>('/market/indices');
+    return apiClient.get<MarketIndicesResponse>("/market/indices");
   },
 
   /**
@@ -30,12 +30,12 @@ export const marketApi = {
    * @returns Index history data
    */
   async getIndexHistory(
-    indexKey: 'vnIndex' | 'vn30' | 'vn100',
-    options?: { interval?: '1m' | '5m' | '15m' | '1h'; limit?: number }
+    indexKey: "vnIndex" | "vn30" | "vn100",
+    options?: { interval?: "1m" | "5m" | "15m" | "1h"; limit?: number },
   ): Promise<IndexHistoryResponse> {
     return apiClient.get<IndexHistoryResponse>(
       `/market/indices/${indexKey}/history`,
-      options as Record<string, unknown>
+      options as Record<string, unknown>,
     );
   },
 
@@ -44,7 +44,7 @@ export const marketApi = {
    * @returns Market regime data
    */
   async getRegime(): Promise<MarketRegimeResponse> {
-    return apiClient.get<MarketRegimeResponse>('/market/regime');
+    return apiClient.get<MarketRegimeResponse>("/market/regime");
   },
 
   /**
@@ -54,5 +54,13 @@ export const marketApi = {
    */
   async getQuote(symbol: string): Promise<StockQuoteResponse> {
     return apiClient.get<StockQuoteResponse>(`/market/quote/${symbol}`);
+  },
+
+  /**
+   * Get the list of active stock symbols from the stock_universe table
+   * @returns Array of active ticker strings e.g. ["VCB", "HPG", ...]
+   */
+  async getUniverse(): Promise<string[]> {
+    return apiClient.get<string[]>("/market/universe");
   },
 };

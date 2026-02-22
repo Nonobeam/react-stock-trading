@@ -32,43 +32,45 @@
 }
 
 .button--primary {
-  background: var(--accent);
-  color: var(--bg);
-  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, var(--accent-purple), #5b21b6);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
 }
 
 .button--primary:hover:not(.button--disabled) {
-  filter: brightness(1.1);
-  transform: translateY(-1px);
-  box-shadow: var(--glow-accent);
+  background: linear-gradient(135deg, #8b5cf6, var(--accent-purple));
+  transform: translateY(-2px);
+  box-shadow: var(--glow-purple);
 }
 
 .button--primary:active:not(.button--disabled) {
   transform: translateY(0);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
 }
 
 .button--secondary {
   background: var(--panel);
   color: var(--text);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-light);
 }
 
 .button--secondary:hover:not(.button--disabled) {
-  border-color: var(--accent);
+  border-color: var(--accent-lavender);
   background: var(--panel-hover);
+  box-shadow: var(--glow-lavender);
 }
 
 .button--outline {
   background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
+  color: var(--accent-purple);
+  border: 1px solid var(--accent-purple);
 }
 
 .button--outline:hover:not(.button--disabled) {
-  background: var(--accent);
-  color: var(--bg);
-  box-shadow: var(--glow-accent);
+  background: var(--accent-purple-muted);
+  color: var(--accent-lavender);
+  border-color: var(--accent-lavender);
+  box-shadow: var(--glow-lavender);
 }
 
 .button--danger {

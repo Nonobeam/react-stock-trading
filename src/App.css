@@ -1,90 +1,373 @@
+/* =========================================================
+   APP SHELL LAYOUT
+   3-column: [64px icon sidebar] [240px news panel] [main]
+   ========================================================= */
+
 .app {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background: var(--bg);
+  overflow: hidden;
 }
 
-/* Navigation Bar */
-.app-nav {
-  background: var(--panel);
-  border-bottom: 1px solid var(--border);
-  padding: 0 var(--gap-xl); /* Section padding */
+/* =========================================================
+   SLIM ICON SIDEBAR
+   ========================================================= */
+
+.app-sidebar {
+  width: 64px;
+  min-height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(13, 14, 20, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(167, 139, 250, 0.08);
+  z-index: 200;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .app-sidebar {
+    background: #0d0e14;
+  }
+}
+
+/* Logo mark */
+.app-sidebar__logo {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.08);
+  flex-shrink: 0;
+}
+
+.app-sidebar__logo-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent-purple), #5b21b6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  box-shadow: var(--glow-purple);
+}
+
+/* Nav icon group */
+.app-sidebar__nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--gap-md) 0;
+  overflow-y: auto;
+  overflow-x: visible;
+  scrollbar-width: none;
+}
+
+.app-sidebar__nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual icon button — reset global button styles */
+.app-sidebar__item {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  color: rgba(147, 150, 163, 0.6) !important;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: none !important;
+  transform: none !important;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.app-sidebar__item:hover:not(:disabled) {
+  background: var(--accent-purple-muted) !important;
+  color: var(--accent-lavender) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.app-sidebar__item--active,
+.app-sidebar__item--active:hover:not(:disabled) {
+  background: var(--accent-purple-muted) !important;
+  color: var(--accent-purple) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.app-sidebar__item--active::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  border-radius: 0 3px 3px 0;
+  background: var(--accent-purple);
+  box-shadow: var(--glow-purple);
+}
+
+/* Hover tooltip (appears to the right) */
+.app-sidebar__tooltip {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--panel-elevated);
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--transition-fast),
+    visibility var(--transition-fast);
+  z-index: 9999;
+}
+
+.app-sidebar__tooltip::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 5px solid transparent;
+  border-right-color: var(--panel-elevated);
+}
+
+.app-sidebar__item:hover .app-sidebar__tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Bottom section: settings + OTP */
+.app-sidebar__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-xs);
+  padding: var(--gap-md) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+
+.app-sidebar__otp {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--gap-xs);
+}
+
+/* =========================================================
+   NEWS PANEL
+   ========================================================= */
+
+.app-news {
+  width: 240px;
+  min-height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: rgba(20, 22, 32, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .app-news {
+    background: var(--bg-secondary);
+  }
+}
+
+.app-news__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  padding: var(--gap-lg) var(--gap-md) var(--gap-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
 }
 
-.app-nav__brand {
-  display: flex;
-  align-items: baseline;
-  gap: var(--gap-sm); /* Icon + text spacing */
-}
-
-.app-nav__logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.app-nav__subtitle {
-  font-size: 0.75rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.app-nav__links {
-  display: flex;
-  gap: var(--gap-xs); /* Small gap between nav links */
-}
-
-.app-nav__link {
-  background: transparent;
-  border: none;
-  color: var(--muted);
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: var(--gap-xs) var(--gap-md); /* Component padding */
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.app-nav__link:hover {
-  background: var(--panel-hover);
-  color: var(--text);
-}
-
-.app-nav__link.active {
-  background: var(--accent);
-  color: var(--bg);
+.app-news__title {
+  font-size: var(--text-sm);
   font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: 0.01em;
 }
+
+.app-news__live {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--accent-lime);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.app-news__live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-lime);
+  box-shadow: 0 0 6px rgba(163, 230, 53, 0.7);
+  animation: news-pulse 2s ease-in-out infinite;
+}
+
+@keyframes news-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+/* Scrollable feed */
+.app-news__feed {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--gap-xs) 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 58, 237, 0.2) transparent;
+}
+
+.app-news__feed::-webkit-scrollbar {
+  width: 4px;
+}
+.app-news__feed::-webkit-scrollbar-track {
+  background: transparent;
+}
+.app-news__feed::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.25);
+  border-radius: 4px;
+}
+
+/* Individual news card */
+.app-news__item {
+  padding: var(--gap-sm) var(--gap-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  cursor: default;
+  transition: background var(--transition-fast);
+}
+
+.app-news__item:hover {
+  background: rgba(124, 58, 237, 0.05);
+}
+
+.app-news__item-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+/* Tag pill */
+.app-news__tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+.app-news__tag--lime {
+  background: rgba(163, 230, 53, 0.12);
+  color: var(--accent-lime);
+}
+
+.app-news__tag--purple {
+  background: var(--accent-purple-muted);
+  color: var(--accent-lavender);
+}
+
+.app-news__tag--lavender {
+  background: rgba(167, 139, 250, 0.1);
+  color: var(--accent-lavender);
+}
+
+.app-news__time {
+  font-size: 0.65rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.app-news__headline {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text);
+  margin: 0 0 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.app-news__source {
+  font-size: 0.65rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* =========================================================
+   MAIN CONTENT AREA
+   ========================================================= */
 
 .app-main {
   flex: 1;
-  padding: var(--gap-xl); /* Major section padding */
+  min-width: 0; /* prevent flex child from overflowing */
   overflow-y: auto;
-  max-width: 1920px;
-  margin: 0 auto;
-  width: 100%;
+  padding: var(--gap-xl);
 }
 
-/* OTP Badge in Navbar */
-.app-nav__otp {
-  margin-left: auto;
-}
+/* =========================================================
+   LOADING STATE
+   ========================================================= */
 
-/* App Loading State */
 .app-loading {
   min-height: 100vh;
   display: flex;
@@ -101,28 +384,72 @@
   margin: 0;
 }
 
-/* Responsive */
+/* =========================================================
+   RESPONSIVE — collapse news panel on smaller screens
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .app-news {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
-  .app-nav {
+  .app {
     flex-direction: column;
-    height: auto;
-    padding: var(--gap-md); /* Compact mobile padding */
-    gap: var(--gap-md); /* Component grouping */
   }
 
-  .app-nav__links {
+  .app-sidebar {
     width: 100%;
-    justify-content: space-around;
+    height: 56px;
+    min-height: unset;
+    flex-direction: row;
+    position: sticky;
+    top: 0;
+    border-right: none;
+    border-bottom: 1px solid rgba(167, 139, 250, 0.08);
+    padding: 0 var(--gap-sm);
+    justify-content: space-between;
   }
 
-  .app-nav__link {
+  .app-sidebar__logo {
+    width: auto;
+    height: 56px;
+    border-bottom: none;
+    border-right: 1px solid rgba(167, 139, 250, 0.08);
+    padding-right: var(--gap-sm);
+  }
+
+  .app-sidebar__nav {
+    flex-direction: row;
     flex: 1;
-    text-align: center;
-    padding: var(--gap-xs); /* Compact mobile padding */
-    font-size: 0.75rem;
+    padding: 0 var(--gap-xs);
+    overflow-x: auto;
+    justify-content: center;
+  }
+
+  .app-sidebar__item--active::before {
+    left: 50%;
+    top: auto;
+    bottom: -8px;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+  }
+
+  .app-sidebar__tooltip {
+    display: none;
+  }
+
+  .app-sidebar__bottom {
+    flex-direction: row;
+    border-top: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0 var(--gap-sm);
   }
 
   .app-main {
-    padding: var(--gap-md); /* Compact mobile padding */
+    padding: var(--gap-md);
   }
 }

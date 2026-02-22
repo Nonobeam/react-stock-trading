@@ -1,36 +1,46 @@
 :root {
-  /* Fintech Neon Theme - Core Colors */
-  --bg: #0f0f10;           /* Deep charcoal background */
-  --bg-secondary: #1a1a1c; /* Slightly lighter for depth */
-  --panel: #1e1f23;        /* Card/panel background */
-  --accent: #dadd56;       /* Neon yellow-green - primary actions */
-  --accent-glow: #dadd56;  /* Glow color for highlights */
-  --muted: #6b6d7a;        /* Muted gray for secondary text */
-  --text: #e8e9ed;         /* Off-white primary text */
-  --text-secondary: #9396a3; /* Secondary text */
-  
-  /* Derived Colors */
-  --panel-elevated: #25262b;  /* Elevated surfaces */
-  --panel-hover: #2b2d33;     /* Hover states */
-  --accent-dark: #c4c748;     /* Darker neon for pressed states */
-  --accent-light: #e8eb7a;    /* Lighter neon for highlights */
-  --accent-muted: rgba(218, 221, 86, 0.15); /* Muted accent for backgrounds */
-  --border: rgba(255, 255, 255, 0.06);  /* Subtle borders */
-  --border-light: rgba(255, 255, 255, 0.1); /* Slightly visible borders */
-  
-  /* Status Colors */
+  /* === BASE LAYER — Midnight Navy/Black === */
+  --bg: #0f1117; /* Deepest midnight — page background */
+  --bg-secondary: #13151c; /* Secondary page areas */
+  --panel: #1a1d27; /* Cards, panels, surfaces */
+  --panel-elevated: #20233a; /* Modals, dropdowns, elevated surfaces */
+  --panel-hover: #252840; /* Interactive panel hover */
+
+  /* === MULTI-NEON ACCENT FAMILY === */
+  --accent-purple: #7c3aed; /* Primary CTAs, active states */
+  --accent-lime: #a3e635; /* Positive metrics, gains */
+  --accent-lavender: #a78bfa; /* Secondary highlights, badges */
+  --accent-purple-muted: rgba(124, 58, 237, 0.15); /* Splash bg - purple */
+  --accent-lime-muted: rgba(163, 230, 53, 0.12); /* Splash bg - lime */
+
+  /* @deprecated — use --accent-purple instead */
+  --accent: #dadd56;
+  --accent-glow: #dadd56;
+  --accent-dark: #c4c748;
+  --accent-light: #e8eb7a;
+  --accent-muted: rgba(218, 221, 86, 0.15);
+
+  /* === NEUTRAL TEXT / BORDERS === */
+  --muted: #6b6d7a;
+  --text: #e8e9ed;
+  --text-secondary: #9396a3;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-light: rgba(255, 255, 255, 0.1);
+
+  /* === STATUS COLORS === */
   --success: #4ade80;
   --warning: #fbbf24;
   --danger: #ef4444;
   --info: #3b82f6;
-  
-  /* Layout Tokens - Fintech Design System */
-  --radius: 16px;         /* Medium rounded corners */
-  --radius-sm: 8px;       /* Small radius */
-  --radius-lg: 20px;      /* Large radius */
-  --radius-xl: 24px;      /* Extra large for cards */
-  
-  /* Spacing System - 8px base */
+
+  /* === LAYOUT TOKENS === */
+  --radius: 16px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+
+  /* Spacing — 8px base */
   --gap: 16px;
   --gap-xs: 8px;
   --gap-sm: 12px;
@@ -38,33 +48,44 @@
   --gap-lg: 24px;
   --gap-xl: 32px;
   --gap-2xl: 48px;
-  
-  /* Shadows - Soft elevation */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
-  
-  /* Inner shadows for depth */
+
+  /* === SHADOWS === */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.55);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.65);
   --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
-  
-  /* Neon glow effects */
-  --glow-accent: 0 0 20px rgba(218, 221, 86, 0.3),
-                 0 0 40px rgba(218, 221, 86, 0.15);
-  --glow-accent-strong: 0 0 30px rgba(218, 221, 86, 0.5),
-                        0 0 60px rgba(218, 221, 86, 0.25);
-  
-  /* Glass effect */
-  --glass-bg: rgba(30, 31, 35, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.08);
+
+  /* === NEON GLOW TOKENS (apply to key KPI containers only) === */
+  --glow-purple:
+    0 0 15px rgba(124, 58, 237, 0.4), 0 0 30px rgba(124, 58, 237, 0.15);
+  --glow-lime:
+    0 0 15px rgba(163, 230, 53, 0.4), 0 0 30px rgba(163, 230, 53, 0.15);
+  --glow-lavender:
+    0 0 12px rgba(167, 139, 250, 0.35), 0 0 24px rgba(167, 139, 250, 0.12);
+
+  /* @deprecated glow tokens */
+  --glow-accent:
+    0 0 20px rgba(218, 221, 86, 0.3), 0 0 40px rgba(218, 221, 86, 0.15);
+  --glow-accent-strong:
+    0 0 30px rgba(218, 221, 86, 0.5), 0 0 60px rgba(218, 221, 86, 0.25);
+
+  /* === GLASS TOKENS === */
+  --glass-bg: rgba(26, 29, 39, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.07);
   --glass-blur: blur(12px);
-  
-  /* Transitions - Smooth and professional */
+
+  /* === 3D ICON SIZE TOKENS === */
+  --icon-3d-sm: 48px;
+  --icon-3d-md: 72px;
+  --icon-3d-lg: 96px;
+
+  /* === TRANSITIONS === */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
-  
-  /* Typography Scale */
+
+  /* === TYPOGRAPHY SCALE === */
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -73,8 +94,8 @@
   --text-2xl: 1.5rem;
   --text-3xl: 2rem;
   --text-4xl: 2.5rem;
-  
-  /* DEPRECATED - Remove after migration complete */
+
+  /* === DEPRECATED ALIASES (backward compat) === */
   --color-bg-primary: var(--bg);
   --color-bg-secondary: var(--panel);
   --color-bg-tertiary: var(--panel);
@@ -96,10 +117,21 @@
   --color-warning: var(--warning);
   --color-danger: var(--danger);
   --color-info: var(--info);
-  
+
   /* Typography */
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
   line-height: 1.6;
   font-weight: 400;
   font-synthesis: none;
@@ -127,26 +159,98 @@ body {
   min-height: 100vh;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: var(--text);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
-h1 { font-size: var(--text-4xl); font-weight: 700; }
-h2 { font-size: var(--text-3xl); font-weight: 700; }
-h3 { font-size: var(--text-2xl); font-weight: 600; }
-h4 { font-size: var(--text-xl); font-weight: 600; }
-h5 { font-size: var(--text-lg); font-weight: 600; }
-h6 { font-size: var(--text-base); font-weight: 600; }
+/* h1 & h2 — purple→lavender gradient matching sidebar accent */
+h1,
+h2 {
+  color: transparent;
+  background: linear-gradient(
+    135deg,
+    var(--accent-lavender) 0%,
+    #fff 60%,
+    var(--accent-lavender) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* h3–h6 use plain text colour */
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text);
+}
+
+h1 {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+}
+h2 {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+}
+h3 {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+/* Reusable gradient title utility — apply to any heading or label */
+.title-gradient {
+  color: transparent;
+  background: linear-gradient(
+    135deg,
+    var(--accent-lavender) 0%,
+    #fff 60%,
+    var(--accent-lavender) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+h4 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+h5 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+h6 {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
 
 /* Financial numbers styling */
 .number-display,
 .price-large {
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em; /* tighter tracking for large KPI numbers */
   font-weight: 700;
+}
+
+/* Typography helpers */
+.font-medium {
+  font-weight: 500;
+}
+
+.label-caps {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  font-size: var(--text-xs);
 }
 
 a {
@@ -206,7 +310,9 @@ button.secondary:hover:not(:disabled) {
   box-shadow: var(--shadow);
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: inherit;
   font-size: var(--text-base);
   padding: 0.75rem 1rem;
@@ -217,21 +323,25 @@ input, select, textarea {
   transition: all var(--transition);
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   outline: none;
   border-color: var(--accent);
   background: var(--panel-elevated);
-  box-shadow: 0 0 0 3px var(--accent-muted),
-              var(--glow-accent);
+  box-shadow:
+    0 0 0 3px var(--accent-muted),
+    var(--glow-accent);
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: var(--text-secondary);
   opacity: 0.6;
 }
 
 code {
-  font-family: 'Fira Code', 'Courier New', monospace;
+  font-family: "Fira Code", "Courier New", monospace;
   padding: 0.125rem 0.375rem;
   border-radius: 3px;
   background: var(--color-bg-tertiary);
@@ -244,7 +354,7 @@ pre {
   padding: 1rem;
   border-radius: 6px;
   overflow-x: auto;
-  font-family: 'Fira Code', 'Courier New', monospace;
+  font-family: "Fira Code", "Courier New", monospace;
 }
 
 /* Scrollbar styling */
@@ -264,4 +374,119 @@ pre {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-surface-hover);
+}
+
+/* ============================================================
+   GLASSMORPHISM UTILITIES
+   Apply .glass-card or .glass-sidebar to surface containers.
+   Always pair with a solid background fallback via @supports.
+   ============================================================ */
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-card {
+    background: var(--panel);
+  }
+}
+
+.glass-card--premium {
+  background: linear-gradient(
+    135deg,
+    rgba(124, 58, 237, 0.15) 0%,
+    rgba(26, 29, 39, 0.55) 60%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 40px rgba(124, 58, 237, 0.08);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-card--premium {
+    background: var(--panel-elevated);
+  }
+}
+
+.glass-sidebar {
+  background: rgba(15, 17, 23, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-sidebar {
+    background: var(--bg-secondary);
+  }
+}
+
+/* ============================================================
+   NEON GLOW UTILITIES
+   Use sparingly — only on key KPI metric containers.
+   Do NOT apply to text nodes directly.
+   Do NOT stack multiple glows on the same element.
+   ============================================================ */
+
+.glow-purple {
+  box-shadow: var(--glow-purple);
+}
+.glow-lime {
+  box-shadow: var(--glow-lime);
+}
+.glow-lavender {
+  box-shadow: var(--glow-lavender);
+}
+
+/* ============================================================
+   CHART GRADIENT UTILITIES
+   Sets CSS custom props consumed by chart JS fill configs.
+   e.g.  getComputedStyle(el).getPropertyValue('--chart-gradient-start')
+   ============================================================ */
+
+.chart-gradient-purple {
+  --chart-gradient-start: rgba(124, 58, 237, 0.55);
+  --chart-gradient-end: rgba(124, 58, 237, 0);
+}
+
+.chart-gradient-lime {
+  --chart-gradient-start: rgba(163, 230, 53, 0.5);
+  --chart-gradient-end: rgba(163, 230, 53, 0);
+}
+
+.chart-gradient-lavender {
+  --chart-gradient-start: rgba(167, 139, 250, 0.45);
+  --chart-gradient-end: rgba(167, 139, 250, 0);
+}
+
+/* ============================================================
+   3D CLAYMORPHIC ICON CONVENTION
+   Use .icon-3d on <img> transparent PNG elements.
+   Add .icon-3d--animated for the ambient float effect.
+   ============================================================ */
+
+.icon-3d {
+  pointer-events: none;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.55));
+}
+
+@keyframes icon-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.icon-3d--animated {
+  animation: icon-float 3s ease-in-out infinite;
 }
